@@ -1,101 +1,113 @@
 body, h1{
     margin: 0;
     padding: 0;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Time New Roman';
     color: rgb(5,57,193);    
+    margin-left:5px;
 }
  
 #middle{
     text-align: center;
-    padding: 20px;
+    padding: 35px;
+    font-size: 40px;
+    font-family:'Abril Fatface', cursive;
+}
+
+.collect{
+    margin-right:55px;
 }
 header h1{
-    padding: 15px 80px;
+    padding: 20px 90px;
     border-bottom: 1px solid black;   
-    width:1400px;
+    width:1300px;
+    font-size:40px;
 }
 .banner{
     position: sticky;
 }
 .navbar{
     top: 0;
-    width: 100%;
+    width: 200px;
     z-index: 100;
 }
-.navbar ul{
-        margin-left:30px;
+.navbar tr{
+        margin-right: 600px;
         list-style-type: none;
         white-space: nowrap;
+        display: inline-block;
 }
-.navbar ul li{
+.navbar tr td{
     text-decoration: none;
+    padding-left:15px;
 }
+.minions{
+    padding: 10px;
+    font-size: 15px;
+    color:black;
+    font-family: 'Time New Roman';
+}
+
 .cutlery{ 
     background-image: url("https://csci571.com/hw/hw3/images/Cutlery.png");
     background-repeat: no-repeat;
-    height: 800px;
-    width: 1400px;
-    background-size: 1400px;
+    height: 700px;
+    width: 1250px;
+    background-size: 1250px;
     background-attachment: fixed;
     position: static;
-    background-position: -30px -100px;
-
+    background-position: 100px -150px;
+    padding-right: 20px;
 } 
 .banner .welcome{
-    padding: 30px;
-    font-size: 35px;
+    padding: 40px;
+    font-size: 37px;    
     position: absolute;
-    left: 50px;
-    top: 100px;
+    left:50px;
+    top: 55px;
 }
-ul li{
-    list-style-type: none;
-    display: inline-block;
-    padding:10px;
-}
+
 
 .shop{
     border: 1px solid black;
     background-color: white;
     color:black;
-    font-size: 20px;
+    font-size: 25px;
     display: inline;
-    margin-top: 60px;
-    padding:15px;
+    margin-top: 75px;
+    padding:15px 25px;
     float: left;
-    
 }
 table{
     margin-left: 70px;
 }
-table img{
-    width:650px;
-}
+
 .bedroom, .bathroom{
     margin-left: 75px;
 }
-li{
-color: black;
+.container{
+    padding-left: 10px;
+}
+.decor{
+    padding-left: 15px;
 }
 .join{
     color: rgb(5,57,193);
+    padding-left: 5px;
 }
 .banner{
     align-items: center;
     text-align: center;
 }
 h3{
-    padding:50px;
+    padding-top:30px;
+    padding-bottom:70px;
+    font-size: 30px;
 }
+
 div.banner{
     font-size: 50px;
     padding: 20px;
     margin-left: 60px;
-}
-tr{
-    margin: auto;
-    width: 50%;
-    padding: 10px;
 }
 
 tr,td,table{
