@@ -19,9 +19,11 @@ body, h1{
 header h1{
     padding: 20px 90px;
     border-bottom: 1px solid black;   
-    width:1300px;
+    width:1255px;
     font-size:40px;
+    margin:0px;
 }
+
 .banner{
     position: sticky;
 }
@@ -85,7 +87,7 @@ table{
     margin-left: 75px;
 }
 .container{
-    padding-left: 10px;
+    padding-left: 15px;
 }
 .decor{
     padding-left: 15px;
