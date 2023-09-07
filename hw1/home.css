@@ -5,7 +5,7 @@ body, h1{
     color: rgb(5,57,193);    
     margin-left:5px;
 }
- 
+
 #middle{
     text-align: center;
     padding: 35px;
@@ -31,6 +31,7 @@ header h1{
     top: 0;
     width: 200px;
     z-index: 100;
+    margin-left: 75px;
 }
 .navbar tr{
         margin-right: 600px;
@@ -48,7 +49,9 @@ header h1{
     color:black;
     font-family: 'Time New Roman';
 }
-
+.fall{
+    white-space: nowrap;
+}
 .cutlery{ 
     background-image: url("https://csci571.com/hw/hw3/images/Cutlery.png");
     background-repeat: no-repeat;
@@ -76,7 +79,7 @@ header h1{
     font-size: 25px;
     display: inline;
     margin-top: 75px;
-    padding:15px 25px;
+    padding:15px 19px;
     float: left;
 }
 table{
