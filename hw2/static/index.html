@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eBay Shopping</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
 <body>
     <header>
@@ -86,6 +86,14 @@
     let totalItems = 0;
     let displayedItems = 3;
 
+
+    function singleItem(){
+        const result = document.getElementById('resultsList');
+        result.style.display = 'none';
+        const url = 
+        console.log("SingleItem")
+}
+   
 function updateItems(){
         resultsList.innerHTML = '';
         finalData.slice(0,numItemsToDisplay).forEach(item=>{
@@ -102,9 +110,11 @@ function updateItems(){
         const itemTopRatedImage = item.topRatedListing[0];
         const itemTopRated = itemTopRatedImage === 'true' ? '<img src="https://www.csci571.com/hw/hw6/images/topRatedImage.png" alt="Top Rated" class="top-rated-image" style="width:10px;height:10px;" />' : '';
         const redirectLink = item.viewItemURL[0];
-
+        cardContainer.onclick = function() {
+    singleItem(); // Call the singleItem function when the cardContainer is clicked
+};
         cardContainer.innerHTML = `
-        <div class="item" onclick="singleItem()">
+
             <img src="${galleryURL}" alt="${title}" class="card-image">
             <div class="card-content">
                 <h3 class="card-title">${title}</h3>
@@ -112,7 +122,7 @@ function updateItems(){
                 <p class="card-condition">Condition: ${conditionDisplayName}${itemTopRated}</p>
                 <p class="card-price">Price: $${price}</p>
             </div>
-            </div>
+           
         `;
         resultsList.appendChild(cardContainer);
         });
@@ -157,12 +167,22 @@ function updateItems(){
     if (keywords) {
             queryParams.push(`keywords=${encodeURIComponent(keywords)}`);
         }
-    if (!isNaN(fromPrice)) {
-            queryParams.push(`fromPrice=${fromPrice}`);
+    if(fromPrice===0){
+        fromPrice = 0;
     }
-    if (!isNaN(toPrice)) {
-        queryParams.push(`toPrice=${toPrice}`);
+    queryParams.push(`fromPrice=${fromPrice}`);
+    
+    
+    
+    
+    if(toPrice===0){
+        toPrice = 90000000;
+       
     }
+    queryParams.push(`toPrice=${toPrice}`);
+    
+    
+    
     if (sortBy) {
             queryParams.push(`sortBy=${encodeURIComponent(sortBy)}`);
     }
@@ -192,7 +212,7 @@ function updateItems(){
         queryParams.push(`acceptable=${encodeURIComponent(acceptable)}`);
     }
     const queryString = queryParams.join('&');
-    const requestURL = `/?${queryString}`;
+    const requestURL = `/getData?${queryString}`;
 
 
     fetch(requestURL)
@@ -281,10 +301,7 @@ resultsList.innerHTML = '';
 
 });
 });
-function singleItem(){
-    console.log("SingleItem")
-}
-   
+
 </script>
 
 </body>
