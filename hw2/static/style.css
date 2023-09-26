@@ -1,0 +1,115 @@
+.form-example{
+    margin-left: 250px;
+    margin-top:10px;
+}
+.logo {
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 200px;
+    background-size: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 580px;
+}
+.ast{
+    color:red;
+}
+.heading{
+    font-weight: bold;
+    top:15px;
+    font-size: 40px;
+    margin-left: 10px; 
+}
+.container{
+    border:1px solid black;
+    width:600px;
+    height: 350px;
+    margin-left:480px;
+}
+.pod{
+    padding:15px;
+    text-align: center;
+    border-bottom:1px solid black;
+}
+#from{
+    width:60px;
+}
+#to{
+    width:60px;
+}
+
+#result{
+    margin-left: 480px;
+  border-bottom: 1px solid gray;
+  width:600px;
+visibility: hidden;
+}
+#showMoreButton{
+    display: none;
+    margin-left: 750px;
+}
+
+.card {
+    display: flex; 
+    transition: 0.3s;
+    width: 600px;
+    height:200px;
+    border-radius: 5px;
+    background-color: rgb(222, 229, 235);
+    margin-left:460px;
+}
+.card-image {
+    width: 80px;
+    height: 80px; 
+    border:1px solid gray;
+    margin-left:40px;
+    margin-top:60px;
+    margin-right:20px;
+    transition: transform .2s;
+
+}
+
+.card-image:hover{
+    transform: scale(2.6);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-top:20px;
+
+}
+.card-category {
+    font-size: 1rem;
+}
+.card-condition {
+    font-size: 1rem;
+}
+
+
+.card-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#clearButton{
+    marginLeft:400px;
+}
+#clearButton:hover {
+    background-color: greenyellow; 
+    color: #ffffff; 
+}
+
+#searchButton{
+    marginLeft:400px;
+}
+#searchButton:hover {
+    background-color: greenyellow;
+    color: #ffffff;
+   
+}

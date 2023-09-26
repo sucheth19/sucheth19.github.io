@@ -1,0 +1,55 @@
+from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
+import requests
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/', methods=['GET', 'POST'])
+def search_form():
+    keyword = request.args.get('keywords')
+    from_price = request.args.get('fromPrice')
+    to_price = request.args.get('toPrice')
+    news = request.args.get('news')
+    used = request.args.get('used')
+    very_good = request.args.get('veryGood')
+    acceptable = request.args.get('acceptable')
+    seller = request.args.get('seller')
+    ship_free = request.args.get('shipFree')
+    expedited_shipping = request.args.get('shippingExpeditedCheckbox')
+    sort_by = request.args.get('sortBy')
+
+    items_json = []  # Store the JSON data here
+    if keyword:
+        api_url = 'https://svcs.eBay.com/services/search/FindingService/v1'
+        operation_name = 'findItemsAdvanced'
+        service_version = '1.0.0'
+        app_name = 'SuchethG-Dummy-PRD-e7284ce84-7ac41448'
+        response_format = 'JSON'
+        sort_order = 'PricePlusShippingLowest'
+        headers = {
+            'X-EBAY-SOA-OPERATION-NAME': operation_name,
+            'X-EBAY-SOA-SERVICE-VERSION': service_version,
+            'X-EBAY-SOA-SECURITY-APPNAME': app_name,
+            'X-EBAY-SOA-RESPONSE-DATA-FORMAT': response_format,
+        }
+        params = {
+            'keywords': keyword,
+            'sortOrder': sort_order,
+        }
+
+        response = requests.get(api_url, headers=headers, params=params)
+
+        if response.status_code == 200:
+            response_data = response.json()
+            if 'findItemsAdvancedResponse' in response_data:
+                search_result = response_data['findItemsAdvancedResponse'][0].get('searchResult', [])
+                return jsonify(search_result)
+            else:
+                return jsonify({'error': 'No search result found in the response from eBay API'})
+        else:
+            return jsonify({'error': 'Failed to fetch data from eBay API'})
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
