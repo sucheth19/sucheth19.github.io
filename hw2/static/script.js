@@ -108,7 +108,7 @@ function showLessData() {
         globalResult['data']['paginationOutput'][0]['totalEntries'] &&
         globalResult['data']['paginationOutput'][0]['totalEntries'][0]
     ) {
-        console.log('global',globalResult)
+    
         count = globalResult['data']['paginationOutput'][0]['totalEntries'][0];
         const totalResult = globalResult['data']['searchResult'][0]['@count'];
         const data = globalResult['data']['searchResult'][0]['item'];
@@ -125,15 +125,15 @@ function showLessData() {
                 const title = responseData.title;
                 const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
                 const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
-
                 if (Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
                     const shippingCost = parseFloat(shippingServiceCost[0].__value__);
                     const price = currentPrice + shippingCost;
+                    const defaultImageURL = "https://example.com/default-image.jpg";
                     tag1 += '<div class="card">';
                     tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n';
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -151,7 +151,7 @@ function showLessData() {
                     tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n';
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -182,7 +182,6 @@ function showMoreData(){
     document.getElementById('showLessButton').style.display = 'block';
     const responseDiv = document.getElementById('response');
     document.getElementById("Dres").style.display = "none";
-    document.getElementsByClassName("line").style.display = "block";
     activeButton = 2;
     responseDiv.innerHTML = '';
     document.getElementById('result').style.display = 'block';
@@ -207,7 +206,7 @@ function showMoreData(){
         tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
         tag1 += '<tr id="dataR">\n'; 
         tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-        tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+        tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
         tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -270,7 +269,7 @@ function ClickData(clickedElement){
         tag1 += '</tr>\n';
         tag1 += '<tr class="table-data">\n';
         tag1 += '<td class="table-data" id="tdata"><strong>Title</strong></td>\n';
-        tag1 += '<td class="table-data" >'+title+'</td>'
+        tag1 += '<td class="table-data" class="truncate">'+title+'</td>'
         tag1 += '</tr>\n';
         tag1 += '<tr class="table-data" >\n';
         tag1 += '<td class="table-data" ><strong>Price</strong></td>\n';
@@ -333,7 +332,7 @@ function previousResult(){
                     tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n'; 
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -351,7 +350,7 @@ function previousResult(){
                     tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n'; 
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -401,7 +400,7 @@ function previousResult(){
             tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
             tag1 += '<tr id="dataR">\n'; 
             tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-            tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
+            tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
             tag1 += '</tr>\n';
             tag1 += '<tr>\n';
             tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
@@ -553,6 +552,5 @@ document.getElementById('response').style.display = 'none';
 document.getElementById("Dres").style.display = "none";
 document.getElementById("singleData").style.display = "none";
 document.getElementById("itemDetails").style.display = "none";
-document.getElementsByClassName("line").style.display = "none";
 
 });

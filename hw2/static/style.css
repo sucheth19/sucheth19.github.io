@@ -95,7 +95,7 @@
     background-color: rgb(240, 240, 240);
     transition: transform .2s;
   }
-  .card:hover{
+.card:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
   }
 #itemDetails{
@@ -163,6 +163,13 @@ td #tdata{
 .iresult{
     text-align: center;
 }
+.truncate {
+    width: 400px; /* Set a fixed width */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncation */
+  }
+  
 #redirectData{
     margin-left:5px;
 }
