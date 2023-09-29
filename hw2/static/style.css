@@ -1,11 +1,24 @@
+*{
+    margin: 0;
+    padding: auto;
+}
 .form-example{
-    margin-left: 250px;
+    margin-left: 175px;
     margin-top:10px;
+}
+.elogo{
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    vertical-align: middle;
+}
+#category {
+    text-align: center;
 }
 .logo {
     background-repeat: no-repeat;
-    height: 100px;
-    width: 200px;
+    height: 80px;
+    width: 150px;
     background-size: 100%;
     display: inline-block;
     vertical-align: middle;
@@ -14,20 +27,27 @@
 .ast{
     color:red;
 }
+.fromM{
+    margin-left:10px;
+}
 .heading{
     font-weight: bold;
-    top:15px;
     font-size: 40px;
-    margin-left: 10px; 
+    display:inline-block;
+    vertical-align: middle;
+    margin-top:20px;
 }
 .container{
     border:1px solid black;
-    width:600px;
-    height: 350px;
-    margin-left:480px;
+    width:450px;
+    height: 280px;
+    margin-left:510px;
 }
 .pod{
-    padding:15px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     text-align: center;
     border-bottom:1px solid black;
 }
@@ -38,78 +58,111 @@
     width:60px;
 }
 
-#result{
+#fdata{
     margin-left: 480px;
-  border-bottom: 1px solid gray;
-  width:600px;
-visibility: hidden;
+    display: none;
+}
+#result{
+    margin-left: 100px;
+    width: 700px;
+    margin-top:30px;
+    margin-bottom: 10px;
+}
+#response{
+    margin-top: 30px;
+}
+#tbImg{
+    margin-left:10px;
+    margin-top: 20px;   
+    transition: transform .2s;
+    border: 3px solid gray;
+}
+#tbImg:hover{
+    transform: scale(1.8);
+}
+
+
+.card {
+    border: 1px solid black; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left:-90px;
+    padding: 10px; 
+    display: block; 
+    width: 690px; 
+    height:150px;
+    border-radius: 3px;
+    background-color: rgb(240, 240, 240);
+    transition: transform .2s;
+  }
+  .card:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
+  }
+#itemDetails{
+    margin-left: 645px;
+}   
+#backButton{
+    margin-left: 665px;
+    margin-bottom: 20px;
+}
+td #tdata{
+    margin-left:5px;
+}
+#singleData{
+    display: none;
 }
 #showMoreButton{
     display: none;
-    margin-left: 750px;
+    margin-left:280px;
 }
-
-.card {
-    display: flex; 
-    transition: 0.3s;
-    width: 600px;
-    height:200px;
-    border-radius: 5px;
-    background-color: rgb(222, 229, 235);
-    margin-left:460px;
-}
-.card-image {
-    width: 80px;
-    height: 80px; 
-    border:1px solid gray;
-    margin-left:40px;
-    margin-top:60px;
-    margin-right:20px;
-    transition: transform .2s;
-
-}
-
-.card-image:hover{
-    transform: scale(2.6);
-}
-
-.card-title {
-    font-size: 1.2rem;
-    margin-top:20px;
-
-}
-.card-category {
-    font-size: 1rem;
-}
-.card-condition {
-    font-size: 1rem;
-}
-
-
-.card-price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 20px 0;
-}
-
-
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+#showLessButton{
+    display: none;
+    margin-left: 280px;
 }
 #clearButton{
     marginLeft:400px;
 }
 #clearButton:hover {
-    background-color: greenyellow; 
+    background-color: rgb(6, 173, 6); 
     color: #ffffff; 
 }
-
+#Dres{
+    display: none;
+    margin-left: 280px;
+}
+.line{
+    border-bottom: 2px solid rgb(208, 206, 206);
+    width: 700px;
+    margin-left:-90px;
+    margin-bottom: 0;
+    display: none;
+}
 #searchButton{
     marginLeft:400px;
 }
 #searchButton:hover {
-    background-color: greenyellow;
+    background-color: rgb(6, 173, 6); 
     color: #ffffff;
-   
+}
+#backButton:hover{
+    background-color: rgb(6, 173, 6); 
+    color: #ffffff;
+}
+#singleResponse{
+    margin-left:400px;
+}
+.table-style {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+.table-data {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+.iresult{
+    text-align: center;
+}
+#redirectData{
+    margin-left:5px;
 }
