@@ -107,34 +107,34 @@ def search_form():
 @app.route('/getSingleData', methods=['GET'])
 def singleItem():
     itemId = request.args.get('itemId')
+    print('itemId', itemId)
     if not itemId:
         return jsonify({'error': 'itemId is required'})
 
     client_id = "SuchethG-Dummy-PRD-e7284ce84-7ac41448"
-    client_secret = "PRD-7284ce847c74-ea21-43bc-827c-7701"
-    oauth_utility = OAuthToken(client_id, client_secret)
-    application_token = oauth_utility.getApplicationToken()
+
+    # Create an instance of OAuthToken with your actual eBay API credentials
+    oauth_token = OAuthToken(client_id,"PRD-f6db9fd35ab1-f85c-4dd3-96de-1f1d")
+
+    # Get the application token
+    access_token = oauth_token.getApplicationToken()
+
+    # Construct the correct API URL
+    api_url = f"https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid={client_id}&siteid=0&version=967&ItemID={itemId}&IncludeSelector=Description,Details,ItemSpecifics"
+    print('api', api_url)
     headers = {
-        "X-EBAY-API-IAF-TOKEN": oauth_utility.getApplicationToken()
+        "X-EBAY-API-IAF-TOKEN": access_token  # Use the obtained access_token here
     }
 
-    api_url = 'https://open.api.ebay.com/shopping'
-    params = {
-        'callname': 'GetSingleItem',
-        'responseencoding': 'JSON',
-        'appid': client_id,
-        'IncludeSelector': 'Description,Details,ItemSpecifics',
-        'siteid': 0,
-        'version': 967,
-        'ItemID': itemId
-    }
-
-    response = requests.get(api_url, params=params, headers=headers)
+    response = requests.get(api_url, headers=headers)
+    print(response.json())
+    print('api', api_url)
     if response.status_code == 200:
         api_data = response.json()
         return jsonify(api_data)
 
     return jsonify({'error': 'Failed to fetch data from eBay Shopping API'})
+
 
 @app.route('/')
 def index():

@@ -4,99 +4,13 @@ const clearButton = document.getElementById('clearButton');
 const fromInput = document.getElementById('from');
 const toInput = document.getElementById('to');
 var activeButton = 0;
-// function showLessData() {
-//     document.getElementById("showLessButton").style.display = "none";
-//     document.getElementById('result').style.display = 'block';
-//     document.getElementById("fdata").style.display = "block";
-//     document.getElementById("response").style.display = "block";
-//     document.getElementById("Dres").style.display = "none";
-//     document.getElementsByClassName("line").style.display = "block";
-//    activeButton = 1;
-//     let tag1 = "";
-
-//     if (
-//         globalResult &&
-//         globalResult['data'] &&
-//         globalResult['data']['paginationOutput'] &&
-//         globalResult['data']['paginationOutput'][0] &&
-//         globalResult['data']['paginationOutput'][0]['totalEntries'] &&
-//         globalResult['data']['paginationOutput'][0]['totalEntries'][0]){
-//             const count = globalResult['data']['paginationOutput'][0]['totalEntries'][0];
-//             const totalResult = globalResult['data']['searchResult'][0]['@count'];
-//             const data = globalResult['data']['searchResult'][0]['item'];
-//             let minItems = Math.min(3, totalResult);
-//             const header = document.getElementById('result');
-//             const inputData = JSON.parse(globalData.values);
-//             const keywords = inputData.keywords;
-//             header.style.display = "block";
-//             if(count>0){
-//                 header.innerHTML = count + " Results found for " + keywords;
-//                 for (let i = 0; i < minItems; i++) {
-//                     const responseData = data[i]; 
-//                     const title = responseData.title; 
-//                     const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
-//                     const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
-//                     if (Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
-//                         const shippingCost = parseFloat(shippingServiceCost[0].__value__);
-//                         const price = currentPrice + shippingCost;
-//                         tag1 += '<div class="card">';
-//                         tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
-//                         tag1 += '<tr id="dataR">\n'; 
-//                         tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-//                         tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '</table>\n';
-//                         tag1 += '</div>';
-//                     }else{
-//                         tag1 += '<div class="card">';
-//                         tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
-//                         tag1 += '<tr id="dataR">\n'; 
-//                         tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-//                         tag1 += '<td id="tdata"><b>' + title + '</b></td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '<tr>\n';
-//                         tag1 += '</tr>\n';
-//                         tag1 += '</table>\n';
-//                         tag1 += '</div>';
-//                     }
-//                 }
-            
-//                 document.getElementById("showMoreButton").style.display = "block";
-//                 const responseDiv = document.getElementById('response');
-//                 responseDiv.innerHTML = tag1;
-//             }else{
-//                 document.getElementById("Dres").style.display = "block";
-//             }
-//         }else{
-            
-//                 document.getElementById("Dres").style.display = "block";
-            
-//         }
-  
-  
-    
-// }
 function showLessData() {
     document.getElementById("showLessButton").style.display = "none";
     document.getElementById('result').style.display = 'block';
     document.getElementById("fdata").style.display = "block";
     document.getElementById("response").style.display = "block";
     document.getElementById("Dres").style.display = "none";
+    document.getElementById("line").style.display = "block";
     let tag1 = "";
     activeButton = 1;
     let count = 0;
@@ -109,7 +23,13 @@ function showLessData() {
         globalResult['data']['paginationOutput'][0]['totalEntries'][0]
     ) {
     
-        count = globalResult['data']['paginationOutput'][0]['totalEntries'][0];
+        const count = globalResult['data'] &&
+                 globalResult['data']['paginationOutput'] &&
+                 globalResult['data']['paginationOutput'][0] &&
+                 globalResult['data']['paginationOutput'][0]['totalEntries'] &&
+                 globalResult['data']['paginationOutput'][0]['totalEntries'][0]
+                 ? globalResult['data']['paginationOutput'][0]['totalEntries'][0]
+                 : 0;
         const totalResult = globalResult['data']['searchResult'][0]['@count'];
         const data = globalResult['data']['searchResult'][0]['item'];
         let minItems = Math.min(3, totalResult);
@@ -119,27 +39,30 @@ function showLessData() {
         header.style.display = "block";
 
         if (count > 0) {
-            header.innerHTML = count + " Results for " + keywords;
+            header.innerHTML = count + " Results found for " + "<em>"+keywords+"</em>";
             for (let i = 0; i < minItems; i++) {
                 const responseData = data[i];
                 const title = responseData.title;
                 const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
                 const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
                 if (Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
-                    const shippingCost = parseFloat(shippingServiceCost[0].__value__);
-                    const price = currentPrice + shippingCost;
+                    let shippingCost = parseFloat(shippingServiceCost[0].__value__);
+                    let price = currentPrice;
+                    if(shippingCost>0){
+                         price = currentPrice + " ( + $" +shippingCost+" for shipping)";
+                    }
                     const defaultImageURL = "https://example.com/default-image.jpg";
                     tag1 += '<div class="card">';
                     tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n';
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata"><b class="truncate">' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+                    tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] +'<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/topRatedImage.png" style="height:20px;width:20px;"></a></td>\n';
+                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] +'<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;"></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
@@ -151,10 +74,10 @@ function showLessData() {
                     tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n';
                     tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + responseData.galleryURL[0] + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
+                    tag1 += '<td id="tdata"><b class="truncate">' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+                    tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
@@ -174,6 +97,7 @@ function showLessData() {
         }
     } else {
         document.getElementById("Dres").style.display = "block";
+        
     }
 }
 
@@ -197,11 +121,15 @@ function showMoreData(){
     const inputData = JSON.parse(globalData.values);
     const keywords = inputData.keywords;
     header.style.display = "block";
-    header.innerHTML = count + " Results for " + keywords;
+    header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
     for (let i = 0; i < minItems; i++) {
         const responseData = data[i]; 
         const title = responseData.title; 
-        const price = parseFloat(parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__) + parseFloat(responseData.shippingInfo[0].shippingServiceCost[0].__value__));
+        let price = parseFloat(parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__));
+        let shippingCost =  parseFloat(responseData.shippingInfo[0].shippingServiceCost[0].__value__);
+        if(shippingCost>0){
+             price = currentPrice + " ( + $" +shippingCost+" for shipping)";
+        }
         tag1 += '<div class="card">';
         tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
         tag1 += '<tr id="dataR">\n'; 
@@ -209,10 +137,10 @@ function showMoreData(){
         tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
-        tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+        tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
-        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
+        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] +'<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;"></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
         tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
@@ -261,14 +189,14 @@ function ClickData(clickedElement){
         tag1 += '<table id="data-id" class="table-style">\n';
         tag1 += '<tr class="table-data">\n'; 
         tag1 += '<td class="table-data" ><strong>Photo</strong></td>\n';
-        tag1 += '<td class="table-data" ><img src='+pictureUrl+' height="200px" width="200px">\n</td>\n';
+        tag1 += '<td class="table-data" ><img src='+pictureUrl+' style="height:200px;">\n</td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr class="table-data">\n';
-        tag1 += '<td class="table-data" id="tdata"> <strong>eBay Link</strong> </td>\n';
-        tag1 += '<td class="table-data"><a href='+ebayLink+'>eBay Product Link</a></td>\n';
+        tag1 += '<td class="table-data" > <strong>eBay Link</strong> </td>\n';
+        tag1 += '<td class="table-data"><a href='+ebayLink+' target="_blank">eBay Product Link</a></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr class="table-data">\n';
-        tag1 += '<td class="table-data" id="tdata"><strong>Title</strong></td>\n';
+        tag1 += '<td class="table-data" ><strong>Title</strong></td>\n';
         tag1 += '<td class="table-data" class="truncate">'+title+'</td>'
         tag1 += '</tr>\n';
         tag1 += '<tr class="table-data" >\n';
@@ -319,7 +247,7 @@ function previousResult(){
         const keywords = inputData.keywords;
         header.style.display = "block";
         if(count>0){
-            header.innerHTML = count + " Results for " + keywords;
+            header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
             for (let i = 0; i < minItems; i++) {
                 const responseData = data[i]; 
                 const title = responseData.title; 
@@ -335,7 +263,7 @@ function previousResult(){
                     tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+                    tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
@@ -353,7 +281,7 @@ function previousResult(){
                     tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+                    tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
@@ -391,7 +319,7 @@ function previousResult(){
         const inputData = JSON.parse(globalData.values);
         const keywords = inputData.keywords;
         header.style.display = "block";
-        header.innerHTML = count + " Results for " + keywords;
+        header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
         for (let i = 0; i < minItems; i++) {
             const responseData = data[i]; 
             const title = responseData.title; 
@@ -403,7 +331,7 @@ function previousResult(){
             tag1 += '<td id="tdata" class="truncate"><b>' + title + '</b></td>\n';
             tag1 += '</tr>\n';
             tag1 += '<tr>\n';
-            tag1 += '<td id="tdata">Category: ' + responseData.primaryCategory[0].categoryName[0] + '<a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
+            tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;"></a></td>\n';
             tag1 += '</tr>\n';
             tag1 += '<tr>\n';
             tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
@@ -552,5 +480,5 @@ document.getElementById('response').style.display = 'none';
 document.getElementById("Dres").style.display = "none";
 document.getElementById("singleData").style.display = "none";
 document.getElementById("itemDetails").style.display = "none";
-
+document.getElementById("line").style.display="none";
 });

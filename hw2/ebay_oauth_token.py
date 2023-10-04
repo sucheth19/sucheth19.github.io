@@ -9,10 +9,8 @@ class OAuthToken:
     def getBase64Encoding(self):
         sample_string = f"{self.client_id}:{self.client_secret}"
         sample_string_bytes = sample_string.encode("ascii")
-
         base64_bytes = base64.b64encode(sample_string_bytes)
         base64_string = base64_bytes.decode("ascii")
-
         return base64_string
 
     def getApplicationToken(self):

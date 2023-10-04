@@ -42,6 +42,7 @@
     width:450px;
     height: 280px;
     margin-left:510px;
+    margin-top:10px;
 }
 .pod{
     padding-top:10px;
@@ -96,7 +97,7 @@
     transition: transform .2s;
   }
 .card:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 1); 
   }
 #itemDetails{
     margin-left: 645px;
@@ -113,11 +114,19 @@ td #tdata{
 }
 #showMoreButton{
     display: none;
-    margin-left:280px;
+    margin-left:220px;
+}
+#showMoreButton:hover{
+    background-color: rgb(6, 173, 6); 
+    color: #ffffff; 
 }
 #showLessButton{
     display: none;
-    margin-left: 280px;
+    margin-left: 220px;
+}
+#showLessButton:hover{
+    background-color: rgb(6, 173, 6); 
+    color: #ffffff; 
 }
 #clearButton{
     marginLeft:400px;
@@ -130,7 +139,7 @@ td #tdata{
     display: none;
     margin-left: 280px;
 }
-.line{
+#line{
     border-bottom: 2px solid rgb(208, 206, 206);
     width: 700px;
     margin-left:-90px;
@@ -158,18 +167,22 @@ td #tdata{
 .table-data {
     border: 1px solid black;
     padding: 5px;
-    text-align: center;
 }
 .iresult{
     text-align: center;
 }
-.truncate {
-    width: 400px; /* Set a fixed width */
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncation */
-  }
-  
+td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
 #redirectData{
     margin-left:5px;
+}
+#tdata{
+    padding-left:30px;
+}
+.nores{
+    margin-top: 35px;
+    margin-left: 360px;
 }
