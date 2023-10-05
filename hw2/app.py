@@ -107,7 +107,6 @@ def search_form():
 @app.route('/getSingleData', methods=['GET'])
 def singleItem():
     itemId = request.args.get('itemId')
-    print('itemId', itemId)
     if not itemId:
         return jsonify({'error': 'itemId is required'})
 
@@ -121,14 +120,13 @@ def singleItem():
 
     # Construct the correct API URL
     api_url = f"https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid={client_id}&siteid=0&version=967&ItemID={itemId}&IncludeSelector=Description,Details,ItemSpecifics"
-    print('api', api_url)
+
     headers = {
         "X-EBAY-API-IAF-TOKEN": access_token  # Use the obtained access_token here
     }
 
     response = requests.get(api_url, headers=headers)
-    print(response.json())
-    print('api', api_url)
+
     if response.status_code == 200:
         api_data = response.json()
         return jsonify(api_data)
