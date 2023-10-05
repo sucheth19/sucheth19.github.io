@@ -41,8 +41,8 @@
     vertical-align: middle;
     margin-top:20px;
 }
-.topRatedImage {
-    margin-top: 15px !important;
+#topRatedImage {
+    vertical-align: middle;
 }
 .container{
     border:1px solid black;

@@ -78,7 +78,7 @@ function showLessData() {
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     if(condition){
-                        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + topRatedImage + '</td>\n';
+                        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + '<span>'+topRatedImage + '</span></td>\n';
                     }
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
