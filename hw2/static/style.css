@@ -110,11 +110,13 @@
   }
 #itemDetails{
     margin-left: 645px;
+    white-space: nowrap;
 }   
 #backButton{
     margin-left: 665px;
     margin-bottom: 20px;
     border: none;
+    width: 150px;
 }
 td #tdata{
     margin-left:5px;
@@ -179,6 +181,7 @@ td #tdata{
 .table-style {
     border-collapse: collapse;
     border: 1px solid black;
+    width: 650px;
 }
 .table-data {
     border: 1px solid black;

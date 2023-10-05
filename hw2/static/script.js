@@ -60,7 +60,7 @@ function showLessData() {
                     if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
                         condition = responseData.condition[0].conditionDisplayName[0] || '';
                     }
-
+                
                     const topRatedImage = responseData.topRatedListing[0]=== 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
                     console.log(title,responseData.topRatedListing[0],topRatedImage)
                     tag1 += '<div class="card">';
@@ -201,9 +201,9 @@ function ClickData(clickedElement){
     document.getElementById("singleResponse").style.display = "block";
     const dataIndex = clickedElement.getAttribute('data-index');
     const dataIndexNumber = parseInt(dataIndex);
-
+    console.log('cki',dataIndexNumber)
     const itemId = globalResult['data']['searchResult'][0]['item'][dataIndexNumber]['itemId'][0];
-   
+   console.log('itemId', itemId)
     const queryParams = [];
 
     if (itemId) {
