@@ -8,6 +8,7 @@ let responseData = {};
 
 function showLessData() {
     document.getElementById("showLessButton").style.display = "none";
+    document.getElementById("showMoreButton").style.display = "none";
     document.getElementById('result').style.display = 'block';
     document.getElementById("fdata").style.display = "block";
     document.getElementById("response").style.display = "block";
@@ -33,11 +34,12 @@ function showLessData() {
         const keywords = inputData.keywords;
         header.style.display = "block";
         let defaultImageURL = "https://csci571.com/hw/hw6/images/ebay_default.jpg"; 
-
         if (totalResult > 0) {
             header.innerHTML = totalEntries + " Results found for " + "<em>" + keywords + "</em>";
+            console.log('globalResult', globalResult)
             for (let i = 0; i < minItems; i++) {
                  responseData = data[i];
+                 
                 const title = responseData.title;
                 const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
                 const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
@@ -59,18 +61,25 @@ function showLessData() {
                         condition = responseData.condition[0].conditionDisplayName[0] || '';
                     }
 
-                    const topRated = responseData.topRatedListing[0] ? '<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : "";
+                    const topRatedImage = responseData.topRatedListing[0]=== 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
+                    console.log(title,responseData.topRatedListing[0],topRatedImage)
                     tag1 += '<div class="card">';
                     tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
                     tag1 += '<tr id="dataR">\n';
-                    tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + defaultImageURL + '" height="100" width="100">\n</td>\n';
+                    tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+                    tag1 += '<div class="image-container">';
+                    tag1 += '<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100" ></div></td>';
                     tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
+                    if( responseData.primaryCategory[0] &&responseData.primaryCategory[0].categoryName[0]){
                     tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
+                    }
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + topRated + '</td>\n';
+                    if(condition){
+                        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + topRatedImage + '</td>\n';
+                    }
                     tag1 += '</tr>\n';
                     tag1 += '<tr>\n';
                     tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
@@ -148,20 +157,26 @@ function showMoreData(){
             condition = responseData.condition[0].conditionDisplayName[0];
             }
 
-        const topRated = responseData.topRatedListing[0] ? '<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : "";
+            const topRatedImage = responseData.topRatedListing[0] === 'true'? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
         const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
 
         tag1 += '<div class="card">';
         tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
         tag1 += '<tr id="dataR">\n';
-        tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + defaultImageURL + '" height="100" width="100">\n</td>\n';
+        tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+        tag1 += '<div class="image-container">';
+        tag1 += '<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100" ></div></td>';
         tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
+        if(responseData.primaryCategory[0] && responseData.primaryCategory[0].categoryName[0]){
         tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
+        }
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
-        tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + topRated + '</td>\n';
+        if(condition){
+            tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + condition + topRatedImage + '</td>\n';
+        }
         tag1 += '</tr>\n';
         tag1 += '<tr>\n';
         tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
@@ -250,11 +265,166 @@ function ClickData(clickedElement){
     });
 
 }
-function previousResult(){
+// function previousResult(){
+//     document.getElementById("singleData").style.display = "none";
+//     document.getElementById("itemDetails").style.display = "none";
+//     if(activeButton==1){
+//         document.getElementById("showLessButton").style.display = "none";
+//         document.getElementById("showMoreButton").style.display = "none";
+//         document.getElementById('result').style.display = 'block';
+//         document.getElementById("fdata").style.display = "block";
+//         document.getElementById("response").style.display = "block";
+//         document.getElementById("Dres").style.display = "none";
+//         let tag1 = "";
+//         const count = globalResult['data']['paginationOutput'][0]['totalEntries'][0];
+//         const totalResult = globalResult['data']['searchResult'][0]['@count'];
+//         const data = globalResult['data']['searchResult'][0]['item'];
+//         let minItems = Math.min(3, totalResult);
+//         const header = document.getElementById('result');
+//         const inputData = JSON.parse(globalData.values);
+//         const keywords = inputData.keywords;
+//         header.style.display = "block";
+
+//         if(totalResult>0){
+//             header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
+//             for (let i = 0; i < minItems; i++) {
+//                 const responseData = data[i]; 
+//                 const title = responseData.title; 
+//                 const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
+//                 const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
+//                 const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
+//                 let shippingCost = 0;
+//                 if (shippingServiceCost && Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
+//                     shippingCost = parseFloat(shippingServiceCost[0].__value__) || 0;
+//                 }
+                   
+//                 let price = currentPrice;
+//                 if (shippingCost > 0) {
+//                     price = currentPrice + " ( + $" + shippingCost + " for shipping)";
+//                 }
+//                 let condition = '';
+
+//                 if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
+//                     condition = responseData.condition[0].conditionDisplayName[0] || '';
+//                 }
+                
+//                 const topRatedImage = responseData.topRatedListing[0] === 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
+//                     tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
+//                     tag1 += '<tr id="dataR">\n'; 
+//                     tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+//                     tag1 += '<div class="image-container">';
+//                     tag1 += '<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100" ></div></td>';
+//                     tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
+//                     tag1 += '</tr>\n';
+//                     tag1 += '<tr>\n';
+//                     if(responseData.primaryCategory[0] && responseData.primaryCategory[0].categoryName[0]){
+//                     tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
+//                     }
+//                     tag1 += '</tr>\n';
+//                     tag1 += '<tr>\n';
+//                     if(condition){
+//                     tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0]+ topRatedImage + '</td>\n';
+//                     }
+//                     tag1 += '</tr>\n';
+//                     tag1 += '<tr>\n';
+//                     tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
+//                     tag1 += '</tr>\n';
+//                     tag1 += '</table>\n';
+//                     tag1 += '</div>';
+                  
+                
+//             }
+//             if(totalResult>3){
+//                 document.getElementById("showMoreButton").style.display = "block";
+//             }
+//             const responseDiv = document.getElementById('response');
+//             responseDiv.innerHTML = tag1;
+//         }else{
+//             document.getElementById("Dres").style.display = "block";
+//         }
+//     }else{
+//         document.getElementById("showMoreButton").style.display = "none";
+//         document.getElementById('showLessButton').style.display = "none";
+//         const responseDiv = document.getElementById('response');
+//         document.getElementById("Dres").style.display = "none";
+//         responseDiv.innerHTML = '';
+//         document.getElementById('result').style.display = 'block';
+//         document.getElementById("fdata").style.display = "block";
+//         document.getElementById("response").style.display = "block";
+//         let tag1 = "";
+//         const count = globalResult['data']['paginationOutput'][0]['totalEntries'][0];
+//         const totalResult = globalResult['data']['searchResult'][0]['@count'];
+//         const data = globalResult['data']['searchResult'][0]['item'];
+//         let minItems = Math.min(10, totalResult);
+//         const header = document.getElementById('result');
+//         const inputData = JSON.parse(globalData.values);
+//         const keywords = inputData.keywords;
+//         header.style.display = "block";
+//         header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
+//         for (let i = 0; i < minItems; i++) {
+//             responseData = data[i]; 
+//             const title = responseData.title; 
+//             const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
+//             const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
+//             const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
+//             let shippingCost = 0;
+//             if (shippingServiceCost && Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
+//                 shippingCost = parseFloat(shippingServiceCost[0].__value__) || 0;
+//             }
+               
+//             let price = currentPrice;
+//             if (shippingCost > 0) {
+//                 price = currentPrice + " ( + $" + shippingCost + " for shipping)";
+//             }
+//             let condition = '';
+
+//             if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
+//                 condition = responseData.condition[0].conditionDisplayName[0] || '';
+//             }
+        
+//             const topRatedImage = responseData.topRatedListing[0] === 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
+        
+//             tag1 += '<div class="card">';
+//             tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
+//             tag1 += '<tr id="dataR">\n'; 
+//             tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+//             tag1 += '<div class="image-container">';
+//             tag1 += '<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100" ></div></td>';
+//             tag1 += '<div class="image-container">';
+//             tag1 += '<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100" ></div></td>';
+//             tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
+//             tag1 += '</tr>\n';
+//             tag1 += '<tr>\n';
+//             if(responseData.primaryCategory[0] && responseData.primaryCategory[0].categoryName[0]){
+//             tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
+//             }
+//             tag1 += '</tr>\n';
+//             tag1 += '<tr>\n';
+//             if(condition){
+//             tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] +topRatedImage+ '</td>\n';
+//             }
+//             tag1 += '</tr>\n';
+//             tag1 += '<tr>\n';
+//             tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
+//             tag1 += '</tr>\n';
+//             tag1 += '</table>\n';
+//             tag1 += '</div>';
+//         }
+//         responseDiv.innerHTML = tag1;
+//         if(totalResult>3){
+//             document.getElementById("showLessButton").style.display = "block";document.getElementById("showLessButton").style.display = "block";
+//         }
+        
+//     }
+// }
+function previousResult() {
     document.getElementById("singleData").style.display = "none";
     document.getElementById("itemDetails").style.display = "none";
-    if(activeButton==1){
+
+    if (activeButton === 1) {
+        // This section is for the "Show Less" button behavior
         document.getElementById("showLessButton").style.display = "none";
+        document.getElementById("showMoreButton").style.display = "block";
         document.getElementById('result').style.display = 'block';
         document.getElementById("fdata").style.display = "block";
         document.getElementById("response").style.display = "block";
@@ -269,11 +439,11 @@ function previousResult(){
         const keywords = inputData.keywords;
         header.style.display = "block";
 
-        if(totalResult>0){
-            header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
+        if (totalResult > 0) {
+            header.innerHTML = count + " Results found for " + "<em>" + keywords + "</em>";
             for (let i = 0; i < minItems; i++) {
-                const responseData = data[i]; 
-                const title = responseData.title; 
+                const responseData = data[i];
+                const title = responseData.title;
                 const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
                 const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
                 const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
@@ -281,7 +451,7 @@ function previousResult(){
                 if (shippingServiceCost && Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
                     shippingCost = parseFloat(shippingServiceCost[0].__value__) || 0;
                 }
-                   
+
                 let price = currentPrice;
                 if (shippingCost > 0) {
                     price = currentPrice + " ( + $" + shippingCost + " for shipping)";
@@ -291,37 +461,44 @@ function previousResult(){
                 if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
                     condition = responseData.condition[0].conditionDisplayName[0] || '';
                 }
-            
-                const topRated = responseData.topRatedListing[0] ? '<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : "";
-                    tag1 += '<div class="card">';
-                    tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
-                    tag1 += '<tr id="dataR">\n'; 
-                    tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + defaultImageURL + '" height="100" width="100">\n</td>\n';
-                    tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
-                    tag1 += '</tr>\n';
-                    tag1 += '<tr>\n';
+
+                const topRatedImage = responseData.topRatedListing[0] === 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
+                tag1 += '<div class="card">';
+                tag1 += '<table id="data-id" data-index="' + i + '"onclick="ClickData(this)">\n';
+                tag1 += '<tr id="dataR">\n';
+                tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+                tag1 += '<div class="image-container">';
+                tag1 += '<img id="tbImg" src="' + defaultImageURL + '" height="100" width="100" ></div></td>';
+                tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                if (responseData.primaryCategory[0] && responseData.primaryCategory[0].categoryName[0]) {
                     tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
-                    tag1 += '</tr>\n';
-                    tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
-                    tag1 += '</tr>\n';
-                    tag1 += '<tr>\n';
-                    tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
-                    tag1 += '</tr>\n';
-                    tag1 += '</table>\n';
-                    tag1 += '</div>';
-                  
-                
+                }
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                if (condition) {
+                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + topRatedImage + '</td>\n';
+                }
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
+                tag1 += '</tr>\n';
+                tag1 += '</table>\n';
+                tag1 += '</div>';
             }
-            document.getElementById("showMoreButton").style.display = "block";
+            if (totalResult > 3) {
+                document.getElementById("showMoreButton").style.display = "block";
+            }
             const responseDiv = document.getElementById('response');
             responseDiv.innerHTML = tag1;
-        }else{
+        } else {
             document.getElementById("Dres").style.display = "block";
         }
-    }else{
+    } else {
+        // This section is for the "Show More" button behavior
         document.getElementById("showMoreButton").style.display = "none";
-        document.getElementById('showLessButton').style.display = 'block';
+        document.getElementById('showLessButton').style.display = "none";
         const responseDiv = document.getElementById('response');
         document.getElementById("Dres").style.display = "none";
         responseDiv.innerHTML = '';
@@ -337,51 +514,63 @@ function previousResult(){
         const inputData = JSON.parse(globalData.values);
         const keywords = inputData.keywords;
         header.style.display = "block";
-        header.innerHTML = count + " Results found for " +"<em>"+keywords+"</em>";
-        for (let i = 0; i < minItems; i++) {
-            responseData = data[i]; 
-            const title = responseData.title; 
-            const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
-            const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
-            const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
-            let shippingCost = 0;
-            if (shippingServiceCost && Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
-                shippingCost = parseFloat(shippingServiceCost[0].__value__) || 0;
-            }
-               
-            let price = currentPrice;
-            if (shippingCost > 0) {
-                price = currentPrice + " ( + $" + shippingCost + " for shipping)";
-            }
-            let condition = '';
+        header.innerHTML = count + " Results found for " + "<em>" + keywords + "</em>";
+        if (totalResult > 0) {
+            for (let i = 0; i < minItems; i++) {
+                const responseData = data[i];
+                const title = responseData.title;
+                const currentPrice = parseFloat(responseData.sellingStatus[0].currentPrice[0].__value__);
+                const shippingServiceCost = responseData.shippingInfo[0].shippingServiceCost;
+                const defaultImageURL = responseData.galleryURL[0] ? responseData.galleryURL[0] : "https://csci571.com/hw/hw6/images/ebay_default.jpg";
+                let shippingCost = 0;
+                if (shippingServiceCost && Array.isArray(shippingServiceCost) && shippingServiceCost.length > 0) {
+                    shippingCost = parseFloat(shippingServiceCost[0].__value__) || 0;
+                }
 
-            if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
-                condition = responseData.condition[0].conditionDisplayName[0] || '';
+                let price = currentPrice;
+                if (shippingCost > 0) {
+                    price = currentPrice + " ( + $" + shippingCost + " for shipping)";
+                }
+
+                let condition = '';
+                if (responseData.condition && responseData.condition[0] && responseData.condition[0].conditionDisplayName) {
+                    condition = responseData.condition[0].conditionDisplayName[0] || '';
+                }
+
+                const topRatedImage = responseData.topRatedListing[0] === 'true' ? '<img id="topRatedImage" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : '';
+                tag1 += '<div class="card">';
+                tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
+                tag1 += '<tr id="dataR">\n';
+                tag1 += '<td id="galleryUrl" rowspan="4" style="min-height: 100px;">\n';
+                tag1 += '<div class="image-container">';
+                tag1 += '<img id="tbImg" src="' + defaultImageURL + '" height="100" width="100"></div></td>';
+                tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                if (responseData.primaryCategory[0] && responseData.primaryCategory[0].categoryName[0]) {
+                    tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
+                }
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                if (condition) {
+                    tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + topRatedImage + '</td>\n';
+                }
+                tag1 += '</tr>\n';
+                tag1 += '<tr>\n';
+                tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
+                tag1 += '</tr>\n';
+                tag1 += '</table>\n';
+                tag1 += '</div>';
             }
-        
-            const topRated = responseData.topRatedListing[0] ? '<img id="redirectData" src="https://csci571.com/hw/hw6/images/topRatedImage.png" style="height:30px;width:30px;">' : "";
-             
-            tag1 += '<div class="card">';
-            tag1 += '<table id="data-id" data-index="' + i + '" onclick="ClickData(this)">\n';
-            tag1 += '<tr id="dataR">\n'; 
-            tag1 += '<td id="galleryUrl" rowspan="4">\n<img id="tbImg" src="' + defaultImageURL+ '" height="100" width="100">\n</td>\n';
-            tag1 += '<td id="tdata" class="truncate-text"><b>' + title + '</b></td>\n';
-            tag1 += '</tr>\n';
-            tag1 += '<tr>\n';
-            tag1 += '<td id="tdata">Category: <em>' + responseData.primaryCategory[0].categoryName[0] + '</em><a target="_blank" href="' + responseData.viewItemURL[0] + '"><img id="redirectData" src="https://www.csci571.com/hw/hw6/images/redirect.png" style="height:10px;width:10px;" onclick="stopPropagation(event);"></a></td>\n';
-            tag1 += '</tr>\n';
-            tag1 += '<tr>\n';
-            tag1 += '<td id="tdata"><div id="Datacontent">Condition: ' + responseData.condition[0].conditionDisplayName[0] + '</td>\n';
-            tag1 += '</tr>\n';
-            tag1 += '<tr>\n';
-            tag1 += '<td id="tdata"><b>Price: $' + price + '</b></td>\n';
-            tag1 += '</tr>\n';
-            tag1 += '</table>\n';
-            tag1 += '</div>';
+            if (totalResult > 10) {
+                document.getElementById("showMoreButton").style.display = "block";
+                document.getElementById('showLessButton').style.display = "none";
+            }
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = tag1;
+        } else {
+            document.getElementById("Dres").style.display = "block";
         }
-        responseDiv.innerHTML = tag1;
-        document.getElementById("showMoreButton").style.display = "none";
-        document.getElementById("showLessButton").style.display = "block";
     }
 }
 

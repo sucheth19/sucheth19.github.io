@@ -41,12 +41,17 @@
     vertical-align: middle;
     margin-top:20px;
 }
+.topRatedImage {
+    margin-top: 15px !important;
+}
 .container{
     border:1px solid black;
     width:450px;
     height: 280px;
     margin-left:510px;
-    margin-top:10px;
+}
+#category{
+    text-align: center;
 }
 .pod{
     padding-top:10px;
@@ -74,7 +79,7 @@
     margin-bottom: 10px;
 }
 #response{
-    margin-top: 30px;
+    margin-top: 10px;
 }
 #tbImg{
     margin-left:10px;
