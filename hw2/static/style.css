@@ -32,8 +32,17 @@
     color:red;
 }
 .fromM{
-    margin-left:10px;
+    margin-left:5px;
+    margin-right:5px;
 }
+.toM{
+    margin-right:5px;
+    margin-left: 5px;
+}
+.priceM{
+    margin-left: 35px;
+}
+
 .heading{
     font-weight: bold;
     font-size: 40px;
@@ -43,15 +52,22 @@
 }
 #topRatedImage {
     vertical-align: middle;
+    margin-left: 5px;
 }
 .container{
     border:1px solid black;
-    width:450px;
+    width:500px;
     height: 280px;
     margin-left:510px;
 }
-#category{
-    text-align: center;
+.conditionM{
+    margin-left: 23px;
+}
+.condM{
+    margin-left:3px;
+}
+.sellM{
+    margin-left:15px;
 }
 .pod{
     padding-top:10px;
@@ -69,7 +85,7 @@
 }
 
 #fdata{
-    margin-left: 480px;
+    margin-left: 500px;
     display: none;
 }
 #result{
@@ -84,11 +100,11 @@
 #tbImg{
     margin-left:10px;
     margin-top: 20px;   
-    transition: transform .2s;
+    transition: transform .4s;
     border: 3px solid gray;
 }
 #tbImg:hover{
-    transform: scale(1.8);
+    transform: scale(2.1);
 }
 
 
@@ -109,14 +125,15 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 1); 
   }
 #itemDetails{
-    margin-left: 645px;
+    margin-left: 680px;
     white-space: nowrap;
 }   
 #backButton{
-    margin-left: 665px;
+    margin-left: 695px;
     margin-bottom: 20px;
     border: none;
     width: 150px;
+    border-radius:4px;
 }
 td #tdata{
     margin-left:5px;
@@ -128,7 +145,8 @@ td #tdata{
     display: none;
     margin-left:220px;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+    border-radius:4px;
 }
 #showMoreButton:hover{
     background-color: rgb(6, 173, 6); 
@@ -138,15 +156,17 @@ td #tdata{
     display: none;
     margin-left: 220px;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    border-radius:4px;
 }
 #showLessButton:hover{
     background-color: rgb(6, 173, 6); 
     color: #ffffff; 
 }
 #clearButton{
-    marginLeft:400px;
+    margin-left:35px;
     border: none;
+    border-radius:4px;
 }
 #clearButton:hover {
     background-color: rgb(6, 173, 6); 
@@ -158,14 +178,15 @@ td #tdata{
 }
 #line{
     border-bottom: 2px solid rgb(208, 206, 206);
-    width: 700px;
-    margin-left:-90px;
+    width: 720px;
+    margin-left:-95px;
     margin-bottom: 0;
     display: none;
 }
 #searchButton{
     marginLeft:400px;
     border: none;
+    border-radius:4px;
 }
 #searchButton:hover {
     background-color: rgb(6, 173, 6); 
@@ -176,12 +197,12 @@ td #tdata{
     color: #ffffff;
 }
 #singleResponse{
-    margin-left:400px;
+    margin-left:350px;
 }
 .table-style {
     border-collapse: collapse;
     border: 1px solid black;
-    width: 650px;
+    width: 800px;
 }
 .table-data {
     border: 1px solid black;
@@ -199,9 +220,12 @@ td #tdata{
     margin-left:5px;
 }
 #tdata{
-    padding-left:30px;
+    padding-left:20px;
 }
 .nores{
-    margin-top: 35px;
-    margin-left: 360px;
+    margin-top: 55px;
+    margin-left: 400px;
+}
+#category{
+    text-align: center;
 }

@@ -1,3 +1,4 @@
+  <!-- This content is protected and may not be shared, uploaded, or distributed. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,29 +30,33 @@
           <input class="fromM" type="text" name="keywords" id="keywords" required />
         </div>
         <div class="pod">
-            <label><strong>Price Range:</strong></label>
+            <label class="priceM"><strong>Price Range:</strong></label>
             <label class="fromM">From</label>
             <input type="number" name="from" id="from" value=""/>
-            <label> to</label>
+            <label class="toM"> to</label>
             <input type="number" name="to" id="to" value=""/>
         </div>
-        <div class="pod">
-            <label><strong>Condition:</strong></label>
-            <input type="checkbox" name="new" id="new" value="new"/>
-            <label>New</label>
-            <input type="checkbox" name="used" id="used" value="used"/>
-            <label>Used</label>
-            <input type="checkbox" name="veryGood" id="veryGood" value="veryGood"/>
-            <label>Very Good</label>
-            <input type="checkbox" name="good" id="good" value="good"/>
-            <label>Good</label>
-            <input type="checkbox" name="acceptable" id="acceptable" value="acceptable"/>
-            <label>Acceptable</label>
+        <div class="pod" >
+            <div class="conditionM">
+            <label class="condM"><strong>Condition:</strong></label>
+            <input class="condM" type="checkbox" name="new" id="new" value="new"/>
+            <label class="condM">New</label>
+            <input class="condM" type="checkbox" name="used" id="used" value="used"/>
+            <label class="condM">Used</label>
+            <input class="condM" type="checkbox" name="veryGood" id="veryGood" value="veryGood"/>
+            <label class="condM">Very Good</label>
+            <input class="condM" type="checkbox" name="good" id="good" value="good"/>
+            <label class="condM">Good</label>
+            <input class="condM" type="checkbox" name="acceptable" id="acceptable" value="acceptable"/>
+            <label class="condM">Acceptable</label>
+        </div>
         </div>
         <div class="pod">
-            <label><strong>Seller:</strong></label>
-            <input type="checkbox" name="return" id="return" value="return"/>
+            <div class="sellM">
+            <label ><strong>Seller:</strong></label>
+            <input  type="checkbox" name="return" id="return" value="return"/>
             <label>Return Accepted</label>
+        </div>
         </div>
         <div class="pod">
             <label><strong>Shipping:</strong></label>

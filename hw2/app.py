@@ -1,3 +1,4 @@
+#   This content is protected and may not be shared, uploaded, or distributed.
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
@@ -6,8 +7,7 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-
-# Configuration - Set your eBay API credentials here
+ 
 EBAY_API_APP_ID = os.getenv('EBAY_API_APP_ID', 'YourAppIDHere')
 EBAY_API_APP_SECRET = os.getenv('EBAY_API_APP_SECRET', 'YourAppSecretHere')
 
@@ -45,7 +45,7 @@ def search_form():
     initial_url += "&REST-PAYLOAD"
     initial_url += "&keywords=" + keyword
 
-    item_filter_index = 0  # Initialize the item filter index
+    item_filter_index = 0  
 
     if sort_order:
         initial_url += "&sortOrder=" + sort_order
@@ -112,21 +112,19 @@ def singleItem():
 
     client_id = "SuchethG-Dummy-PRD-e7284ce84-7ac41448"
 
-    # Create an instance of OAuthToken with your actual eBay API credentials
     oauth_token = OAuthToken(client_id,"PRD-f6db9fd35ab1-f85c-4dd3-96de-1f1d")
 
-    # Get the application token
+ 
     access_token = oauth_token.getApplicationToken()
 
-    # Construct the correct API URL
+ 
     api_url = f"https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid={client_id}&siteid=0&version=967&ItemID={itemId}&IncludeSelector=Description,Details,ItemSpecifics"
 
     headers = {
-        "X-EBAY-API-IAF-TOKEN": access_token  # Use the obtained access_token here
+        "X-EBAY-API-IAF-TOKEN": access_token  
     }
 
     response = requests.get(api_url, headers=headers)
-
     if response.status_code == 200:
         api_data = response.json()
         return jsonify(api_data)
