@@ -1,0 +1,86 @@
+<div class="container-lg">
+  <div class="formD">
+    <div class="row justify-content-center my-5">
+      <h3>Product Search</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group" [ngClass]="{'has-error': keywordError}">
+          <label for="keyword" class="form-label">Keyword<span class="ast">*</span></label>
+          <input type="text" class="form-control" placeholder="Enter Product Name (e.g., iPhone 8)" id="keyword" name="keyword" [(ngModel)]="searchForm.keyword" >
+          <div *ngIf="keywordError" class="error-message">Please enter a keyword.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="display: inline-block;">Category</label>
+          <div class="category-dropdown-container" style="display: inline-block;">
+            <button data-bs-toggle="dropdown" class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"  aria-expanded="false">
+              {{ searchForm.category }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('All Categories')">All Categories</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Art')">Art</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Baby')">Baby</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Books')">Books</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Clothing, Shoes & Accessories')">Clothing, Shoes & Accessories</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Computers/Tablets & Networking')">Computers/Tablets & Networking</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
+              <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
+            </ul>
+          </div>
+          
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condition</label>
+          <span class="boxes">
+            <input type="checkbox" id="new" name="new" [(ngModel)]="searchForm.new">
+            <label for="new" class="cond">New</label> 
+            <input type="checkbox" id="used" name="used" [(ngModel)]="searchForm.used">
+            <label for="used" class="cond">Used</label>
+            <input type="checkbox" id="unspecified" name="unspecified" [(ngModel)]="searchForm.unspecified">
+            <label for="unspecified" class="cond">Unspecified</label>
+          </span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shipping Options</label>
+          <span class="checks">
+            <input type="checkbox" id="local" name="local" [(ngModel)]="searchForm.local">
+            <label class="cond" for="local">Local Pickup</label>
+            <input type="checkbox" id="freeshipping" name="freeshipping" [(ngModel)]="searchForm.freeshipping">
+            <label class="cond" for="freeshipping">Free Shipping</label>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="distance" class="form-label">Distance (Miles)</label>
+          <input type="number" placeholder="10" id="distance" name="distance" [(ngModel)]="searchForm.distance">
+        </div>
+        <div class="form-group">
+          <label class="form-label">From<span class="ast">*</span></label>
+          <input type="radio" id="current" name="location" [(ngModel)]="selectedLocation" value="current"> 
+          <label class="cond" for="current">'Current Location'</label>
+          <div>
+            <input type="radio" id="other" name="location" [(ngModel)]="selectedLocation" value="other" >
+            <label class="cond" for="other">Other. Please specify zip code</label>
+          </div>
+          <div class="codes">code:</div>
+          <input type="text" class="zip form-text" id="zipCode" name="zipCode" [(ngModel)]="zipCode" (input)="onZipCodeInput()">
+          <div class="autocomplete-suggestions" *ngIf="zipCodeSuggestions.length > 0">
+            <div class="autocomplete-suggestion" *ngFor="let suggestion of zipCodeSuggestions" (click)="selectZipCode(suggestion.postalCode)">
+              {{ suggestion.postalCode }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-light submit" [disabled]="!searchForm.keyword || (selectedLocation === 'other' && !zipCode)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg> Search
+          </button>
+          <button type="reset" class="btn btn-light clear">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg> Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

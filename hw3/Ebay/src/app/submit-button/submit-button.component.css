@@ -1,0 +1,20 @@
+.button-container {
+    display: flex;
+    margin-left: 650px;
+    margin-top: 20px;
+}
+
+.btn, .wish {
+    background-color: black;
+    display: inline-block;
+    margin-right: 10px; /* Add margin between the buttons if needed */
+}
+.btn{
+    background-color: black;
+    color: white;
+}
+
+.wish {
+    background-color: white;
+    color: black;
+}

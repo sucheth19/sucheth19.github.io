@@ -1,0 +1,112 @@
+.ast {
+  color: red;
+}
+
+.form-control {
+  display: inline-block;
+  width: 330px;
+  margin-left:110px;
+}
+#category{
+  width: 123px;
+  margin-left:114px;
+}
+.btn{
+  background-color: white;
+}
+.formD {
+  color: white;
+  background-color: rgb(0, 0, 0, 0.85);
+  width: 90%;
+  height: 580px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.form-label {
+  display: inline-block;
+  margin-left: 280px;
+}
+.boxes{
+  margin-left: 90px;
+}
+#new,#used,#unspecified{
+  margin-left: 20px;
+}
+#local,#freeshipping{
+  margin-left:20px;
+}
+.checks{
+  margin-left:40px;
+}
+
+h3 {
+  margin-right: 250px;
+  white-space: nowrap;
+  margin-top:30px;
+  margin-bottom: 30px;
+  margin-left:830px;
+}
+.form-group{
+margin: 20px;
+}
+#distance{
+  border-radius: 5px;
+  margin-left: 70px;
+  width: 100px;
+}
+#other{
+  margin-left: 463px;
+}
+.code{
+  margin-left:460px;
+  width: 340px;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+.codes{
+  margin-left:478px;
+}
+#current{
+  margin-left:140px;
+  display: inline-block;
+}
+.submit{
+  margin-left: 280px;
+  color: black;
+}
+.submit:disabled{
+  background-color: rgba(211, 211, 211, 0.626);
+  color: black;
+}
+.clear{
+  color:black;
+  margin-left:60px;
+}
+.zip{
+  margin-left:460px;
+  display: inline-block;
+  width: 330px;
+  border-radius: 5px;
+  height: 30px;
+}
+.has-error .form-control {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.cond{
+  margin-left: 5px;
+}
+.btn:not([disabled]) {
+  background-color: white;
+  color:black;
+}
+.dropdown-toggle{
+  margin-left:115px;
+  display: inline-block;
+}
