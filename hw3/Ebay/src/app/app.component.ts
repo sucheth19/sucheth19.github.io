@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Ebay';
+  resultTableData: any[] = [];
+
+  handleResultTableData(data:any[]){
+    this.resultTableData = data;
+    console.log('this.resultTableData',this.resultTableData)
+  }
+
 }

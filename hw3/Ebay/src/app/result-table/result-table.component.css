@@ -1,0 +1,13 @@
+.tbr{
+    margin:auto;
+    padding: auto;
+    width:80%;
+}
+.shopping{
+    background-color: white;
+    width:50px;
+    height:25px;
+}
+.pagination{
+    justify-content: center;
+}

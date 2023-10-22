@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsComponent } from './forms/forms.component';
@@ -14,11 +13,16 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
+import { ZipCodeService } from './zip-code.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SearchItemService } from './search-item.service';
+import { ResultTableComponent } from './result-table/result-table.component';
 @NgModule({
   declarations: [
     AppComponent,
     FormsComponent,
-    SubmitButtonComponent
+    SubmitButtonComponent,
+    ResultTableComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +35,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatSelectModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatChipsModule   
+    MatChipsModule,
+    MatAutocompleteModule
   ],
-  providers: [],
+  providers: [ZipCodeService, SearchItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

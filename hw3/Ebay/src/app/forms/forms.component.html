@@ -1,3 +1,4 @@
+<!-- forms.component.html -->
 <div class="container-lg">
   <div class="formD">
     <div class="justify-content-center my-5">
@@ -19,11 +20,9 @@
               class="form-control"
               placeholder="Enter Product Name (e.g., iPhone 8)"
               id="keyword"
-              name="keyword"
               formControlName="keyword"
-              [class.invalid]="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.dirty || (searchForm.get('keyword')?.touched) || isSubmitted)"
             />
-            <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.dirty || (searchForm.get('keyword')?.touched) || isSubmitted)" class="error">
+            <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.touched || isSubmitted)" class="error">
               Please enter a keyword.
             </div>
           </div>
@@ -51,7 +50,16 @@
                   <a class="dropdown-item" href="#" (click)="selectCategory('All Categories')">All Categories</a>
                 </li>
                 <li><a class="dropdown-item" href="#" (click)="selectCategory('Art')">Art</a></li>
-                <!-- Add more categories -->
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Baby')">Baby</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Books')">Books</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('clothing')">Clothing, Shoes & Accessories</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Computers/Tablets & Networking')">Computers/Tablets & Networking</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
+                <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
+                
+                
+                
               </ul>
             </div>
           </div>
@@ -65,11 +73,11 @@
           </div>
           <div class="col-6">
             <span class="boxes">
-              <input type="checkbox" id="new" name="new" formControlName="new" />
+              <input type="checkbox" id="new" formControlName="new" />
               <label for="new" class="cond">New</label>
-              <input type="checkbox" id="used" name="used" formControlName="used" />
+              <input type="checkbox" id="used" formControlName="used" />
               <label for="used" class="cond">Used</label>
-              <input type="checkbox" id="unspecified" name="unspecified" formControlName="unspecified" />
+              <input type="checkbox" id="unspecified" formControlName="unspecified" />
               <label for="unspecified" class="cond">Unspecified</label>
             </span>
           </div>
@@ -83,15 +91,15 @@
           </div>
           <div class="col-6">
             <span class="checks">
-              <input type="checkbox" id="local" name="local" formControlName="local" />
+              <input type="checkbox" id="local" formControlName="local" />
               <label class="cond" for="local">Local Pickup</label>
-              <input type="checkbox" id="freeshipping" name="freeshipping" formControlName="freeshipping" />
+              <input type="checkbox" id="freeshipping" formControlName="freeshipping" />
               <label class="cond" for="freeshipping">Free Shipping</label>
             </span>
           </div>
           <div class="col-2"></div>
         </div>
-        <!-- Distance (Miles) -->
+        
         <div class="row">
           <div class="col-2"></div>
           <div class="col-2">
@@ -102,7 +110,6 @@
               type="number"
               placeholder="10"
               id="distance"
-              name="distance"
               formControlName="distance"
             />
           </div>
@@ -118,7 +125,6 @@
             <input
               type="radio"
               id="current"
-              name="location"
               value="current"
               formControlName="location"
             />
@@ -133,11 +139,10 @@
             <input
               type="radio"
               id="other"
-              name="location"
               value="other"
               formControlName="location"
             />
-            <label class="cond" for="other">'Other. Please specify zip'</label>
+            <label class="cond" for="location">'Other. Please specify zip'</label>
           </div>
           <div class="col-2"></div>
         </div>
@@ -147,20 +152,25 @@
             <div class="codes">code:</div>
           </div>
           <div class="col-6">
-            <input
-              type="text"
-              class="zip form-control"
-              id="zipCode"
-              name="zipCode"
-              formControlName="zipCode"
-              [class.invalid]="searchForm.get('zipCode')?.invalid && (searchForm.get('zipCode')?.dirty || (searchForm.get('zipCode')?.touched) || isZipCodeValid)"
-              />
-              <div *ngIf="searchForm.get('zipCode')?.invalid && (searchForm.get('zipCode')?.dirty || (searchForm.get('zipCode')?.touched) || isZipCodeValid)" class="error">
-                Please enter a keyword.
-              </div>
+            <mat-form-field>
+              <input matInput #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
+              [formControl]="searchForm.get('rzipCode')"
+              [matAutocomplete]="auto"
+              type="text" class="zip form-control" id="zipCode" />
+          
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
+              <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
+                {{suggestion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+            <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted)" class="error">
+              Please enter a valid zip code.
+            </div>
           </div>
           <div class="col-2"></div>
         </div>
+        
         <div class="form-group">
           <div class="row">
             <div class="col-2"></div>
@@ -168,7 +178,7 @@
               <button
                 type="submit"
                 class="btn btn-light submit"
-                [disabled]="!searchForm.get('keyword')?.value || (selectedLocation === 'other' && !zipCode)"
+                [disabled]="!searchForm.valid"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +196,7 @@
               </button>
             </div>
             <div class="col-2">
-              <button type="reset" class="btn btn-light clear">
+              <button type="reset" class="btn btn-light clear" (click)="onClear()">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -196,7 +206,7 @@
                   viewBox="0 0 16 16"
                 >
                   <path
-                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1 0-.708z"
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293 2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1 0-.708z"
                   ></path>
                 </svg>
                 Clear

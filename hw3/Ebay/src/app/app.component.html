@@ -1,5 +1,10 @@
 <div class="container-fluid">
-    <div><app-forms></app-forms></div>
-     <app-submit-button></app-submit-button>
-    
+  <div>
+    <app-forms (resultTableDataEmitter)="handleResultTableData($event)"></app-forms>
+  </div>
+  <app-submit-button></app-submit-button>
+  <div class="container-fluid">
+    <app-result-table *ngIf="resultTableData.length > 0" [result]="resultTableData">
+    </app-result-table>
+  </div>
 </div>
