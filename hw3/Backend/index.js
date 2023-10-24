@@ -7,22 +7,79 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 app.use(cors());
 
-
-mongoose.connect('mongodb://localhost:27017/wishlist', {
+mongoose.connect('mongodb://0.0.0.0:27017/wishlist', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, // Adjust the timeout as needed
+  socketTimeoutMS: 30000, // Adjust the timeout as needed
 });
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Mongodb connection error'));
-
 db.once('open', () => {
-  console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB');
+  });
+const productSchema = new mongoose.Schema({
+    itemId:String,
+    title:String,
+    galleryURL:String,
+    price:String,
+    shippingPrice:String,
+    zipCode:String
 });
+const Product = mongoose.model('Product', productSchema);
 
-app.post('/products',(req,res)=>{
-    console.log('success');
+
+
+// mongoose.connect('mongodb://localhost:27017/wishlist', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+
+
+app.use(express.json());
+app.post('/products', async (req,res)=>{
+    try {
+        const productData = req.body;
+        let itemId = (productData.itemId && productData.itemId[0]) ? productData.itemId[0] : "N/A";
+        const existingProduct = await Product.findOne({ itemId });
+        if (existingProduct) {
+            // If a product with the same itemId exists, skip adding it
+            return res.json({ message: 'Item with the same itemId already exists in the wishlist.' });
+        }
+        let title = (productData.title && productData.title[0]) ? productData.title[0] : "N/A";
+        let galleryURL = (productData.galleryURL && productData.galleryURL[0]) ? productData.galleryURL[0] : "N/A";
+        let price = (productData.sellingStatus && productData.sellingStatus[0].convertedCurrentPrice[0].__value__) ? productData.sellingStatus[0].convertedCurrentPrice[0].__value__ : "N/A";
+        let shippingPrice = (productData.shippingInfo && productData.shippingInfo[0].shippingServiceCost[0].__value__) ? productData.shippingInfo[0].shippingServiceCost[0].__value__ : "N/A";
+        let zipCode =  (productData.postalCode && productData.postalCode[0]) ? productData.postalCode[0] : "N/A";
+        const product = new Product({
+            itemId,
+            title,
+            galleryURL,
+            price,
+            shippingPrice,
+            zipCode
+        });
+        await product.save();
+
+        // Rest of your code to save the data to MongoDB
+        res.json({ message: 'Item added to the wishlist.' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to add item to the wishlist.' });
+      }
 })
 
+app.get('/all-products',async (req,res)=>{
+    try{
+        const allProducts = await Product.find();
+        res.json(allProducts);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
+})
 
 app.get('/api/zip-suggestions', async (req, res) => {
     const zipCode = req.query.zipCode; 
@@ -88,37 +145,37 @@ app.get('/api/search-results',async (req,res)=>{
 
 
 
-const getEbayAccessToken = async ()=>{
-    const clientId = 'SuchethG-Dummy-SBX-ff7296db9-398812de';
-    const client_secret = 'SBX-f7296db95416-9849-4244-813c-469a';
-    const oauthToken = new OAuthToken(clientId, client_secret);
-    oauthToken.getApplicationToken().then((accessToken)=>{
-        console.log('Access Token',accessToken);
-    }).catch((error)=>{ 
-        console.log(error);
-    });
-}
+// const getEbayAccessToken = async ()=>{
+//     const clientId = 'SuchethG-Dummy-SBX-ff7296db9-398812de';
+//     const client_secret = 'SBX-f7296db95416-9849-4244-813c-469a';
+//     const oauthToken = new OAuthToken(clientId, client_secret);
+//     oauthToken.getApplicationToken().then((accessToken)=>{
+//         console.log('Access Token',accessToken);
+//     }).catch((error)=>{ 
+//         console.log(error);
+//     });
+// }
 
 
 
 
-app.get('/api/product-details',async (req,res)=>{
-    const productId = req.query.productId;
-    const accessToken = await getEbayAccessToken();
-    console.log('access',accessToken)
-    const headers = {
-        "X-EBAY-API-IAF-TOKEN": accessToken,
-    }
-    let apiUrl = `https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=SuchethG-Dummy-PRD-e7284ce84-7ac41448&siteid=0&version=967&ItemID=132961484706&IncludeSelector=Description,Details,ItemSpecifics`;
-    try{
-        const response = await axios.get(apiUrl,{headers});
-        const data = response.data;
-        res.json(data);
-    }catch(error){
-        console.error(error)
-        res.status(500).json({ error: 'Failed to fetch data' });
-    }
-})
+// app.get('/api/product-details',async (req,res)=>{
+//     const productId = req.query.productId;
+//     const accessToken = await getEbayAccessToken();
+//     console.log('access',accessToken)
+//     const headers = {
+//         "X-EBAY-API-IAF-TOKEN": accessToken,
+//     }
+//     let apiUrl = `https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=SuchethG-Dummy-PRD-e7284ce84-7ac41448&siteid=0&version=967&ItemID=132961484706&IncludeSelector=Description,Details,ItemSpecifics`;
+//     try{
+//         const response = await axios.get(apiUrl,{headers});
+//         const data = response.data;
+//         res.json(data);
+//     }catch(error){
+//         console.error(error)
+//         res.status(500).json({ error: 'Failed to fetch data' });
+//     }
+// })
 
 
 

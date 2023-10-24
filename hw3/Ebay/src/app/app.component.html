@@ -2,8 +2,19 @@
   <div>
     <app-forms (resultTableDataEmitter)="handleResultTableData($event)"></app-forms>
   </div>
-  <app-submit-button></app-submit-button>
+  <div class="button-container">
+    <div class="row">
+    <div class="col-5"></div>
+    <div class="col-5">
+  <button type="reset" style="text-align: center;" class="btn btn-primary results" (click)="activateResultsTab()">Results</button>
+  <button type="reset" class="btn wish" (click)="activateWishListTab()">WishList</button>
+</div>
+<div class="col-2"></div>
+<div class="col-2"></div>
+</div>
+</div>
   <div class="container-fluid">
-    <app-result-table *ngIf="resultTableData.length > 0" [result]="resultTableData"></app-result-table>
-  </div>
+    <app-result-table *ngIf="showResultsTab && resultTableData.length > 0" [result]="resultTableData"></app-result-table>
+    <app-wishlist *ngIf="showWishListTab"></app-wishlist>
+    </div>
 </div>

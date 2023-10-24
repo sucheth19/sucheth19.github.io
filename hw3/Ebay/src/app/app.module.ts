@@ -19,6 +19,7 @@ import { SearchItemService } from './search-item.service';
 import { ResultTableComponent } from './result-table/result-table.component';
 import { EllipsisPipePipe } from './ellipsis-pipe.pipe';
 import { DetailsComponent } from './details/details.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DetailsComponent } from './details/details.component';
     SubmitButtonComponent,
     ResultTableComponent,
     EllipsisPipePipe,
-    DetailsComponent
+    DetailsComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

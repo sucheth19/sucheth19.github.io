@@ -9,9 +9,19 @@ export class AppComponent {
   title = 'Ebay';
   resultTableData: any[] = [];
   inDetailsView = false;
+  showResultsTab:boolean = true;
+  showWishListTab:boolean = false;
+
   handleResultTableData(data:any[]){
     this.resultTableData = data;
-    console.log('this.resultTableData',this.resultTableData)
+  }
+  activateResultsTab(){
+    this.showResultsTab = true;
+    this.showWishListTab = false;
+  }
+  activateWishListTab(){
+    this.showResultsTab = false;
+    this.showWishListTab = true;
   }
 
 }
