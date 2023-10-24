@@ -6,8 +6,9 @@ import { HttpClient } from '@angular/common/http';
 export class SearchItemService {
 
   constructor(private http:HttpClient) { }
-  getSearchResults(searchParams:object)
+  getSearchResults(searchParams:any)
   {
+    searchParams = JSON.stringify(searchParams);
     return this.http.get<any>(`http://localhost:3000/api/search-results?searchParams=${searchParams}`)
   }
 }

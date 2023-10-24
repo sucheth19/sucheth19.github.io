@@ -17,12 +17,17 @@ import { ZipCodeService } from './zip-code.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchItemService } from './search-item.service';
 import { ResultTableComponent } from './result-table/result-table.component';
+import { EllipsisPipePipe } from './ellipsis-pipe.pipe';
+import { DetailsComponent } from './details/details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     FormsComponent,
     SubmitButtonComponent,
-    ResultTableComponent
+    ResultTableComponent,
+    EllipsisPipePipe,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +44,6 @@ import { ResultTableComponent } from './result-table/result-table.component';
     MatAutocompleteModule
   ],
   providers: [ZipCodeService, SearchItemService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

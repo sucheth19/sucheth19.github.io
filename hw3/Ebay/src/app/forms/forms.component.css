@@ -15,12 +15,9 @@
 .error{
   color:red;
 }
-
 .form-control {
-  width: 100%;
   padding: 10px;
   border-radius: 5px;
-  
 }
 
 .dropdown-toggle{
@@ -42,7 +39,8 @@
   margin-top: 5px;
 }
 .category-dropdown-container{
-  width:135px;
+  width:390px;
+  float:left;
 }
 .cond{
   margin-left:5px;
@@ -56,6 +54,7 @@
 #distance{
   border-radius: 5px;
   height:40px;
+  width:390px;
 }
 .row{
   margin:5px;
@@ -71,20 +70,25 @@
   margin-left:5px;
 }
 .cond{
-  margin-left:5px;
+  margin-left:10px;
 }
+#zipCode {
+  width: 390px;
+}
+
 /* Styles for small screens (mobile) */
 @media (max-width: 768px) {
   .form-label, .cond, .dropdown-toggle {
     margin-left: 0;
-    text-align: center;
-    display: inline-block;
-    width: 100%; /* Make labels and inputs take full width */
+    /* display: inline-block; */
+    /* width: 100%; Make labels and inputs take full width */
   }
 
   .category-dropdown-container {
     text-align: center;
   }
 }
+
+
 
 /* Additional styles for smaller screens can be added here as needed */

@@ -11,3 +11,7 @@
 .pagination{
     justify-content: center;
 }
+.details{
+    float:right;
+    display: block;
+}

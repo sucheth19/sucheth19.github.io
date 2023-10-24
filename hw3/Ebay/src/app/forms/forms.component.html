@@ -1,20 +1,20 @@
-<!-- forms.component.html -->
-<div class="container-lg">
+forms.component.html
+<div class="container">
   <div class="formD">
     <div class="justify-content-center my-5">
       <div class="row">
-        <div class="col-2"></div>
-        <h1 class="col-4" style="white-space: nowrap;">Product Search</h1>
-        <div class="col-6"></div>
+        <div class="col-md-2 col-xs-12"></div>
+        <h1 class="col-md-4 col-xs-12" style="white-space: nowrap;">Product Search</h1>
+        <div class="col-md-6 col-xs-12"></div>
       </div>
       <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
         <!-- Keyword -->
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2 col-xs-12">
             <label for="keyword" class="form-label">Keyword<span class="ast">*</span></label>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <input
               type="text"
               class="form-control"
@@ -26,15 +26,15 @@
               Please enter a keyword.
             </div>
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
         <!-- Category -->
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2 col-xs-12">
             <label class="form-label">Category</label>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <div class="category-dropdown-container">
               <button
                 data-bs-toggle="dropdown"
@@ -57,21 +57,18 @@
                 <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
                 <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
                 <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
-                
-                
-                
               </ul>
             </div>
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
         <!-- Condition -->
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2 col-xs-12">
             <label class="form-label">Condition</label>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <span class="boxes">
               <input type="checkbox" id="new" formControlName="new" />
               <label for="new" class="cond">New</label>
