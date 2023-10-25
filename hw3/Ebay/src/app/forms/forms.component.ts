@@ -128,6 +128,7 @@ this.suggestions = [];
       this.zipCodeSuggestions = [];
       this.keywordError = false;
       this.zipCodeError = false;
+      this.searchForm.get('category')?.setValue('All Categories');
     }
     
   }

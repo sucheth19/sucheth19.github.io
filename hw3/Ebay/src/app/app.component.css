@@ -1,3 +1,5 @@
-.results{
+.active-button {
     background-color: black;
-}
+    color: white; /* Change text color to white for better visibility */
+  }
+  

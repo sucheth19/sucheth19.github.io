@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Ebay';
   resultTableData: any[] = [];
-  inDetailsView = false;
   showResultsTab:boolean = true;
   showWishListTab:boolean = false;
 

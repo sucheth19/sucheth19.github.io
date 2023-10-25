@@ -81,6 +81,21 @@ app.get('/all-products',async (req,res)=>{
     }
 })
 
+app.delete('/products/:itemId', async (req, res) => {
+    try {
+        const itemId = req.params.itemId;
+        const deleteProduct = await Product.findOneAndRemove({ itemId: itemId }); // Use 'itemId' instead of 'ItemId'
+        if (deleteProduct) {
+            res.json({ message: 'Item removed from wishlist' });
+        } else {
+            res.status(404).json({ message: 'Item not found in wishlist' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to delete item from wishlist' });
+    }
+});
+
 app.get('/api/zip-suggestions', async (req, res) => {
     const zipCode = req.query.zipCode; 
     const apiUrl = `http://api.geonames.org/postalCodeSearchJSON?postalcode_startsWith=${zipCode}&maxRows=5&username=suchethg&country=US`;

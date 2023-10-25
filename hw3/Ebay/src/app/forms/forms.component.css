@@ -1,9 +1,9 @@
-/* Default styles */
 .container-lg {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
+
 .formD {
   background-color: rgba(0, 0, 0, 0.85);
   width: 90%;
@@ -12,83 +12,73 @@
   padding: 20px;
   color: white;
 }
-.error{
-  color:red;
-}
+
+/* Common styles for both desktop and mobile */
 .form-control {
   padding: 10px;
   border-radius: 5px;
+  width: 100%;
 }
 
-.dropdown-toggle{
-  background-color: white;
-  color: black;
-}
-.dropdown-toggle:hover{
-  background-color: white;
-  color:black;
-}
-
-.ast {
-  color: red;
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
-}
-.category-dropdown-container{
-  width:390px;
-  float:left;
-}
-.cond{
-  margin-left:5px;
-}
-#local{
-  margin-left:5px;
-}
-#freeshipping{
+.cond {
   margin-left: 5px;
 }
-#distance{
-  border-radius: 5px;
-  height:40px;
-  width:390px;
-}
-.row{
-  margin:5px;
-  margin-top:20px;
-}
-#new{
-  margin-left:5px;
-}
-#used{
-  margin-left:5px;
-}
-#unspecified{
-  margin-left:5px;
-}
-.cond{
-  margin-left:10px;
-}
-#zipCode {
-  width: 390px;
+
+#local,
+#freeshipping {
+  margin-left: 5px;
 }
 
-/* Styles for small screens (mobile) */
+.row {
+  margin: 5px;
+  margin-top: 20px;
+}
+
+/* Additional styles for smaller screens (mobile) */
 @media (max-width: 768px) {
   .form-label, .cond, .dropdown-toggle {
     margin-left: 0;
-    /* display: inline-block; */
-    /* width: 100%; Make labels and inputs take full width */
   }
 
   .category-dropdown-container {
     text-align: center;
   }
+
+  .formD {
+    width: 95%; /* Adjust width for better mobile layout */
+  }
+
+  #distance {
+    width: 100%; /* Make the distance input take full width on mobile */
+  }
+
+  #zipCode {
+    width: 100%; /* Make the zip code input take full width on mobile */
+    height: 20px;
+    padding: 5px; /* Adjust padding as needed */
+  }
+
+  .col-md-2,
+  .col-md-4,
+  .col-md-6,
+  .col-xs-12 {
+    width: 100%; /* Make columns take full width on mobile */
+  }
+
+  /* Adjust button styles for better mobile layout */
+  .submit,
+  .clear {
+    width: 100%;
+  }
+
+  /* Adjust margin and text alignment for labels */
+  .form-label, .cond, .dropdown-toggle {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .col-2,
+  .col-6 {
+    width: 100%;
+  }
 }
-
-
-
-/* Additional styles for smaller screens can be added here as needed */
