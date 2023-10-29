@@ -1,0 +1,51 @@
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default')">Default</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Name')">Product Name</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days')">Days Left</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price')">Price</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping')">Shipping Cost</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{ 'disabled': selectedSortCategory === 'Default' }">
+                    Sort Order
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownSort">
+                    <li><a class="dropdown-item" href="#">Ascending</a></li>
+                    <li><a class="dropdown-item" href="#">Descending</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    
+     
+    <div class="container">
+        <div *ngFor="let item of similarProducts">
+            <div class="card text-white bg-dark mb-3">
+                <div class="row g-0">
+                <div class="col-md-4">
+                    <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px;width: 200px;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                    <h5 class="card-title"><a [href]="item.viewItemURL">{{item.title}}</a></h5>
+                    <p class="card-text">  Price: ${{item.buyItNowPrice.__value__}}</p>
+                    <p class="card-text">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
+                    <p class="card-text">Days Left: {{item.timeLeft}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

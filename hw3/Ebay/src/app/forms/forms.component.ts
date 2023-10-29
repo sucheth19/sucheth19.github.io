@@ -12,7 +12,7 @@
     encapsulation: ViewEncapsulation.None,
   })
   export class FormsComponent {
-    selectedLocation: string = 'current';
+    selectedLocation: string='current';
     zipCode: FormControl = new FormControl('');
     searchForm: any;
     isSubmitted = false;
@@ -24,6 +24,7 @@
     suggestions:any[] = [];
     constructor(private formBuilder: FormBuilder, private zipCodeService:ZipCodeService, private http: HttpClient, private searchItemService:SearchItemService) {
       this.fetchGeolocation();
+      this.selectedLocation = 'current';
       this.searchForm = this.formBuilder.group({
         keyword: ['', Validators.required],
         category: 'All Categories',
@@ -35,10 +36,10 @@
         distance: 10,
         location: 'current',
         zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-        rzipCode: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
+        rzipCode: ['', [Validators.required, Validators.pattern(/^\d+$/)]]  
       });
     }
-
+   
     onZipCodeChange(rzipCode: string) {
       if(this.searchForm.get('rzipCode')?.valid){
         if (rzipCode.length >= 3) {
@@ -94,8 +95,6 @@ this.suggestions = [];
     onSubmit() {
       this.isSubmitted = true;
       this.isZipCodeValid = this.validateZipCode();
-      if (this.searchForm.valid) {
-        // Construct the request data
         const requestData = {
           keyword: this.searchForm.value.keyword,
           category: this.searchForm.value.category,
@@ -112,15 +111,13 @@ this.suggestions = [];
         this.searchItemService.getSearchResults(requestData).subscribe(
           (data: any) => {
            this.resultTableDataEmitter.emit(data.searchResult[0].item);
-  },
+        },
   (error: any) => {
     console.error(error);
   }
 );
-
-    }
   }
-
+@Output() clearEmitter = new EventEmitter<any[]>();
     onClear() {
       this.searchForm.reset();
       this.selectedLocation = 'current';
@@ -129,6 +126,7 @@ this.suggestions = [];
       this.keywordError = false;
       this.zipCodeError = false;
       this.searchForm.get('category')?.setValue('All Categories');
+      this.clearEmitter.emit();
     }
     
   }

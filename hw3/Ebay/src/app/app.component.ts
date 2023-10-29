@@ -11,8 +11,11 @@ export class AppComponent {
   showResultsTab:boolean = true;
   showWishListTab:boolean = false;
 
+  
+
   handleResultTableData(data:any[]){
-    this.resultTableData = data;
+    this.resultTableData = data ? data : [];
+
   }
   activateResultsTab(){
     this.showResultsTab = true;
@@ -22,5 +25,12 @@ export class AppComponent {
     this.showResultsTab = false;
     this.showWishListTab = true;
   }
-
+  activateDetailsTab(){
+    this.showResultsTab = false;
+    this.showWishListTab = false;
+  }
+  clearResultTable(){
+    this.resultTableData = [];
+  }
+  
 }

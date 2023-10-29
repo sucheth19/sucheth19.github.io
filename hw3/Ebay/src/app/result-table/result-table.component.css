@@ -1,8 +1,9 @@
 .tbr{
     margin:auto;
     padding: auto;
-    width:80%;
+    width:100%;
 }
+
 .shopping{
     background-color: white;
     width:50px;
@@ -10,6 +11,19 @@
 }
 .pagination{
     justify-content: center;
+}
+.custom-link {
+    color: #007bff; /* Apply your custom link color here */
+    text-decoration: none;
+}
+
+.custom-link:visited {
+    color: #4a90e2;
+}
+.progress{
+    width:80%;
+    margin:auto;
+    padding:auto;
 }
 .details{
     float:right;

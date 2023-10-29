@@ -1,5 +1,75 @@
+
 <div>
-    <h2>Product Details</h2>
-    <p>{{productId}}</p>
-    <button (click)="goBack()"></button>
+    <div class="row">
+        <div class="col-md-12">
+            {{itemDetails[23][1]}}
+        </div>
+        </div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="btn">< List</div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-2">
+        <div class="btn"><img src="../assets/facebook.png" alt="Facebook" style="height: 20px;width: 20px;"></div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn">WishList</div>
+    </div>
+</div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="btn"  (click)="showProduct()"  [class.active-button]="product">Product</div>
+        <div class="btn"  (click)="showPhoto()" [class.active-button]="photo">Photos</div>
+        <div class="btn" (click)="showShopping()" [class.active-button]="shopping">Shipping</div>
+        <div class="btn"  (click)="showSeller()" [class.active-button]="seller">Seller</div>
+        <div class="btn"  (click)="showSimilar()" [class.active-button]="similar">Similar Products</div>
+    </div>
+    <hr>
+  </div>
+
+<div class="table-responsive" *ngIf="product">
+    <table class="table table-striped table-dark table-hover table-sm">
+            <tbody>
+                    <tr>
+                        <th>Product Images</th>
+                      <th><a [href]="itemDetails[9][1][0]" target="_blank">View Product Images Here</a></th>
+                    </tr>
+                    <tr><th>
+                        Price
+                    </th>
+                    <th>${{itemDetails[17][1].Value}}</th>
+                </tr>
+                <tr>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        {{itemDetails[7][1]}}
+                    </th>
+                </tr>
+                <tr>
+                    <th>Return Policy</th>
+                    <th>{{itemDetails[1].ReturnsAccepted + itemDetails[1].ReturnsWithin? itemDetails[1].ReturnsWithin:''}}</th>
+                </tr>
+                <ng-container *ngFor="let item of itemDetails[24][1].NameValueList">
+                <tr>
+                    <th>
+                        {{item.Name}}
+                    </th>
+                    <th>
+                        {{item.Value}}
+                    </th>
+                </tr>
+                </ng-container>
+           </tbody>          
+    </table>
+</div>
+<app-photos *ngIf="photo"></app-photos>
+<app-seller *ngIf="seller"></app-seller>
+<app-shipping *ngIf="shopping">
+</app-shipping>
+<app-similar-products *ngIf="similar" [itemId]="itemDetails[2][1]"></app-similar-products>
 </div>

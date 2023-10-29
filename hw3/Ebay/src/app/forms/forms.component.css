@@ -4,29 +4,40 @@
   padding: 20px;
 }
 
+
+.ast{
+  color:red;
+}
 .formD {
-  background-color: rgba(0, 0, 0, 0.85);
-  width: 90%;
+  background-color: rgba(0, 0, 0,0.85);
   margin: auto;
   border-radius: 5px;
   padding: 20px;
   color: white;
 }
-
+#categoryDropdown{
+  color:black;
+  background-color: white;
+}
+#used{
+  margin-left:20px;
+}
+#unspecified{
+  margin-left:20px;
+}
 /* Common styles for both desktop and mobile */
 .form-control {
   padding: 10px;
   border-radius: 5px;
-  width: 100%;
+  width: 70%;
 }
 
 .cond {
   margin-left: 5px;
 }
 
-#local,
 #freeshipping {
-  margin-left: 5px;
+  margin-left: 20px;
 }
 
 .row {
@@ -36,6 +47,19 @@
 
 /* Additional styles for smaller screens (mobile) */
 @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .form-control{
+    padding:5px;
+  }
+  .submit,.clear{
+    padding:10px;
+  }
+  .category-dropdown-container{
+    text-align: left;
+  }
   .form-label, .cond, .dropdown-toggle {
     margin-left: 0;
   }
@@ -81,4 +105,5 @@
   .col-6 {
     width: 100%;
   }
+
 }

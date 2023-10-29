@@ -34,4 +34,4 @@ class OAuthToken {
         }
     }
 }
-
+module.exports = OAuthToken;

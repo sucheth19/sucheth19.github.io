@@ -9,7 +9,6 @@
       <button type="reset" style="text-align: center;" class="btn results" (click)="activateResultsTab()" [class.active-button]="showResultsTab">
         Results</button>
       <button type="reset" class="btn wish" (click)="activateWishListTab()" [class.active-button]="showWishListTab">WishList</button>
-      
 </div>
 <div class="col-2"></div>
 <div class="col-2"></div>
@@ -17,11 +16,12 @@
 </div>
   <div class="container-fluid">
     <app-result-table *ngIf="showResultsTab && resultTableData.length > 0" [result]="resultTableData">
-      <div class="alert alert-warning" role="alert" *ngIf="resultTableData.length === 0">
+      <div class="alert alert-warning" role="alert" *ngIf="resultTableData.length == 0">
         No Records.
        </div>
-
     </app-result-table>
+
     <app-wishlist *ngIf="showWishListTab"></app-wishlist>
-    </div>
+  </div>
+
 </div>

@@ -9,7 +9,6 @@
         <div class="col-md-6 col-xs-12"></div>
       </div>
       <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
-        <!-- Keyword -->
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-2 col-xs-12">
@@ -23,13 +22,12 @@
               id="keyword"
               formControlName="keyword"
             />
-            <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.touched || isSubmitted)" class="error">
+            <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.touched || isSubmitted)" class="error" style="color:red;">
               Please enter a keyword.
             </div>
           </div>
           <div class="col-md-2"></div>
         </div>
-        <!-- Category -->
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-2 col-xs-12">
@@ -39,12 +37,12 @@
             <div class="category-dropdown-container">
               <button
                 data-bs-toggle="dropdown"
-                class="btn btn-secondary dropdown-toggle"
+                class="btn  dropdown-toggle"
                 type="button"
                 id="categoryDropdown"
                 aria-expanded="false"
               >
-                {{ searchForm.get('category')?.value }}
+                {{ searchForm.get('category')?.value ? searchForm.get('category')?.value : 'All Categories' }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                 <li>
@@ -63,7 +61,6 @@
           </div>
           <div class="col-md-2"></div>
         </div>
-        <!-- Condition -->
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-2 col-xs-12">
@@ -79,15 +76,14 @@
               <label for="unspecified" class="cond">Unspecified</label>
             </span>
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
-        <!-- Shipping Options -->
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
             <label class="form-label">Shipping Options</label>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <span class="checks">
               <input type="checkbox" id="local" formControlName="local" />
               <label class="cond" for="local">Local Pickup</label>
@@ -95,122 +91,107 @@
               <label class="cond" for="freeshipping">Free Shipping</label>
             </span>
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
         
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
             <label for="distance" class="form-label">Distance (Miles)</label>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <input
               type="number"
               placeholder="10"
               id="distance"
+              class="dist"
               formControlName="distance"
+              style="height:45px;border-radius:5px;width: 150px;"      
             />
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
-        <!-- From (Location) -->
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
             <label class="form-label">From<span class="ast">*</span></label>
           </div>
-          <div class="col-2">
+          <div class="col-md-2">
             <input
               type="radio"
               id="current"
               value="current"
               formControlName="location"
+              (change)="selectedLocation = 'current';"
             />
             <label class="cond" for="current">'Current Location'</label>
           </div>
-          <div class="col-6"></div>
+          <div class="col-md-6"></div>
         </div>
         <div class="row">
-          <div class="col-2"></div>
-          <div class="col-2"></div>
-          <div class="col-6">
+          <div class="col-md-2"></div>
+          <div class="col-md-2"></div>
+          <div class="col-md-6">
             <input
               type="radio"
               id="other"
               value="other"
               formControlName="location"
+              (change)="selectedLocation = 'other';"
             />
-            <label class="cond" for="location">'Other. Please specify zip'</label>
+            <label class="cond" for="location">Other. Please specify zip</label>
+            <div style="margin-left:15px;"><label for="location" class="cond">code:</label></div>
           </div>
-          <div class="col-2"></div>
+          <div class="col-md-2"></div>
         </div>
-        <div class="row">
-          <div class="col-md-12 col-xs-6">
-            <div class="col-md-6"></div>
-            <div class="codes col-md-6" style="margin-left:400px;">code:</div>
-          </div>
-          <div class="col-md-12 col-xs-6" style="margin-left:370px;">
-            <mat-form-field>
-              <input matInput #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
-              [formControl]="searchForm.get('rzipCode')"
-              [matAutocomplete]="auto"
-              type="text" class="zip form-control" id="zipCode" />
-          
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
-              <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
-                {{suggestion}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-            <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted)" class="error">
-              Please enter a valid zip code.
-            </div>
-          </div>
-          <div class="col-2"></div>
-        </div>
-        
+<!-- ... (previous code) ... -->
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-6 col-xs-12">
+    <div class="form-group">
+      <mat-form-field style="width:300px;height:70px;">
+        <input matInput #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
+        [disabled]="searchForm.get('location').value === 'current'"
+        [formControl]="searchForm.get('rzipCode')"
+        [matAutocomplete]="auto"
+        type="text"
+        class="zip form-control"
+        id="zipCode"
+         
+      />
+   
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
+          <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
+            {{suggestion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted) && (selectedLocation!='current')" class="error" style="color:red;">
+        Please enter a valid zip code.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<!-- ... (remaining code) ... -->
+
         <div class="form-group">
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-2">
-              <button
-                type="submit"
-                class="btn btn-light submit"
-                [disabled]="!searchForm.valid"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-search"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                  ></path>
-                </svg>
-                Search
+          <div class="row text-center">
+            <div class="col-lg-3 col-xs-6" style="text-align: right;">
+              <button type="submit" class="btn btn-light submit" [disabled]="!(searchForm.get('keyword').valid) && !(selectedLocation === 'current' || searchForm.get('location').value === 'other')" >
+                <span class="material-icons" style="display: inline-block; vertical-align: middle;">search</span>
+                <span style="display: inline-block; vertical-align: middle;">Search</span>
               </button>
             </div>
-            <div class="col-2">
+            <div class="col-lg-3 col-xs-6">
               <button type="reset" class="btn btn-light clear" (click)="onClear()">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-x"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293 2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1 0-.708z"
-                  ></path>
-                </svg>
-                Clear
+                <span class="material-icons" style="display: inline-block; vertical-align: middle;">clear_all</span>
+                <span style="display: inline-block; vertical-align: middle;">Clear</span>
               </button>
             </div>
-            <div class="col-6"></div>
+            <div class="col-lg-6"></div>
           </div>
         </div>
       </form>

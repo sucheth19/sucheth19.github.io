@@ -20,6 +20,10 @@ import { ResultTableComponent } from './result-table/result-table.component';
 import { EllipsisPipePipe } from './ellipsis-pipe.pipe';
 import { DetailsComponent } from './details/details.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { PhotosComponent } from './photos/photos.component';
+import { ShippingComponent } from './shipping/shipping.component';
+import { SellerComponent } from './seller/seller.component';
+import { SimilarProductsComponent } from './similar-products/similar-products.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     ResultTableComponent,
     EllipsisPipePipe,
     DetailsComponent,
-    WishlistComponent
+    WishlistComponent,
+    PhotosComponent,
+    ShippingComponent,
+    SellerComponent,
+    SimilarProductsComponent
   ],
   imports: [
     BrowserModule,
