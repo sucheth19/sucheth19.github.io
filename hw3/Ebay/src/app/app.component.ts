@@ -7,30 +7,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Ebay';
-  resultTableData: any[] = [];
-  showResultsTab:boolean = true;
-  showWishListTab:boolean = false;
+  // resultTableData: any[] = [];
+  // showResultsTab:boolean = true;
+  // showWishListTab:boolean = false;
 
-  
-
-  handleResultTableData(data:any[]){
-    this.resultTableData = data ? data : [];
-
-  }
-  activateResultsTab(){
-    this.showResultsTab = true;
-    this.showWishListTab = false;
-  }
-  activateWishListTab(){
-    this.showResultsTab = false;
-    this.showWishListTab = true;
-  }
-  activateDetailsTab(){
-    this.showResultsTab = false;
-    this.showWishListTab = false;
-  }
-  clearResultTable(){
-    this.resultTableData = [];
-  }
+  // clearResultsTab() {
+  //   this.resultTableData = [] ;
+  // }
+  // handleResultTableData(data:any[]){
+  //   this.resultTableData = data ? data : [];
+  //   this.showResultsTab = true;
+  //  }
+  // activateResultsTab(){
+  //   this.showResultsTab = true;
+  //   this.showWishListTab = false;
+  // }
+  // activateWishListTab(){
+  //   this.showResultsTab = false;
+  //   this.showWishListTab = true;
+  // }
+  // activateDetailsTab(){
+  //   this.showResultsTab = false;
+  //   this.showWishListTab = false;
+  // }
+  // clearResultTable(){
+  //   this.resultTableData = [];
+  //   this.showResultsTab = false;
+  // }
   
 }

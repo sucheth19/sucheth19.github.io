@@ -17,21 +17,21 @@ import { ZipCodeService } from './zip-code.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchItemService } from './search-item.service';
 import { ResultTableComponent } from './result-table/result-table.component';
-import { EllipsisPipePipe } from './ellipsis-pipe.pipe';
 import { DetailsComponent } from './details/details.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { PhotosComponent } from './photos/photos.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { SellerComponent } from './seller/seller.component';
 import { SimilarProductsComponent } from './similar-products/similar-products.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
     FormsComponent,
     SubmitButtonComponent,
     ResultTableComponent,
-    EllipsisPipePipe,
     DetailsComponent,
     WishlistComponent,
     PhotosComponent,
@@ -51,7 +51,10 @@ import { SimilarProductsComponent } from './similar-products/similar-products.co
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+     MatTooltipModule,
+     RoundProgressModule,
+     NgxPaginationModule
   ],
   providers: [ZipCodeService, SearchItemService],
   bootstrap: [AppComponent],

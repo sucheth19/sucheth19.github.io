@@ -142,8 +142,6 @@ const OAuthToken = require('./ebay_oauth_token');
         const zipCode =searchParams.zipCode;
         const rzipCode = searchParams.rzipCode;
         const postalCode = rzipCode ? rzipCode : zipCode;
-        console.log('zipCode',zipCode)
-        console.log('rzipCode',rzipCode)
         let apiUrl = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=SuchethG-Dummy-PRD-e7284ce84-7ac41448&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=50&keywords=${keyword}&buyerPostalCode=${postalCode}`
         let index = 0;
         apiUrl += `&itemFilter(${index}).name=MaxDistance&itemFilter(${index}).value=${distance}`;
@@ -218,23 +216,23 @@ const OAuthToken = require('./ebay_oauth_token');
         }
     })
 
-    //get shipping details api
-    app.get('/api/shipping',async (req,res)=>{
-        if(globalData){
-            
-        }
-        res.status(500).json({error:'Failed to fetch data'});
-    })
 
-    //get seller details api
-    app.get("/api/seller",async (req,res)=>{
 
-    })
+  
 
 
     //get photo
     app.get('/api/photo',async (req,res)=>{
-        let apiUrl = ``;
+        title = req.query.title;
+        let apiUrl = `https://www.googleapis.com/customsearch/v1?q=${title}&cx=42b01f234c65e4048&imgSize=huge&imgType=news&num=8&searchType=image&key=AIzaSyA2t6OcI9JAWNkmQE4EhmErUwajnuTf91E`;
+        try{
+            const response = await axios.get(apiUrl);
+            const data = response.data;
+            res.json(data);
+        }catch(error){
+            console.error(error)
+            res.status(500).json({ error: 'Failed to fetch data' });
+        }
     })
 
     app.listen(port, () => {

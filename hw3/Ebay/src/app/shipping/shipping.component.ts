@@ -1,15 +1,18 @@
-import { Component,Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
+
 @Component({
   selector: 'app-shipping',
   templateUrl: './shipping.component.html',
   styleUrls: ['./shipping.component.css']
 })
 export class ShippingComponent {
-// @Input itemId!: string;
-// constructor(private http: HttpClient) { 
-//   console.log('this.itemId',this.itemId)
-// }
+  @Input() shippingDetails: any = {};
+  @Input() returnsAccepted: any = '';
+  constructor() {
+  }
 
-
+  ngOnInit() {
+    console.log('returns', this.returnsAccepted['returnsAccepted'][0]);
+  }
+  
 }

@@ -7,6 +7,8 @@ import { Component, Input} from '@angular/core';
 })
 export class DetailsComponent {
   @Input() itemDetails: any[] = [];
+  @Input() shippingDetails: any[] = [];
+  @Input() returnsAccepted: [] = [];
   product:boolean = true;
   seller:boolean = false;
   shopping:boolean = false;
@@ -17,8 +19,9 @@ export class DetailsComponent {
    }
    ngOnInit() {
     if (this.itemDetails) {
-      console.log('Result:', this.itemDetails);  
+      console.log('ITEMdETAILS:', this.itemDetails);  
     }
+    console.log('returnsAccepted',this.returnsAccepted)
  
   }
   showProduct(){

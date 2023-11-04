@@ -1,200 +1,186 @@
 
 
-<div class="container">
-  <div class="formD">
-    <div class="justify-content-center my-5">
-      <div class="row">
-        <div class="col-md-2 col-xs-12"></div>
-        <h1 class="col-md-4 col-xs-12" style="white-space: nowrap;">Product Search</h1>
-        <div class="col-md-6 col-xs-12"></div>
+  <div class="container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4"><h1>Product Search</h1></div>
+      <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">Keyword<span class="ast">*</span></div>
+      <div class="col-md-4">
+        <input type="text" placeholder="Enter Product Name (eg. iPhone 8)" class="form-control" id="keyword" formControlName="keyword"> 
+        <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.touched || isSubmitted)" class="error" style="color:red;">
+        Please enter a keyword.
+      </div></div>
+      <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">Category</div>
+      <div class="col-md-4">
+        <div class="dropdown-show">
+          <button
+          data-bs-toggle="dropdown"
+          class="btn  dropdown-toggle"
+          type="button"
+          id="categoryDropdown"
+          aria-expanded="false"
+        >
+          {{ searchForm.get('category')?.value ? searchForm.get('category')?.value : 'All Categories' }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+          <li>
+            <a class="dropdown-item" href="#" (click)="selectCategory('All Categories')">All Categories</a>
+          </li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Art')">Art</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Baby')">Baby</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Books')">Books</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('clothing')">Clothing, Shoes & Accessories</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Computers/Tablets & Networking')">Computers/Tablets & Networking</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
+          <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
+        </ul>
+        </div>
       </div>
-      <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2 col-xs-12">
-            <label for="keyword" class="form-label">Keyword<span class="ast">*</span></label>
-          </div>
-          <div class="col-md-6 col-xs-12">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Product Name (e.g., iPhone 8)"
-              id="keyword"
-              formControlName="keyword"
-            />
-            <div *ngIf="searchForm.get('keyword')?.invalid && (searchForm.get('keyword')?.touched || isSubmitted)" class="error" style="color:red;">
-              Please enter a keyword.
-            </div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2 col-xs-12">
-            <label class="form-label">Category</label>
-          </div>
-          <div class="col-md-6 col-xs-12">
-            <div class="category-dropdown-container">
-              <button
-                data-bs-toggle="dropdown"
-                class="btn  dropdown-toggle"
-                type="button"
-                id="categoryDropdown"
-                aria-expanded="false"
-              >
-                {{ searchForm.get('category')?.value ? searchForm.get('category')?.value : 'All Categories' }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                <li>
-                  <a class="dropdown-item" href="#" (click)="selectCategory('All Categories')">All Categories</a>
-                </li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Art')">Art</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Baby')">Baby</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Books')">Books</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('clothing')">Clothing, Shoes & Accessories</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Computers/Tablets & Networking')">Computers/Tablets & Networking</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
-                <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2 col-xs-12">
-            <label class="form-label">Condition</label>
-          </div>
-          <div class="col-md-6 col-xs-12">
-            <span class="boxes">
-              <input type="checkbox" id="new" formControlName="new" />
-              <label for="new" class="cond">New</label>
-              <input type="checkbox" id="used" formControlName="used" />
-              <label for="used" class="cond">Used</label>
-              <input type="checkbox" id="unspecified" formControlName="unspecified" />
-              <label for="unspecified" class="cond">Unspecified</label>
-            </span>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2">
-            <label class="form-label">Shipping Options</label>
-          </div>
-          <div class="col-md-6">
-            <span class="checks">
-              <input type="checkbox" id="local" formControlName="local" />
-              <label class="cond" for="local">Local Pickup</label>
-              <input type="checkbox" id="freeshipping" formControlName="freeshipping" />
-              <label class="cond" for="freeshipping">Free Shipping</label>
-            </span>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2">
-            <label for="distance" class="form-label">Distance (Miles)</label>
-          </div>
-          <div class="col-md-6">
-            <input
-              type="number"
-              placeholder="10"
-              id="distance"
-              class="dist"
-              formControlName="distance"
-              style="height:45px;border-radius:5px;width: 150px;"      
-            />
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2">
-            <label class="form-label">From<span class="ast">*</span></label>
-          </div>
-          <div class="col-md-2">
-            <input
-              type="radio"
-              id="current"
-              value="current"
-              formControlName="location"
-              (change)="selectedLocation = 'current';"
-            />
-            <label class="cond" for="current">'Current Location'</label>
-          </div>
-          <div class="col-md-6"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-2"></div>
-          <div class="col-md-6">
-            <input
-              type="radio"
-              id="other"
-              value="other"
-              formControlName="location"
-              (change)="selectedLocation = 'other';"
-            />
-            <label class="cond" for="location">Other. Please specify zip</label>
-            <div style="margin-left:15px;"><label for="location" class="cond">code:</label></div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-<!-- ... (previous code) ... -->
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-2"></div>
-  <div class="col-md-6 col-xs-12">
-    <div class="form-group">
-      <mat-form-field style="width:300px;height:70px;">
+      <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">Condition</div>
+      <div class="col-md-4">
+        <span class="boxes" class="box">
+          <input type="checkbox" id="new" formControlName="new" />
+          <label for="new" class="cond">New</label>
+          <input type="checkbox" id="used" formControlName="used" />
+          <label for="used" class="cond">Used</label>
+          <input type="checkbox" id="unspecified" formControlName="unspecified" />
+          <label for="unspecified" class="cond">Unspecified</label>
+        </span>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">Shipping Option</div>
+      <div class="col-md-4" id="check">
+        <span class="checks">
+          <input type="checkbox" id="local" formControlName="local" />
+          <label class="cond" for="local">Local Pickup</label>
+          <input type="checkbox" id="freeshipping" formControlName="freeshipping" />
+          <label class="cond" for="freeshipping">Free Shipping</label>
+        </span>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">Distance (Miles)</div>
+      <div class="col-md-4">
+        <input
+        type="number"
+        value="10"
+        id="distance"
+        class="dist"
+        formControlName="distance" 
+      />
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">From<span class="ast">*</span></div>
+      <div class="col-md-4" id="rad" >     
+        <input
+        type="radio"
+        id="current"
+        value="current"
+        formControlName="location"
+        (change)="selectedLocation = 'current';"
+        checked
+      />
+      <label class="cond" for="current">'Current Location'</label>
+      <div>
+        <input
+        type="radio"
+        id="other"
+        value="other"
+        formControlName="location"
+        (change)="selectedLocation = 'other';"
+      />
+      <label class="cond" for="location">Other. Please specify zip code:</label>
+      </div>
+    </div>  
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4" id="zip">
+        <mat-form-field>
         <input matInput #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
-        [disabled]="searchForm.get('location').value === 'current'"
         [formControl]="searchForm.get('rzipCode')"
         [matAutocomplete]="auto"
         type="text"
         class="zip form-control"
         id="zipCode"
-         
       />
-   
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
           <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
             {{suggestion}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted) && (selectedLocation!='current')" class="error" style="color:red;">
+      <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted) && (selectedLocation!='current')" class="error" style="color:red;"
+      >
         Please enter a valid zip code.
-      </div>
+      </div></div>
+      <div class="col-md-4"></div>
     </div>
-  </div>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-6">
+      <button id="sub" type="submit" class="btn btn-light submit" [disabled]="!(searchForm.get('keyword').valid) && ((selectedLocation === 'current') || (searchForm.get('location').value === 'other'))" >
+    <span class="material-icons" style="display: inline-block; vertical-align: middle;">search</span>
+    <span style="display: inline-block; vertical-align: middle;">Search</span>
+  </button>
+  <button type="reset" class="btn btn-light clear" (click)="onClear()" id="reset">
+    <span class="material-icons" style="display: inline-block; vertical-align: middle;">clear_all</span>
+    <span style="display: inline-block; vertical-align: middle;">Clear</span>
+  </button>
+</div>
+  <div class="col-md-2"> </div>
   <div class="col-md-2"></div>
 </div>
-
-<!-- ... (remaining code) ... -->
-
-        <div class="form-group">
-          <div class="row text-center">
-            <div class="col-lg-3 col-xs-6" style="text-align: right;">
-              <button type="submit" class="btn btn-light submit" [disabled]="!(searchForm.get('keyword').valid) && !(selectedLocation === 'current' || searchForm.get('location').value === 'other')" >
-                <span class="material-icons" style="display: inline-block; vertical-align: middle;">search</span>
-                <span style="display: inline-block; vertical-align: middle;">Search</span>
-              </button>
-            </div>
-            <div class="col-lg-3 col-xs-6">
-              <button type="reset" class="btn btn-light clear" (click)="onClear()">
-                <span class="material-icons" style="display: inline-block; vertical-align: middle;">clear_all</span>
-                <span style="display: inline-block; vertical-align: middle;">Clear</span>
-              </button>
-            </div>
-            <div class="col-lg-6"></div>
-          </div>
-        </div>
-      </form>
-    </div>
+  </form>
   </div>
+  <div class="button-container">
+    <div class="row">
+    <div class="col-5"></div>
+    <div class="col-5">
+      <button type="reset" style="text-align: center;" class="btn results" (click)="activateResultsTab()" [class.active-button]="showResultsTab">
+        Results
+      </button>
+      <button type="reset" class="btn wish" (click)="activateWishListTab()" [class.active-button]="showWishListTab">
+        WishList
+      </button>
 </div>
+<div class="col-2"></div>
+<div class="col-2"></div>
+</div>  
+</div>
+  <div class="container-fluid">
+    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData"></app-result-table>
+    <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
+      No Records.
+    </div>
+    <app-wishlist *ngIf="showWishListTab && !showResultsTab" ></app-wishlist>
+  </div>

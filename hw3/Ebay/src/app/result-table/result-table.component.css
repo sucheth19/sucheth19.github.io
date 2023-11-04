@@ -1,13 +1,18 @@
 .tbr{
     margin:auto;
-    padding: auto;
-    width:100%;
+    width:85%;
 }
+   
+.result{
+    width:100%;
+    margin:auto;
+    padding:auto;
 
+}
 .shopping{
     background-color: white;
-    width:50px;
-    height:25px;
+    width:25px;
+    height:5px;
 }
 .pagination{
     justify-content: center;

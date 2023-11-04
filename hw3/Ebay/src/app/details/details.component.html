@@ -1,26 +1,34 @@
-
-<div>
+<div class="alert alert-warning" role="alert" *ngIf="itemDetails.length === 0" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
+    No Records.
+   </div>
+<div class="container">
+<div class="product" style="margin:auto;padding:auto;">
+    <div id="fb-root"></div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             {{itemDetails[23][1]}}
         </div>
         </div>
 <div class="row">
     <div class="col-md-2">
-        <div class="btn">< List</div>
+        <div class="btn"  >< List</div>
     </div>
     <div class="col-md-6"></div>
     <div class="col-md-2">
-        <div class="btn"><img src="../assets/facebook.png" alt="Facebook" style="height: 20px;width: 20px;"></div>
+       
     </div>
     <div class="col-md-2">
-        <div class="btn">WishList</div>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="fb-share-button col-md-3" data-href="https://developers.facebook.com/docs/plugins/" data-layout="" data-size=""><a href="https://www.facebook.com/sharer/sharer.php?u={{itemDetails[5][1]}}&quote=Buy {{itemDetails[23][1]}} at {{itemDetails[16][1].Value}} from link below" target="_blank"><i style="font-size: 24px;" class="fa fa-facebook-square"></i></a></div>
+            <div class="btn col-md-3"> <span class="material-icons shopping">add_shopping_cart</span></div>
+        </div>
+        
     </div>
 </div>
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-2"></div>
-    <div class="col-md-6">
+    <div class="col-md-6"></div>
+    <div class="col-md-6" style="text-align: right;">
         <div class="btn"  (click)="showProduct()"  [class.active-button]="product">Product</div>
         <div class="btn"  (click)="showPhoto()" [class.active-button]="photo">Photos</div>
         <div class="btn" (click)="showShopping()" [class.active-button]="shopping">Shipping</div>
@@ -52,7 +60,8 @@
                 </tr>
                 <tr>
                     <th>Return Policy</th>
-                    <th>{{itemDetails[1].ReturnsAccepted + itemDetails[1].ReturnsWithin? itemDetails[1].ReturnsWithin:''}}</th>
+                    <th>{{itemDetails[29][1].ReturnsAccepted + ' Within '
+                        + itemDetails[29][1].ReturnsWithin}}</th>
                 </tr>
                 <ng-container *ngFor="let item of itemDetails[24][1].NameValueList">
                 <tr>
@@ -67,9 +76,11 @@
            </tbody>          
     </table>
 </div>
+
 <app-photos *ngIf="photo"></app-photos>
-<app-seller *ngIf="seller"></app-seller>
-<app-shipping *ngIf="shopping">
+<app-seller *ngIf="seller" [returnsAccepted]="returnsAccepted"></app-seller>
+<app-shipping *ngIf="shopping" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted">
 </app-shipping>
 <app-similar-products *ngIf="similar" [itemId]="itemDetails[2][1]"></app-similar-products>
+</div>
 </div>

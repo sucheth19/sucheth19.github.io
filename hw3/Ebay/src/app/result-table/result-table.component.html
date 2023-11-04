@@ -1,22 +1,23 @@
 <div class="alert alert-warning" role="alert" *ngIf="result.length == 0">
   No Records.
  </div>
-  <div *ngIf="result" class="container">
+  <div *ngIf="result" class="result">
     <div class="progress" *ngIf="loading">
-      <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width.%]="getProgressPercentage()" >
-      
+      <!-- <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" style="width:600px;" aria-valuemax="100" [style.width.%]="getProgressPercentage()" >
+      </div> -->
+      <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" [style.width.%]="50">
       </div>
     </div>
-    <div class="detail row" *ngIf="detail">
+    <div class="detail row" *ngIf="detail && !loading">
+      <div class="col-md-6"></div>
       <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
-      <button class="btn col-md-4">Detail ></button>
+      <button class="col-md-2 btn btn-light" style="text-align: center;" [disabled]="detail" >Detail ></button>
     </div>
-      <div class="table-responsive tbr" *ngIf="!showDetailsTab">
+      <div class="table-responsive tbr" *ngIf="!showDetailsTab && !loading">
           <table class="table table-dark table-hover table-sm">
               <thead>
                   <tr>
-                      <th scope="col">#</th>
+                      <th scope="col" style="padding-right:35px;">#</th>
                       <th scope="col">Image</th>
                       <th scope="col">Title</th>
                       <th scope="col">Price</th>
@@ -26,43 +27,53 @@
                   </tr>
               </thead>
               <tbody>
-                  <ng-container *ngFor="let item of result.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage); let i=index">
-                    <tr>
-                      <th scope="row">{{ (currentPage - 1) * itemsPerPage + i }}</th>
-                      <th scope="row"><a [href]="item.galleryURL" target="_blank"><img [src]="item.galleryURL" alt="image"></a></th>
-                      <th scope="row" (click)="getSingleItem(item.itemId)"><a [href]="" class="custom-link">
-                     {{ item.title ? (item.title | ellipsisPipe) : 'N/A' }}</a>
-                      </th>
-                      <th scope="row">$ {{item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : "N/A"}}</th>
-                      <th scope="row">
-                          {{ item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__ === '0.0' ? 'Free Shipping' : '$ '+(item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__ ) || 'N/A' }}
-                        </th>                                        
-                      <th scope="row">{{item.postalCode ? item.postalCode : "N/A"}}</th>
-                      <th scope="row"><button class="btn" (click)="wishList(item)"><span class="material-icons shopping">
-                          add_shopping_cart
-                          </span></button></th>
-                      </tr>
-                  </ng-container>
+                <ng-container *ngFor="let item of paginatedResult; let i = index">
+                  <tr>
+                    <td scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                    <td scope="row">
+                      <a [href]="item.galleryURL" target="_blank">
+                        <img [src]="item.galleryURL" alt="image" style="width: 100px; height: 130px;">
+                      </a>
+                    </td>
+                    <td scope="row" (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))">
+                      <a [href]="" class="custom-link tooltip-trigger" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
+                        {{ item.title ? truncateWithEllipsis(item.title, 35) : 'N/A' }}
+                      </a>
+                    </td>
+                    <td scope="row">$ {{ item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : 'N/A' }}</td>
+                    <td scope="row">
+                      {{ item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__ === '0.0' ? 'Free Shipping' : '$ ' + (item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__) || 'N/A' }}
+                    </td>
+                    <td scope="row">{{ item.postalCode ? item.postalCode : 'N/A' }}</td>
+                    <td scope="row">
+                      <div class="btn btn-light" (click)="toggleWishlist(item)">
+                        <span class="material-icons shopping" *ngIf="!item.inWishlist" (click)="wishList(item)">add_shopping_cart</span>
+                        <span class="material-icons" *ngIf="item.inWishlist" (click)="removeFromWishlist(item)" style="color: gold;">remove_shopping_cart</span>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                
                   
               </tbody>
           </table>
           <nav arial-label="Page navigation">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" (click)="goToPage(currentPage - 1)" [attr.href]="currentPage === 1 ? null : 'javascript:void(0)'">Previous</a>
+                  <a class="page-link" (click)="goToPage(currentPage - 1)" [attr.href]="currentPage === 1 ? null : 'javascript:void(0)'"><< Previous</a>
                 </li>
                 <li class="page-item" *ngFor="let page of getPages()">
                   <a class="page-link" (click)="goToPage(page)" [class.active]="currentPage === page">{{ page }}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" (click)="goToPage(currentPage + 1)" [attr.href]="currentPage === totalPages ? null : 'javascript:void(0)'">Next</a>
+                  <a class="page-link" (click)="goToPage(currentPage + 1)" [attr.href]="currentPage === totalPages ? null : 'javascript:void(0)'">Next >></a>
                 </li>
               </ul>
             </nav>
             
             
       </div>
-      <app-details *ngIf="showDetailsTab" [itemDetails]="singleItemDetails"></app-details>
+      <app-details *ngIf="showDetailsTab" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" ></app-details>
 
     </div>
     

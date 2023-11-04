@@ -1,27 +1,6 @@
 <div class="container-fluid">
   <div>
-    <app-forms (resultTableDataEmitter)="handleResultTableData($event)"></app-forms>
+    <app-forms ></app-forms>
   </div>
-  <div class="button-container">
-    <div class="row">
-    <div class="col-5"></div>
-    <div class="col-5">
-      <button type="reset" style="text-align: center;" class="btn results" (click)="activateResultsTab()" [class.active-button]="showResultsTab">
-        Results</button>
-      <button type="reset" class="btn wish" (click)="activateWishListTab()" [class.active-button]="showWishListTab">WishList</button>
-</div>
-<div class="col-2"></div>
-<div class="col-2"></div>
-</div>
-</div>
-  <div class="container-fluid">
-    <app-result-table *ngIf="showResultsTab && resultTableData.length > 0" [result]="resultTableData">
-      <div class="alert alert-warning" role="alert" *ngIf="resultTableData.length == 0">
-        No Records.
-       </div>
-    </app-result-table>
-
-    <app-wishlist *ngIf="showWishListTab"></app-wishlist>
-  </div>
-
+  
 </div>

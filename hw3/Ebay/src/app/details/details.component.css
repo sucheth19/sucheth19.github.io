@@ -2,4 +2,9 @@
     background-color: black;
     color: white; /* Change text color to white for better visibility */
   }
-  
+.product{
+  width:100%;
+}
+th{
+  padding:20px;
+}

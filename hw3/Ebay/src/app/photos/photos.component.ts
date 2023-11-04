@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent {
-
+photos: any[] = [];
+  
 }
