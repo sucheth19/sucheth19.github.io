@@ -11,7 +11,9 @@
     <div class="detail row" *ngIf="detail && !loading">
       <div class="col-md-6"></div>
       <div class="col-md-4"></div>
-      <button class="col-md-2 btn btn-light" style="text-align: center;" [disabled]="detail" >Detail ></button>
+      <button class="col-md-2 btn btn-light" style="text-align: center;" [disabled]="!enableDetailsButton" (click)="showProduct();enableDetailsButton = false">Detail ></button>
+
+
     </div>
       <div class="table-responsive tbr" *ngIf="!showDetailsTab && !loading">
           <table class="table table-dark table-hover table-sm">
@@ -27,16 +29,16 @@
                   </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let item of paginatedResult; let i = index">
-                  <tr>
+                <ng-container *ngFor="let item of result | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index; ">
+                  <tr (click)="onItemClick(item); enableDetailsButton=true">
                     <td scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
                     <td scope="row">
                       <a [href]="item.galleryURL" target="_blank">
                         <img [src]="item.galleryURL" alt="image" style="width: 100px; height: 130px;">
                       </a>
                     </td>
-                    <td scope="row" (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))">
-                      <a [href]="" class="custom-link tooltip-trigger" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
+                    <td scope="row">
+                      <a (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))" [href]="" class="custom-link tooltip-trigger" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
                         {{ item.title ? truncateWithEllipsis(item.title, 35) : 'N/A' }}
                       </a>
                     </td>
@@ -53,26 +55,12 @@
                     </td>
                   </tr>
                 </ng-container>
-                
-                  
               </tbody>
           </table>
           <nav arial-label="Page navigation">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" (click)="goToPage(currentPage - 1)" [attr.href]="currentPage === 1 ? null : 'javascript:void(0)'"><< Previous</a>
-                </li>
-                <li class="page-item" *ngFor="let page of getPages()">
-                  <a class="page-link" (click)="goToPage(page)" [class.active]="currentPage === page">{{ page }}</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" (click)="goToPage(currentPage + 1)" [attr.href]="currentPage === totalPages ? null : 'javascript:void(0)'">Next >></a>
-                </li>
-              </ul>
+            <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center;"></pagination-controls>
             </nav>
-            
-            
-      </div>
+          </div>
       <app-details *ngIf="showDetailsTab" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" ></app-details>
 
     </div>

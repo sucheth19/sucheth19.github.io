@@ -6,18 +6,31 @@ const OAuthToken = require('./ebay_oauth_token');
     const cors = require('cors');
     const mongoose = require('mongoose');
     app.use(cors());
-    let globalData = [];
-    mongoose.connect('mongodb://0.0.0.0:27017/wishlist', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000, // Adjust the timeout as needed
-    socketTimeoutMS: 30000, // Adjust the timeout as needed
-    });
+    const { MongoClient, ServerApiVersion } = require('mongodb');
 
+   
+//     const client = new MongoClient('', {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+    let globalData = [];
+    // mongoose.connect('mongodb://0.0.0.0:27017/wishlist', {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // serverSelectionTimeoutMS: 5000, // Adjust the timeout as needed
+    // socketTimeoutMS: 30000, // Adjust the timeout as needed
+    // });
+    mongoose.connect("mongodb+srv://suchethg:oXbM5jCfFLQEb3jG@cluster0.gdjqav6.mongodb.net/wishList?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Mongodb connection error'));
     db.once('open', () => {
-        console.log('Connected to MongoDB');
+        console.log('Connected to MongoDB Atlas');
     });
     const productSchema = new mongoose.Schema({
         itemId:String,
@@ -25,7 +38,9 @@ const OAuthToken = require('./ebay_oauth_token');
         galleryURL:String,
         price:String,
         shippingPrice:String,
-        zipCode:String
+        zipCode:String,
+        shippingInfo:Object,
+        returnsAccepted:Boolean
     });
     const Product = mongoose.model('Product', productSchema);
 
@@ -55,13 +70,17 @@ const OAuthToken = require('./ebay_oauth_token');
             let price = (productData.sellingStatus && productData.sellingStatus[0].convertedCurrentPrice[0].__value__) ? productData.sellingStatus[0].convertedCurrentPrice[0].__value__ : "N/A";
             let shippingPrice = (productData.shippingInfo && productData.shippingInfo[0].shippingServiceCost[0].__value__) ? productData.shippingInfo[0].shippingServiceCost[0].__value__ : "N/A";
             let zipCode =  (productData.postalCode && productData.postalCode[0]) ? productData.postalCode[0] : "N/A";
+            let shippingInfo = productData.shippingInfo;
+            let returnsAccepted = (productData.returnsAccepted && productData.returnsAccepted[0]) ? productData.returnsAccepted[0] : "false";
             const product = new Product({
                 itemId,
                 title,
                 galleryURL,
                 price,
                 shippingPrice,
-                zipCode
+                zipCode,
+                shippingInfo,
+                returnsAccepted
             });
             await product.save();
 

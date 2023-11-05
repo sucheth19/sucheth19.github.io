@@ -1,6 +1,4 @@
-
-
-  <div class="container">
+<div class="container formD">
     <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
     <div class="row">
       <div class="col-md-2"></div>
@@ -99,14 +97,14 @@
       <div class="col-md-2"></div>
       <div class="col-md-4">From<span class="ast">*</span></div>
       <div class="col-md-4" id="rad" >     
-        <input
-        type="radio"
-        id="current"
-        value="current"
-        formControlName="location"
-        (change)="selectedLocation = 'current';"
-        checked
-      />
+          <input
+          type="radio"
+          id="current"
+          value="current"
+          formControlName="location"
+          (change)="onLocationChange('current');"
+          checked
+        />
       <label class="cond" for="current">'Current Location'</label>
       <div>
         <input
@@ -114,7 +112,7 @@
         id="other"
         value="other"
         formControlName="location"
-        (change)="selectedLocation = 'other';"
+        (change)="onLocationChange('other');"
       />
       <label class="cond" for="location">Other. Please specify zip code:</label>
       </div>
@@ -124,25 +122,27 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-4"></div>
-      <div class="col-md-4" id="zip">
-        <mat-form-field>
-        <input matInput #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
+      <div class="col-md-4" id="zip" >
+        <input #zipCodeInput (input)="onZipCodeChange(zipCodeInput.value)" 
         [formControl]="searchForm.get('rzipCode')"
         [matAutocomplete]="auto"
         type="text"
-        class="zip form-control"
+        class="mat-input-element form-control"
         id="zipCode"
+        style="width: 330px;margin-left:-250px;"
+        [disabled]="selectedLocation !== 'other'"
       />
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
-          <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
-            {{suggestion}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <div *ngIf="searchForm.get('rzipCode')?.invalid && (searchForm.get('rzipCode')?.touched || isSubmitted) && (selectedLocation!='current')" class="error" style="color:red;"
+      
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onZipCodeSelected($event)">
+        <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion">
+          {{suggestion}}
+        </mat-option>
+      </mat-autocomplete>
+      <div *ngIf="searchForm.get('rzipCode')?.touched && selectedLocation==='other'" class="error" style="color:red;"
       >
         Please enter a valid zip code.
-      </div></div>
+      </div>
+    </div>
       <div class="col-md-4"></div>
     </div>
 <div class="row">
@@ -164,21 +164,20 @@
   </div>
   <div class="button-container">
     <div class="row">
-    <div class="col-5"></div>
-    <div class="col-5">
-      <button type="reset" style="text-align: center;" class="btn results" (click)="activateResultsTab()" [class.active-button]="showResultsTab">
+    <div class="col-md-4"></div>
+    <div class="col-md-6" style="text-align: left;">
+      <button type="reset" class="btn results" id="result" (click)="activateResultsTab()" [class.active-button]="showResultsTab">
         Results
       </button>
-      <button type="reset" class="btn wish" (click)="activateWishListTab()" [class.active-button]="showWishListTab">
+      <button type="reset" class="btn wish" id="wish" (click)="activateWishListTab()" [class.active-button]="showWishListTab">
         WishList
       </button>
 </div>
-<div class="col-2"></div>
-<div class="col-2"></div>
+<div class="col-md-2"></div>
 </div>  
 </div>
   <div class="container-fluid">
-    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData"></app-result-table>
+    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab"></app-result-table>
     <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
       No Records.
     </div>

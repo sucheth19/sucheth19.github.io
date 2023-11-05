@@ -1,4 +1,7 @@
 import { Component, Input} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductImagesDialogComponent } from '../product-images-dialog/product-images-dialog.component'; // Import the dialog component
+
 
 @Component({
   selector: 'app-details',
@@ -14,8 +17,23 @@ export class DetailsComponent {
   shopping:boolean = false;
   similar:boolean = false;
   photo:boolean = false;
-  constructor() {
-   
+  constructor(private dialog: MatDialog) { }
+  openProductImagesDialog(images: string[]) {
+    const dialogRef = this.dialog.open(ProductImagesDialogComponent, {
+      data: { images }, 
+      width: '30%', // Set the width to 50% of the screen
+      height: '80%', // Pass images data to the dialog
+    });
+
+    // You can subscribe to the dialog's events if needed
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle the dialog close event here
+    });
+}
+
+
+   navigateBackToList(){
+    console.log('navigateBackToWishList');
    }
    ngOnInit() {
     if (this.itemDetails) {
@@ -24,6 +42,7 @@ export class DetailsComponent {
     console.log('returnsAccepted',this.returnsAccepted)
  
   }
+
   showProduct(){
   this.product = true;
   this.seller = false;

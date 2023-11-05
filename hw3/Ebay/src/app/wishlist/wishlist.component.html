@@ -3,11 +3,11 @@
 </div>
 <div *ngIf="wishListData.length>0">
   <div class="detail row">
-    <div class="col-4"></div>
-    <div class="col-4"></div>
-    <button class="btn col-4">Detail ></button>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <button class="col-md-4 btn btn-light" style="text-align: center;" [disabled]="!enableDetailsButton" (click)="showProduct(); enableDetailsButton = false">Detail ></button>
   </div>
-        <div class="table-responsive tbr">
+        <div class="table-responsive tbr" *ngIf="!showDetailsTab" >
           <table class="table table-dark table-hover table-sm">
               <thead>
                   <tr>
@@ -22,19 +22,21 @@
               <tbody>
                   <ng-container *ngFor="let item of wishListData.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage); let i=index">
                     <tr>
-                      <th scope="row">{{ (currentPage - 1) * itemsPerPage + i }}</th>
-                      <th scope="row"><a [href]="item.galleryURL" target="_blank"><img [src]="item.galleryURL" alt="image"></a></th>
-                      <th scope="row">
-                        {{ item.title ? (item.title ) : 'N/A' }}
-                      </th>
-                      <th scope="row">$ {{item.price ? item.price : "N/A"}}</th>
-                      <th scope="row">
+                      <td scope="row" (click)="onItemClick(item); enableDetailsButton=true">{{ (currentPage - 1) * itemsPerPage + i }}</td>
+                      <td scope="row"><a (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))" [href]="item.galleryURL" target="_blank"><img [src]="item.galleryURL" alt="image"></a></td>
+                      <td scope="row">
+                        <a (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))" [href]="" class="custom-link tooltip-trigger" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
+                          {{ item.title ? truncateWithEllipsis(item.title, 35) : 'N/A' }}
+                        </a>
+                      </td>
+                      <td scope="row">$ {{item.price ? item.price : "N/A"}}</td>
+                      <td scope="row">
                           {{ item.shippingPrice === '0.0' ? 'Free Shipping' : '$ '+(item.shippingPrice ) || 'N/A' }}
-                        </th>                                        
-                   
-                      <th scope="row"><button class="btn shopping" (click)="removeFromWishlist(item)">
+                        </td>      
+                      <td scope="row"><button class="btn shopping" (click)="removeFromWishlist(item)">
                         <span class="material-icons" style="color:gold;">remove_shopping_cart</span>  
-                          </button></th>
+                          </button>
+                        </td>
                       </tr>
                   </ng-container>
                   <tr>
@@ -62,4 +64,4 @@
             </nav>   -->
       </div>
   </div>
-  
+  <app-details *ngIf="showDetailsTab" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" ></app-details>

@@ -6,3 +6,11 @@
     width:80%;
     margin:0px auto;
 }   
+.custom-link {
+    color: #007bff; /* Apply your custom link color here */
+    text-decoration: none;
+}
+
+.custom-link:visited {
+    color: #4a90e2;
+}

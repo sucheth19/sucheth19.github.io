@@ -2,6 +2,9 @@
     margin:auto;
     width:85%;
 }
+th{
+    padding:10px;
+}
    
 .result{
     width:100%;
@@ -10,7 +13,7 @@
 
 }
 .shopping{
-    background-color: white;
+    /* background-color: white; */
     width:25px;
     height:5px;
 }

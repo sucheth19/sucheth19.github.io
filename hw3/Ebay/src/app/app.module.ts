@@ -26,6 +26,11 @@ import { SimilarProductsComponent } from './similar-products/similar-products.co
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProductImagesDialogComponent } from './product-images-dialog/product-images-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +42,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     PhotosComponent,
     ShippingComponent,
     SellerComponent,
-    SimilarProductsComponent
+    SimilarProductsComponent,
+    ProductImagesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatAutocompleteModule,
      MatTooltipModule,
      RoundProgressModule,
-     NgxPaginationModule
+     NgxPaginationModule,
+     MatDialogModule,
+     MatIconModule,
+     SlickCarouselModule
   ],
   providers: [ZipCodeService, SearchItemService],
   bootstrap: [AppComponent],

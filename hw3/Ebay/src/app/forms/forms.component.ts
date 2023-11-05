@@ -27,6 +27,16 @@
       showWishListTab:boolean = false;
       showResultValue:boolean = false;
       postalCode: any;
+      onLocationChange(location: string) {
+        this.selectedLocation = location;
+        const rzipCodeControl = this.searchForm.get('rzipCode');
+        
+        if (location === 'other') {
+          rzipCodeControl.enable(); // Enable the rzipCode input
+        } else {
+          rzipCodeControl.disable(); // Disable the rzipCode input
+        }
+      }
       constructor(private formBuilder: FormBuilder, private zipCodeService:ZipCodeService, private http: HttpClient, private searchItemService:SearchItemService) {
         this.fetchGeolocation();
         this.selectedLocation = 'current';
@@ -41,7 +51,7 @@
           distance: 10,
           location: 'current',
           zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-          rzipCode: ['', [Validators.required, Validators.pattern(/^\d+$/)]]  
+          rzipCode: {value:'',disabled:true}  
         });
       }
       activateResultsTab(){
@@ -66,7 +76,6 @@
                   this.suggestions = data.postalCodes
                     .filter((item: any) => item.postalCode.match(/^\d+$/)) // Filter by ZIP code format (only numbers)
                     .map((item: any) => item.postalCode);
-                
         }else{
           this.suggestions = [];
         }
@@ -160,6 +169,8 @@
   this.resultTableData = [];
   this.showResultValue = false;
   this.isSubmitted = false;
-  }
+  this.showResultsTab = true;
+  this.showWishListTab = false;
+}
       
     }
