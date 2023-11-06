@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 interface Product {
   title: string;
-  timeLeft: number;
+  timeLeft: string;
   buyItNowPrice: { __value__: number };
   shippingCost: { __value__: number };
   imageURL: string; // Add this property
@@ -16,84 +16,133 @@ interface Product {
   styleUrls: ['./similar-products.component.css']
 })
 export class SimilarProductsComponent implements OnInit {
-@Input() itemId!: string;
-similarProducts: Product[] = []; // Use the Product type here
-selectedSortCategory: string = 'Default';
-constructor(private http: HttpClient) { 
-  console.log('this.itemId',this.itemId)
-}
-ngOnInit(): void {
-  this.showProductDetails();
-}
+  @Input() itemId!: string;
+  similarProducts: Product[] = [];
+  originalProducts: Product[] = [];
+  selectedSortCategory: string = 'Default';
+  ascendingSort: boolean = true;
+  disableSort: boolean = true;
+  showAll: boolean = true;
 
-
-showProductDetails() {
-  try {
-    this.http.get<Product[]>(`http://localhost:3000/similar-products/${this.itemId}`).subscribe((response) => {
-      this.similarProducts = response;
-      this.similarProducts.forEach((product: Product) => { // Convert to string
-      });
-    });
-  } catch (e) {
-    console.log(e);
+  constructor(private http: HttpClient) {
+    console.log('this.itemId', this.itemId);
   }
-}
 
+  ngOnInit(): void {
+    this.showProductDetails();
+  }
 
-extractDaysLeft(timeLeft: string): number {
-  // Check if the string contains "P" and "D"
-  if (timeLeft.includes("P") && timeLeft.includes("D")) {
-    // Find the index of "P" and "D" and extract the substring in between
-    const startIndex = timeLeft.indexOf("P") + 1;
-    const endIndex = timeLeft.indexOf("D");
-    const daysSubstring = timeLeft.substring(startIndex, endIndex);
-
-    // Convert the substring to a number
-    const days = parseInt(daysSubstring, 10);
-
-    // Check if days is a valid number
-    if (!isNaN(days)) {
-      return days;
+  showProductDetails() {
+    try {
+      this.http.get<Product[]>(`http://localhost:3000/similar-products/${this.itemId}`).subscribe((response) => {
+        this.similarProducts = response.slice(0,5);
+        this.originalProducts = response;
+        this.similarProducts.forEach((product: Product) => {
+          product.timeLeft = this.extractDaysLeft(product.timeLeft).toString(); // Convert to string
+        });
+      });
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  // Return 0 if the format is not as expected
-  return 0;
-}
-selectSortCategory(category: string) {
-  this.selectedSortCategory = category;
-
-  switch (category) {
-    case 'Default':
-      // Do nothing, use the default order
-      break;
-    case 'Name':
-      this.sortByName();
-      break;
-    case 'Days':
-      this.sortByDaysLeft();
-      break;
-    case 'Price':
-      this.sortByPrice();
-      break;
-    case 'Shipping':
-      this.sortByShippingCost();
-      break;
+  extractDaysLeft(timeLeft: string): number {
+    // Check if the string contains "P" and "D"
+    if (timeLeft.includes("P") && timeLeft.includes("D")) {
+      // Find the index of "P" and "D" and extract the substring in between
+      const startIndex = timeLeft.indexOf("P") + 1;
+      const endIndex = timeLeft.indexOf("D");
+      const daysSubstring = timeLeft.substring(startIndex, endIndex);
+  
+      // Convert the substring to a number
+      const days = parseInt(daysSubstring, 10);
+  
+      // Check if days is a valid number
+      if (!isNaN(days)) {
+        return days;
+      }
+    }
+  
+    // Return 0 if the format is not as expected
+    return 0;
   }
-}
-sortByName() {
-  this.similarProducts.sort((a, b) => a.title.localeCompare(b.title));
-}
+  toggleDropdown(event: Event) {
+    event.preventDefault();
+    // You can add custom logic here if needed.
+  }
+  selectSortOrder(order: string,event:any) {
+    // Handle the sort order selection here.
+    if(order === 'Ascending'){
+      console.log('Ascending')
+      this.ascendingSort = true;
 
-sortByDaysLeft() {
-  this.similarProducts.sort((a, b) => a.timeLeft - b.timeLeft);
-}
+    }else{
+      console.log('Descending'  )
+      this.ascendingSort = false;
+    }
+    this.sortProducts();
+    event.preventDefault();
+  }
+  toggleShowAll() {
+    this.showAll = !this.showAll;
+    console.log('showAll',this.originalProducts)
+    if (this.showAll) {
+      // If "Show More" is clicked, display all products.
+      this.similarProducts = this.originalProducts.slice(0,5);
+    } else {
+      // If "Show Less" is clicked, display only the first 5 products.
+      this.similarProducts = this.originalProducts.slice();
+      console.log('showMore',this.similarProducts)
+    }
+  }
+  
+  
+  selectSortCategory(category: string, event:any) {
+    this.selectedSortCategory = category;
 
-sortByPrice() {
-  this.similarProducts.sort((a, b) => a.buyItNowPrice.__value__ - b.buyItNowPrice.__value__);
-}
+    // this.ascendingSort = !this.ascendingSort; 
+    if (category === 'Default') {
+      // Reset the list to the original order
+      this.disableSort = true;
+      this.ascendingSort = true;
+      this.similarProducts = this.originalProducts.slice();
+    } else {
+      this.disableSort = false;
+      this.sortProducts();
+    }
+    event.preventDefault();
+  }
 
-sortByShippingCost() {
-  this.similarProducts.sort((a, b) => a.shippingCost.__value__ - b.shippingCost.__value__);
-}
+  sortProducts() {
+    switch (this.selectedSortCategory) {
+      case 'Product Name':
+        this.similarProducts.sort((a, b) =>
+          this.ascendingSort
+            ? a.title.localeCompare(b.title)
+            : b.title.localeCompare(a.title)
+        );
+        break;
+      case 'Days Left':
+        this.similarProducts.sort((a, b) =>
+          this.ascendingSort
+            ? +a.timeLeft - +b.timeLeft
+            : +b.timeLeft - +a.timeLeft
+        );
+        break;
+      case 'Price':
+        this.similarProducts.sort((a, b) =>
+          this.ascendingSort
+            ? a.buyItNowPrice.__value__ - b.buyItNowPrice.__value__
+            : b.buyItNowPrice.__value__ - a.buyItNowPrice.__value__
+        );
+        break;
+      case 'Shipping Cost':
+        this.similarProducts.sort((a, b) =>
+          this.ascendingSort
+            ? a.shippingCost.__value__ - b.shippingCost.__value__
+            : b.shippingCost.__value__ - a.shippingCost.__value__
+        );
+        break;
+    }
+  }
 }

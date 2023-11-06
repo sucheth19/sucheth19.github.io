@@ -243,7 +243,7 @@ const OAuthToken = require('./ebay_oauth_token');
     //get photo
     app.get('/api/photo',async (req,res)=>{
         title = req.query.title;
-        let apiUrl = `https://www.googleapis.com/customsearch/v1?q=${title}&cx=42b01f234c65e4048&imgSize=huge&imgType=news&num=8&searchType=image&key=AIzaSyA2t6OcI9JAWNkmQE4EhmErUwajnuTf91E`;
+        let apiUrl = `https://www.googleapis.com/customsearch/v1?q=${title}&cx=42b01f234c65e4048&imgSize=huge&num=8&searchType=image&key=AIzaSyA2t6OcI9JAWNkmQE4EhmErUwajnuTf91E`;
         try{
             const response = await axios.get(apiUrl);
             const data = response.data;

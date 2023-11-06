@@ -4,31 +4,34 @@
     <div>
         <div class="row">
             <div class="col-md-3">
-                <div *ngFor="let item of similarProducts">
+                <div >
                 <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sort Category
+                    <a class="btn btn-dark dropdown-toggle" style="background-color: white; color:black;" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{selectedSortCategory}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default')">Default</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Name')">Product Name</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days')">Days Left</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price')">Price</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping')">Shipping Cost</a></li>
-                    </ul>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default', $event)">Default</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Product Name', $event)">Product Name</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days Left', $event)">Days Left</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price', $event)">Price</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping Cost', $event)">Shipping Cost</a></li>
+                      </ul>
+                                          
                 </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{ 'disabled': selectedSortCategory === 'Default' }">
-                        Sort Order
-                    </a>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
+                        {{ ascendingSort ? 'Ascending' : 'Descending' }}
+                    </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownSort">
-                        <li><a class="dropdown-item" href="#">Ascending</a></li>
-                        <li><a class="dropdown-item" href="#">Descending</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Ascending',$event)">Ascending</a></li>
+                        <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Descending',$event)">Descending</a></li>
                     </ul>
                 </div>
+                
+                  
             </div>
             <div class="col-md-6"></div>
         </div>
@@ -43,9 +46,9 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                        <h5 class="card-title"><a [href]="item.viewItemURL">{{item.title}}</a></h5>
-                        <p class="card-text">  Price: ${{item.buyItNowPrice.__value__}}</p>
-                        <p class="card-text">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
+                        <h5 class="card-title"><a style="color:rgb(0, 255, 191); text-decoration: none;" [href]="item.viewItemURL">{{item.title}}</a></h5>
+                        <p class="card-text" style="color:rgb(48, 244, 5)">  Price: ${{item.buyItNowPrice.__value__}}</p>
+                        <p class="card-text" style="color:rgb(208, 208, 6)">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
                         <p class="card-text">Days Left: {{item.timeLeft}}</p>
                         </div>
                     </div>
@@ -53,4 +56,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-dark" (click)="toggleShowAll()" style="margin:auto;margin-left:100px;">
+                {{ showAll ? 'Show More' : 'Show Less' }}
+              </button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
     </div>

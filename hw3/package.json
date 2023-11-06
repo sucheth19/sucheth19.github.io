@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^15.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

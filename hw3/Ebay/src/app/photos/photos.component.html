@@ -1,14 +1,18 @@
-<div class="alert alert-warning" role="alert" *ngIf="photos.length === 0" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
+<div class="alert alert-warning" role="alert" *ngIf="photos.length === 0" style="margin-top: 20px; width: 70%; margin-left: auto; margin-right: auto;">
     No Records.
 </div>
-<div class="row"> 
-    <div class="column">
-    <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width:20%">
-    </div>
-    <div class="column">
-    <img src="https://www.w3schools.com/w3images/underwater.jpg" style="width:40%">
-    </div>  
-    <div class="column">
-    <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width:40%">
-    </div>
-  </div>
+
+<div class="container" *ngIf="photos.length > 0">
+            <div class="parent">
+                <div class="imag div1"><img [src]="photos[0].link" style="height: 170px; width: 370px;"> </div>
+                <div class="imag div2"></div>
+                <div class="imag div3"><img [src]="photos[1].link" style="width: 360px; height: 460px;"> </div>
+                <div class="imag div4"> <img [src]="photos[2].link" style="height: 170px; width: 370px;"> </div>
+                <div class="imag div5"> <img [src]="photos[3].link" style="width: 360px; height: 360px;"></div>
+                <div class="imag div6"><img [src]="photos[4].link" style="width: 360px; height: 360px;"> </div>
+                <div class="imag div7"> <img [src]="photos[5].link" style="height: 170px; width: 370px;"></div>
+                <div class="imag div8"> <img [src]="photos[6].link" style="width: 360px; height: 460px;"></div>
+                <div class="imag div9"><img [src]="photos[7].link" style="width: 360px; height: 720px;"> </div>
+                
+                </div>
+</div>
