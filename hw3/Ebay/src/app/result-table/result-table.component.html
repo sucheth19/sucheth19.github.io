@@ -29,9 +29,9 @@
                   </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let item of result | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index; ">
+                <ng-container *ngFor="let item of result | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index;  ">
                   <tr (click)="onItemClick(item); enableDetailsButton=true">
-                    <td scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                    <td scope="row">{{ (currentPage - 1) * itemsPerPage + i  }}</td>
                     <td scope="row">
                       <a [href]="item.galleryURL" target="_blank">
                         <img [src]="item.galleryURL" alt="image" style="width: 100px; height: 130px;">
@@ -49,8 +49,8 @@
                     <td scope="row">{{ item.postalCode ? item.postalCode : 'N/A' }}</td>
                     <td scope="row">
                       <div class="btn btn-light" (click)="toggleWishlist(item)">
-                        <span class="material-icons shopping" *ngIf="!item.inWishlist" (click)="wishList(item)">add_shopping_cart</span>
-                        <span class="material-icons" *ngIf="item.inWishlist" (click)="removeFromWishlist(item)" style="color: gold;">remove_shopping_cart</span>
+                        <span class="material-icons shopping" *ngIf="!item.isActive">add_shopping_cart</span>
+                        <span class="material-icons" *ngIf="item.isActive" style="color: gold;">remove_shopping_cart</span>
                       </div>
                     </td>
                   </tr>

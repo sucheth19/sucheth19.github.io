@@ -14,6 +14,8 @@ export class DetailsComponent {
   @Input() showDetailsTab: boolean = false;
   @Input() result: any[] = [];
   @Input() title: string = '';
+
+  @Output() resultlistChanged: EventEmitter<any> = new EventEmitter<any>();
   product:boolean = true;
   seller:boolean = false;
   shopping:boolean = false;
@@ -25,13 +27,12 @@ export class DetailsComponent {
   constructor() { }
  
    navigateBackToList(){
-    console.log('navigateBackToWishList');
+   
    }
    ngOnInit() {
   
   }
   goToListPage() {
-    console.log('goToListPage');
     this.prevTab = true;
     this.itemDetails = [];
     this.shippingDetails = [];

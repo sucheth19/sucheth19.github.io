@@ -39,7 +39,7 @@ const OAuthToken = require('./ebay_oauth_token');
         price:String,
         shippingPrice:String,
         zipCode:String,
-        shippingInfo:Object,
+        shippingInfo:[Object],
         returnsAccepted:Boolean
     });
     const Product = mongoose.model('Product', productSchema);
@@ -61,8 +61,6 @@ const OAuthToken = require('./ebay_oauth_token');
           // Retrieve the query parameters from the request
           const itemId = req.query.itemId || "N/A";
           const title = req.query.title || "N/A";
-          console.log('itemId',itemId)
-            console.log('title',title)
           // Add other query parameters as needed
           const existingProduct = await Product.findOne({ itemId });
           
@@ -75,14 +73,8 @@ const OAuthToken = require('./ebay_oauth_token');
           const price = req.query.price ;
           const shippingPrice = req.query.shippingPrice;
           const zipCode = req.query.zipCode ;
-          const shippingInfo = req.query.shippingInfo;
+          const shippingInfo = JSON.stringify(JSON.parse(req.query.shippingInfo));
           const returnsAccepted = req.query.returnsAccepted;
-          console.log('galleryURL',galleryURL)
-            console.log('price',price)
-            console.log('shippingPrice',shippingPrice)
-            console.log('zipCode',zipCode)
-            console.log('shippingInfo',shippingInfo)
-            console.log('returnsAccepted',returnsAccepted)
 
           const product = new Product({
             itemId,
@@ -147,7 +139,6 @@ const OAuthToken = require('./ebay_oauth_token');
     // get similar products api
     app.get('/similar-products/:itemId',async (req,res)=>{
         const itemId = req.params.itemId; 
-        console.log('itemId',itemId)
         const apiUrl =`https://svcs.ebay.com/MerchandisingService?OPERATION-NAME=getSimilarItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&CONSUMER-ID=SuchethG-Dummy-PRD-e7284ce84-7ac41448&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemId=${itemId}&maxResults=20`;
         try{    
             const response = await axios.get(apiUrl);
@@ -250,10 +241,8 @@ const OAuthToken = require('./ebay_oauth_token');
     //get photo
     app.get('/api/photo',async (req,res)=>{
         title = req.query.title;
-        console.log('req',req.query)
         let apiUrl = `https://www.googleapis.com/customsearch/v1?q=${title}&cx=42b01f234c65e4048&imgSize=huge&num=8&searchType=image&key=AIzaSyA2t6OcI9JAWNkmQE4EhmErUwajnuTf91E`;
         try{
-            console.log('apiUrl',apiUrl)
             const response = await axios.get(apiUrl);
             const data = response.data;
             res.json(data);

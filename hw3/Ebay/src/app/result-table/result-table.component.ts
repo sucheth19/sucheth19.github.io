@@ -36,8 +36,8 @@
     ngOnChanges(changes: SimpleChanges) {
       if ('result' in changes && changes['result'].currentValue) {
         this.result = changes['result'].currentValue;
-        console.log('change result', this.result);
         this.cdr.detectChanges(); // Trigger change detection
+        this.fetchWishListData();
       }
     }
     onItemClick(item: any): void {
@@ -50,14 +50,10 @@
     }
 
     ngOnInit() {
-      if (this.resultActive) {
-        console.log('Result is active:', this.resultActive);
-      }
+
   
       this.fetchWishListData();
-      if (this.result) {
-        console.log('Result:', this.result);  
-      }
+    
       this.loading = true;
 
     setTimeout(() => {
@@ -72,8 +68,7 @@
         startIndex,
         startIndex + this.itemsPerPage
       );
-      console.log('startIndex:', startIndex);
-  console.log('this.paginatedResult:', this.paginatedResult);
+
     }
     pageChanged(event: any): void {
       this.currentPage = event;
@@ -82,8 +77,15 @@
   fetchWishListData() {
     this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
       this.wishListData = data;
-      console.log('this.wishListData',this.wishListData);
+      this.result.forEach((item:any)=>{
+        item.isActive = this.isItemInWishlist(item.itemId[0]);
+      })
+      
     })
+  }
+  isItemInWishlist(itemId: string): boolean {
+    // Check if the 'itemId' exists in the 'wishListData'
+    return this.wishListData.some((item: any) => item.itemId === itemId);
   }
     goToPage(page:number){
       if(page>=1 && page<=this.totalPages){
@@ -123,7 +125,7 @@
       return Math.ceil(this.result.length / this.itemsPerPage);
     }
     wishList(item:any){
-      console.log('item',item)
+      console.log('item')
         if (item) {
           const params = {
             itemId: item.itemId && item.itemId[0] ? item.itemId[0] : "N/A",
@@ -132,13 +134,14 @@
             price: item.sellingStatus && item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : "N/A",
             shippingPrice: item.shippingInfo && item.shippingInfo[0].shippingServiceCost[0].__value__ ? item.shippingInfo[0].shippingServiceCost[0].__value__ : "N/A",
             zipCode: item.postalCode && item.postalCode[0] ? item.postalCode[0] : "N/A",
-            shippingInfo: item.shippingInfo,
+            shippingInfo: JSON.stringify(item.shippingInfo),
             returnsAccepted: item.returnsAccepted && item.returnsAccepted[0] ? item.returnsAccepted[0] : "false",
           };
+       
           this.itemsService.addToWishlist(item);
           this.http.get('http://localhost:3000/products',{params}).subscribe((response)=>{
-            console.log('res',response);
-          },
+          // console.log('resp',response)
+        },
           (error)=>{
             console.error('Error',error);
           }
@@ -180,14 +183,19 @@
     }
   }
 }
-toggleWishlist(item:any) {
-  item.inWishlist = !item.inWishlist;
+toggleWishlist(item: any) {
+  item.inWishlist = !item.inWishlist; // Toggle the inWishlist status
+  if (item.inWishlist) {
+    this.wishList(item);
+  } else {
+    this.removeFromWishlist(item);
+  }
 }
-removeFromWishlist(item: any) {
+
+removeFromWishlist( item: any) {
   this.itemsService.removeFromWishlist(item.itemId[0]);
   this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
     (response) => {
-      console.log('Item removed from the wishlist', item.itemId[0]);
       const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
       if (index !== -1) {
         this.wishListData.splice(index, 1); // Remove the item from the local array

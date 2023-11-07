@@ -97,18 +97,21 @@ export class WishlistComponent implements OnInit {
     return Math.ceil(this.wishListData.length / this.itemsPerPage);
   }
   removeFromWishlist(item: any) {
-    this.itemService.removeFromWishlist(item.itemId[0]);
-    this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
+    console.log('item',item)
+    this.itemService.removeFromWishlist(item.itemId);
+    this.http.delete(`http://localhost:3000/products/${item.itemId}`).subscribe(
       (response) => {
-        const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
+        console.log('HTTP Delete Response:', response);
+        const index = this.wishListData.findIndex((itm) => itm.itemId=== item.itemId);
         if (index !== -1) {
-          this.wishListData.splice(index, 1); // Remove the item from the local array
+          this.wishListData.splice(index, 1);
           this.calculateTotalPrice();
         }
         this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error removing item from the wishlist', error);
+        // Handle the error, e.g., show an error message to the user.
       }
     );
   }

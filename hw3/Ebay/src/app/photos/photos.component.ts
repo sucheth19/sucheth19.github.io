@@ -13,7 +13,6 @@ export class PhotosComponent {
   
   constructor(private http: HttpClient) { 
     this.searchPhotos();
-    console.log('title',this.title)
   }
   ngOnInit(): void {
     this.searchPhotos();
@@ -31,14 +30,14 @@ export class PhotosComponent {
         if(this.photoTab.length>6){
           this.photoTab.splice(6,0,null);
         }
-        console.log('photos', this.photoTab);
+     
       },
       (error) => {
         console.error('API call failed:', error);
         // Handle the error here
       }
     );
-    console.log('photos', this.photoTab);
+   
     }
    
   }

@@ -146,7 +146,6 @@
     this.resultTableData = [] ;
     this.fetchGeolocation();    
     this.isZipCodeValid = this.validateZipCode();
-    console.log('isZipCodeValid',);
     const requestData = {
       keyword: this.searchForm.value.keyword,
       category: this.searchForm.value.category,
@@ -163,7 +162,6 @@
     this.searchItemService.getSearchResults(requestData).subscribe(
       (data: any) => {        
         this.resultTableData = data.searchResult?.[0]?.item || [];
-        console.log('resultdata',data.searchResult?.[0]?.item)
         this.isSubmitted = false;
           this.showResultValue = true;
       },
