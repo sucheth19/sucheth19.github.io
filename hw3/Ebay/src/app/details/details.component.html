@@ -1,7 +1,14 @@
 <div class="alert alert-warning" role="alert" *ngIf="itemDetails.length === 0 && !prevTab" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
     No Records.
    </div>
-<div class="container" *ngIf="itemDetails.length>0">
+   <div class="progress" *ngIf="loading">
+    <!-- <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" style="width:600px;" aria-valuemax="100" [style.width.%]="getProgressPercentage()" >
+    </div> -->
+    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" [style.width.%]="50">
+    </div>
+  </div>
+<div class="container" *ngIf="!loading  && itemDetails.length>0">
+
 <div class="product" style="margin:auto;padding:auto;">
     <div id="fb-root"></div>
     <div class="row">
@@ -22,7 +29,15 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="fb-share-button col-md-3" data-href="https://developers.facebook.com/docs/plugins/" data-layout="" data-size=""><a href="https://www.facebook.com/sharer/sharer.php?u={{itemDetails[5][1]}}&quote=Buy {{itemDetails[23][1]}} at {{itemDetails[16][1].Value}} from link below" target="_blank"><i style="font-size: 24px;" class="fa fa-facebook-square"></i></a></div>
-            <div class="btn col-md-3"> <span class="material-icons shopping">add_shopping_cart</span></div>
+            <div class="btn col-md-3"> 
+              <div class="col-md-2">
+                <button class="btn btn-light" (click)="toggleWishlist(itemDetails[2][1])">
+                  <span class="material-icons shopping" *ngIf="!toggle">add_shopping_cart</span>
+                  <span class="material-icons" *ngIf="toggle" style="color: gold;">remove_shopping_cart</span>
+                </button>
+              </div>
+              
+            </div>
         </div>
         
     </div>

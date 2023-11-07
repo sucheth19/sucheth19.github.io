@@ -28,6 +28,9 @@ th{
 .custom-link:visited {
     color: #4a90e2;
 }
+.custom-link:hover{
+    cursor: pointer;
+}
 .progress{
     width:80%;
     margin:auto;
