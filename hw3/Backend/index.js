@@ -56,41 +56,54 @@ const OAuthToken = require('./ebay_oauth_token');
     app.use(express.json());
 
     //add wishlist api
-    app.post('/products', async (req,res)=>{
+    app.get('/products', async (req, res) => {
         try {
-            const productData = req.body;
-            let itemId = (productData.itemId && productData.itemId[0]) ? productData.itemId[0] : "N/A";
-            const existingProduct = await Product.findOne({ itemId });
-            if (existingProduct) {
-                // If a product with the same itemId exists, skip adding it
-                return res.json({ message: 'Item with the same itemId already exists in the wishlist.' });
-            }
-            let title = (productData.title && productData.title[0]) ? productData.title[0] : "N/A";
-            let galleryURL = (productData.galleryURL && productData.galleryURL[0]) ? productData.galleryURL[0] : "N/A";
-            let price = (productData.sellingStatus && productData.sellingStatus[0].convertedCurrentPrice[0].__value__) ? productData.sellingStatus[0].convertedCurrentPrice[0].__value__ : "N/A";
-            let shippingPrice = (productData.shippingInfo && productData.shippingInfo[0].shippingServiceCost[0].__value__) ? productData.shippingInfo[0].shippingServiceCost[0].__value__ : "N/A";
-            let zipCode =  (productData.postalCode && productData.postalCode[0]) ? productData.postalCode[0] : "N/A";
-            let shippingInfo = productData.shippingInfo;
-            let returnsAccepted = (productData.returnsAccepted && productData.returnsAccepted[0]) ? productData.returnsAccepted[0] : "false";
-            const product = new Product({
-                itemId,
-                title,
-                galleryURL,
-                price,
-                shippingPrice,
-                zipCode,
-                shippingInfo,
-                returnsAccepted
-            });
-            await product.save();
+          // Retrieve the query parameters from the request
+          const itemId = req.query.itemId || "N/A";
+          const title = req.query.title || "N/A";
+          console.log('itemId',itemId)
+            console.log('title',title)
+          // Add other query parameters as needed
+          const existingProduct = await Product.findOne({ itemId });
+          
+          if (existingProduct) {
+            // If a product with the same itemId exists, skip adding it
+            return res.json({ message: 'Item with the same itemId already exists in the wishlist.' });
+          }
+          
+          const galleryURL = req.query.galleryUrl ;
+          const price = req.query.price ;
+          const shippingPrice = req.query.shippingPrice;
+          const zipCode = req.query.zipCode ;
+          const shippingInfo = req.query.shippingInfo;
+          const returnsAccepted = req.query.returnsAccepted;
+          console.log('galleryURL',galleryURL)
+            console.log('price',price)
+            console.log('shippingPrice',shippingPrice)
+            console.log('zipCode',zipCode)
+            console.log('shippingInfo',shippingInfo)
+            console.log('returnsAccepted',returnsAccepted)
 
-            // Rest of your code to save the data to MongoDB
-            res.json({ message: 'Item added to the wishlist.' });
+          const product = new Product({
+            itemId,
+            title,
+            galleryURL,
+            price,
+            shippingPrice,
+            zipCode,
+            shippingInfo,
+            returnsAccepted
+          });
+          await product.save();
+      
+          // Rest of your code to save the data to MongoDB
+          res.json({ message: 'Item added to the wishlist.' });
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to add item to the wishlist.' });
+          console.error(error);
+          res.status(500).json({ error: 'Failed to add item to the wishlist.' });
         }
-    })
+      });
+      
 
     app.get('/all-products',async (req,res)=>{
         try{
@@ -243,8 +256,10 @@ const OAuthToken = require('./ebay_oauth_token');
     //get photo
     app.get('/api/photo',async (req,res)=>{
         title = req.query.title;
+        console.log('req',req.query)
         let apiUrl = `https://www.googleapis.com/customsearch/v1?q=${title}&cx=42b01f234c65e4048&imgSize=huge&num=8&searchType=image&key=AIzaSyA2t6OcI9JAWNkmQE4EhmErUwajnuTf91E`;
         try{
+            console.log('apiUrl',apiUrl)
             const response = await axios.get(apiUrl);
             const data = response.data;
             res.json(data);

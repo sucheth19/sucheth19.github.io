@@ -22,30 +22,17 @@
       <div class="col-md-2"></div>
       <div class="col-md-2">Category</div>
       <div class="col-md-4">
-        <div class="dropdown-show">
-          <button
-          data-bs-toggle="dropdown"
-          class="btn  dropdown-toggle"
-          type="button"
-          id="categoryDropdown"
-          aria-expanded="false"
-        >
-          {{ searchForm.get('category')?.value ? searchForm.get('category')?.value : 'All Categories' }}
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-          <li>
-            <a class="dropdown-item" href="#" (click)="selectCategory('All Categories')">All Categories</a>
-          </li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Art')">Art</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Baby')">Baby</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Books')">Books</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('clothing')">Clothing, Shoes & Accessories</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Computers/Tablets & Networking')">Computers/Tablets & Networking</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Health & Beauty')">Health & Beauty</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Music')">Music</a></li>
-          <li><a class="dropdown-item" href="#" (click)="selectCategory('Video Games & Consoles')">Video Games & Consoles</a></li>
-        </ul>
-        </div>
+            <select id="categoryDropdown" [formControl]="searchForm.get('category')">
+              <option value="All Categories">All Categories</option>
+              <option value="Art">Art</option>
+              <option value="Baby">Baby</option>
+              <option value="Books">Books</option>
+              <option value="clothing">Clothing, Shoes & Accessories</option>
+              <option value="Computers/Tablets & Networking">Computers/Tablets & Networking</option>
+              <option value="Health & Beauty">Health & Beauty</option>
+              <option value="Music">Music</option>
+              <option value="Video Games & Consoles">Video Games & Consoles</option>
+            </select>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -138,7 +125,7 @@
           {{suggestion}}
         </mat-option>
       </mat-autocomplete>
-      <div *ngIf="searchForm.get('rzipCode')?.touched && selectedLocation==='other'" class="error" style="color:red;"
+      <div *ngIf="otherLocationSelected && vrzipcode  && selectedLocation==='other'" class="ferror" style="color:red;"
       >
         Please enter a valid zip code.
       </div>
@@ -148,10 +135,16 @@
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-6">
-      <button id="sub" type="submit" class="btn btn-light submit" [disabled]="!(searchForm.get('keyword').valid) && ((selectedLocation === 'current') || (searchForm.get('location').value === 'other'))" >
+    <button
+    id="sub"
+    type="submit"
+    class="btn btn-light submit"
+    [disabled]="(searchForm.get('location').value === 'other' && !searchForm.get('keyword').valid) || (selectedLocation !== 'current' && searchForm.get('location').value !== 'other') && !clearClicked"
+  >
     <span class="material-icons" style="display: inline-block; vertical-align: middle;">search</span>
     <span style="display: inline-block; vertical-align: middle;">Search</span>
   </button>
+  
   <button type="reset" class="btn btn-light clear" (click)="onClear()" id="reset">
     <span class="material-icons" style="display: inline-block; vertical-align: middle;">clear_all</span>
     <span style="display: inline-block; vertical-align: middle;">Clear</span>
@@ -177,7 +170,7 @@
 </div>  
 </div>
   <div class="container-fluid">
-    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab"></app-result-table>
+    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab"></app-result-table>
     <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
       No Records.
     </div>

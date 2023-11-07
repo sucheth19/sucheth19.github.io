@@ -1,10 +1,16 @@
     import { Component, ViewEncapsulation, EventEmitter, Output, Input } from '@angular/core';
-    import { FormBuilder, FormControl,  Validators } from '@angular/forms';
+    import { FormBuilder, FormControl,  Validators, AbstractControl, ValidationErrors} from '@angular/forms';
     import {ZipCodeService} from '../zip-code.service';
     import { HttpClient } from '@angular/common/http';
     import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
     import {SearchItemService} from '../search-item.service';
 
+    function keywordWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+      const keywordValue = control.value as string;
+      const isWhitespace = keywordValue.trim() === '';
+    
+      return isWhitespace ? { whitespace: true } : null;
+    }
     @Component({
       selector: 'app-forms',
       templateUrl: './forms.component.html',
@@ -15,6 +21,7 @@
       selectedLocation: string='current';
       zipCode: FormControl = new FormControl('');
       searchForm: any;
+      title: string = '';
       isSubmitted = false;
       zipCodeSuggestions: any[] = [];
       keywordError: boolean = false;
@@ -27,13 +34,20 @@
       showWishListTab:boolean = false;
       showResultValue:boolean = false;
       postalCode: any;
+      otherLocationSelected: boolean = false;
+      vrzipcode:boolean = true;
+      clearClicked: boolean = false;
+      
+
       onLocationChange(location: string) {
         this.selectedLocation = location;
         const rzipCodeControl = this.searchForm.get('rzipCode');
         
         if (location === 'other') {
+          this.otherLocationSelected = true;
           rzipCodeControl.enable(); // Enable the rzipCode input
         } else {
+          this.otherLocationSelected = false;
           rzipCodeControl.disable(); // Disable the rzipCode input
         }
       }
@@ -53,7 +67,11 @@
           zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
           rzipCode: {value:'',disabled:true}  
         });
-      }
+        this.searchForm.get('keyword')?.setValidators([Validators.required, keywordWhitespaceValidator]);
+      } 
+ 
+     
+      
       activateResultsTab(){
         this.showResultsTab = true;
         this.showWishListTab = false;
@@ -70,6 +88,9 @@
       onZipCodeChange(rzipCode: string) {
         if(this.searchForm.get('rzipCode')?.valid){
           if (rzipCode.length >= 0) {
+            if (rzipCode.length === 5) {
+              this.vrzipcode = false;
+            }
             this.zipCodeService.getSuggestions(rzipCode).subscribe(
               (data: any) => {
                 if (data.postalCodes) {
@@ -113,11 +134,13 @@
           this.searchForm.get('category')?.setValue(category);
         }
       }
-
+    
+      
       validateZipCode() {
-        return this.zipCode.value.length === 5; // Use .value to access the value of the FormControl
+        return this.zipCode.value.length === 5 ; // Use .value to access the value of the FormControl
       }
   // @Output() resultTableDataEmitter = new EventEmitter<any[]>();
+  
   onSubmit() {
     this.isSubmitted = true;
     this.resultTableData = [] ;
@@ -137,7 +160,6 @@
       zipCode: this.postalCode,
       rzipCode: this.searchForm.value.rzipCode
     };
-    console.log('requestData',requestData);
     this.searchItemService.getSearchResults(requestData).subscribe(
       (data: any) => {        
         this.resultTableData = data.searchResult?.[0]?.item || [];
@@ -152,7 +174,7 @@
   }
 
   onClear() {
-    this.searchForm.get('keyword')?.setValue('');
+  this.searchForm.get('keyword')?.setValue('');
   this.searchForm.get('new')?.setValue(false);
   this.searchForm.get('used')?.setValue(false);
   this.searchForm.get('unspecified')?.setValue(false);
@@ -171,6 +193,23 @@
   this.isSubmitted = false;
   this.showResultsTab = true;
   this.showWishListTab = false;
+  this.searchForm.get('rzipCode')?.setValue('');
+  this.fetchGeolocation();
+  this.selectedLocation = 'current';
+  this.searchForm = this.formBuilder.group({
+    keyword: ['', Validators.required],
+    category: 'All Categories',
+    new: false,
+    used: false,
+    unspecified: false,
+    local: false,
+    freeshipping: false,
+    distance: 10,
+    location: 'current',
+    zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+    rzipCode: {value:'',disabled:true}  
+  });
+  this.searchForm.get('keyword')?.setValidators([Validators.required, keywordWhitespaceValidator]);
 }
       
     }

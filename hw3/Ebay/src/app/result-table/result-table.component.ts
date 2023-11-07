@@ -3,6 +3,7 @@
   import { ItemDetailsService } from '../item-details.service';
   import { NgxPaginationModule } from 'ngx-pagination';
   import { WishListService} from '../wish-list.service';
+  import { ItemsService } from '../items.service';
   
   @Component({
     selector: 'app-result-table',
@@ -11,6 +12,8 @@
   })
   export class ResultTableComponent implements OnInit {
     @Input() result!: any[];
+    @Input() showWishListTab: boolean = false;
+    @Input() showResultTab: boolean = false;
     itemsPerPage: number = 10;
     currentPage: number = 1;
     loading: boolean = false; 
@@ -23,10 +26,11 @@
     paginatedResult!: any[];
     enableDetailsButton: boolean = false;
     selectedItem: any | null = null;
+    title: string = '';
 
     @Input() resultActive: boolean=false;
-    constructor(private http: HttpClient,private wishlistService: WishListService, private itemDetailsService: ItemDetailsService, private cdr: ChangeDetectorRef) {
-      console.log('this',this.result)
+    constructor(private itemsService:ItemsService,private http: HttpClient,private wishlistService: WishListService, private itemDetailsService: ItemDetailsService, private cdr: ChangeDetectorRef) {
+
     }
     ngOnChanges(changes: SimpleChanges) {
       if ('result' in changes && changes['result'].currentValue) {
@@ -37,11 +41,13 @@
     }
     onItemClick(item: any): void {
       this.selectedItem = item;
+      this.title = item.title[0];
     }
     
     enableDetails() {
       this.enableDetailsButton = true;
     }
+
     ngOnInit() {
       if (this.resultActive) {
         console.log('Result is active:', this.resultActive);
@@ -117,14 +123,33 @@
     }
     wishList(item:any){
       console.log('item',item)
-      this.http.post('http://localhost:3000/products',item).subscribe((response)=>{
-        console.log('res',response);
-      },
-      (error)=>{
-        console.error('Error',error);
+        if (item) {
+          const params = {
+            itemId: item.itemId && item.itemId[0] ? item.itemId[0] : "N/A",
+            title: item.title && item.title[0] ? item.title[0] : "N/A",
+            galleryUrl: item.galleryURL && item.galleryURL[0] ? item.galleryURL[0] : "N/A",
+            price: item.sellingStatus && item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : "N/A",
+            shippingPrice: item.shippingInfo && item.shippingInfo[0].shippingServiceCost[0].__value__ ? item.shippingInfo[0].shippingServiceCost[0].__value__ : "N/A",
+            zipCode: item.postalCode && item.postalCode[0] ? item.postalCode[0] : "N/A",
+            shippingInfo: item.shippingInfo,
+            returnsAccepted: item.returnsAccepted && item.returnsAccepted[0] ? item.returnsAccepted[0] : "false",
+          };
+          this.itemsService.addToWishlist(item);
+          this.http.get('http://localhost:3000/products',{params}).subscribe((response)=>{
+            console.log('res',response);
+          },
+          (error)=>{
+            console.error('Error',error);
+          }
+          )
+          // You can proceed with your HTTP request using the params
+        } else {
+          console.error('Item is empty or undefined.');
+        }
       }
-      )
-    }
+      
+   
+    
     getSingleItem(itemId:string, index:number){
       this.enableDetails();
       this.shippingDetails = this.result[index].shippingInfo[0];
@@ -158,10 +183,11 @@ toggleWishlist(item:any) {
   item.inWishlist = !item.inWishlist;
 }
 removeFromWishlist(item: any) {
-  this.http.delete(`http://localhost:3000/products/${item.itemId}`).subscribe(
+  this.itemsService.removeFromWishlist(item.itemId[0]);
+  this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
     (response) => {
-      console.log('Item removed from the wishlist', item.itemId);
-      const index = this.wishListData.findIndex((itm) => itm.itemId === item.itemId);
+      console.log('Item removed from the wishlist', item.itemId[0]);
+      const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
       if (index !== -1) {
         this.wishListData.splice(index, 1); // Remove the item from the local array
       }

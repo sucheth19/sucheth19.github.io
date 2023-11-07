@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-3">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
+                    <button class="btn dropdown-toggle sbo" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
                         {{ ascendingSort ? 'Ascending' : 'Descending' }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownSort">
@@ -42,14 +42,14 @@
                 <div class="card text-white bg-dark mb-3">
                     <div class="row g-0">
                     <div class="col-md-4">
-                        <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px;width: 200px;">
+                        <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px;width: 150px;margin-left:10px;margin-bottom:10px;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                        <h5 class="card-title"><a style="color:rgb(0, 255, 191); text-decoration: none;" [href]="item.viewItemURL">{{item.title}}</a></h5>
-                        <p class="card-text" style="color:rgb(48, 244, 5)">  Price: ${{item.buyItNowPrice.__value__}}</p>
-                        <p class="card-text" style="color:rgb(208, 208, 6)">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
-                        <p class="card-text">Days Left: {{item.timeLeft}}</p>
+                        <h5 class="card-title"><a style="color:rgb(0, 255, 191); text-decoration: none;margin-left:-200px;" [href]="item.viewItemURL">{{item.title}}</a></h5>
+                        <p class="card-text" style="color:rgb(48, 244, 5);margin-left:-200px;">  Price: ${{item.buyItNowPrice.__value__}}</p>
+                        <p class="card-text" style="color:rgb(208, 208, 6);margin-left:-200px;">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
+                        <p class="card-text" style="margin-left:-200px;">Days Left: {{item.timeLeft}}</p>
                         </div>
                     </div>
                     </div>

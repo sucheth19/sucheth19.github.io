@@ -61,7 +61,7 @@
             <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center;"></pagination-controls>
             </nav>
           </div>
-      <app-details *ngIf="showDetailsTab" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" ></app-details>
+      <app-details *ngIf="showDetailsTab" [result]="result" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" [showResultsTab]="resultActive" [showWishListTab]="showWishListTab" [showDetailsTab]="showDetailsTab" [title]="title" ></app-details>
 
     </div>
     

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WishListService} from '../wish-list.service';
 import { ItemDetailsService } from '../item-details.service';
+import { ItemsService } from '../items.service';
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
@@ -19,7 +20,7 @@ export class WishlistComponent implements OnInit {
   detail:boolean = true;
   showDetailsTab: boolean = false;
   selectedItem: any | null = null;
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private wishlistService: WishListService,private itemDetailsService: ItemDetailsService) { }
+  constructor(private itemService:ItemsService ,private http: HttpClient, private cdr: ChangeDetectorRef, private wishlistService: WishListService,private itemDetailsService: ItemDetailsService) { }
   ngOnInit(): void {
     this.fetchWishListData();
   }
@@ -97,10 +98,11 @@ export class WishlistComponent implements OnInit {
     return Math.ceil(this.wishListData.length / this.itemsPerPage);
   }
   removeFromWishlist(item: any) {
-    this.http.delete(`http://localhost:3000/products/${item.itemId}`).subscribe(
+    this.itemService.removeFromWishlist(item.itemId[0]);
+    this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
       (response) => {
-        console.log('Item removed from the wishlist', item.itemId);
-        const index = this.wishListData.findIndex((itm) => itm.itemId === item.itemId);
+        console.log('Item removed from the wishlist', item.itemId[0]);
+        const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
         if (index !== -1) {
           this.wishListData.splice(index, 1); // Remove the item from the local array
           this.calculateTotalPrice();

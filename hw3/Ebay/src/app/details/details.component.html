@@ -1,7 +1,7 @@
-<div class="alert alert-warning" role="alert" *ngIf="itemDetails.length === 0" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
+<div class="alert alert-warning" role="alert" *ngIf="itemDetails.length === 0 && !prevTab" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
     No Records.
    </div>
-<div class="container">
+<div class="container" *ngIf="itemDetails.length>0">
 <div class="product" style="margin:auto;padding:auto;">
     <div id="fb-root"></div>
     <div class="row">
@@ -11,7 +11,7 @@
         </div>
 <div class="row">
     <div class="col-md-2">
-        <div class="btn"  >< List</div>
+        <div class="btn" (click)="goToListPage()" >< List</div>
     </div>
     <div class="col-md-6"></div>
     <div class="col-md-2">
@@ -79,7 +79,7 @@
     </table>
 </div>
 
-<app-photos *ngIf="photo" [title]="itemDetails[23][1]" ></app-photos>
+<app-photos *ngIf="photo" [title]="title" ></app-photos>
 <app-seller *ngIf="seller" [returnsAccepted]="returnsAccepted"></app-seller>
 <app-shipping *ngIf="shopping" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted">
 </app-shipping>
@@ -118,4 +118,9 @@
         </div>
       </div>
     </div>
+</div>
+  <app-result-table *ngIf="activeTab==='results' && result.length > 0 && !showWishListTab"[result]="result" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab"></app-result-table>
+  <div class="alert alert-warning" role="alert" *ngIf="prevTab && activeTab==='results' && showResultsTab && result.length === 0 && !showWishListTab">
+    No Records.
   </div>
+  <app-wishlist *ngIf="activeTab==='wishlist' &&  showWishListTab && !showResultsTab" ></app-wishlist>

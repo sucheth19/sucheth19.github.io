@@ -1,5 +1,4 @@
-import { Component, Input, ViewChild, ElementRef} from '@angular/core';// Import the dialog component
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
+import { Component, Input} from '@angular/core';// Import the dialog component
 
 @Component({
   selector: 'app-details',
@@ -10,25 +9,41 @@ export class DetailsComponent {
   @Input() itemDetails: any[] = [];
   @Input() shippingDetails: any[] = [];
   @Input() returnsAccepted: [] = [];
+  @Input() showWishListTab: boolean = false;
+  @Input() showResultsTab: boolean = false;
+  @Input() showDetailsTab: boolean = false;
+  @Input() result: any[] = [];
+  @Input() title: string = '';
   product:boolean = true;
   seller:boolean = false;
   shopping:boolean = false;
   similar:boolean = false;
   photo:boolean = false;
-  constructor(){
-  }
+  activeTab: string = 'other';
+  prevTab: boolean = false;
+
+  constructor() { }
  
    navigateBackToList(){
     console.log('navigateBackToWishList');
    }
    ngOnInit() {
-    if (this.itemDetails) {
-      console.log('ITEMdETAILS:', this.itemDetails);  
-    }
-    console.log('returnsAccepted',this.returnsAccepted)
- 
+  console.log('detailre',this.result)
+  console.log('detail',this.itemDetails)
+  console.log('title',this.title)
   }
-
+  goToListPage() {
+    this.activeTab= this.showResultsTab ? 'results' : 'wishlist'
+    this.prevTab = true;
+    this.itemDetails = [];
+    this.shippingDetails = [];
+    this.returnsAccepted = [];
+    this.product = false;
+    this.seller = false;
+    this.shopping = false;
+    this.similar = false;
+    this.photo = false;
+  }
   showProduct(){
   this.product = true;
   this.seller = false;

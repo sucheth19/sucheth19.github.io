@@ -2,8 +2,8 @@
     No Records.
 </div>
 
-<div class="container" *ngIf="photos.length > 0">
-            <div class="parent">
+<div *ngIf="photos.length > 0">
+            <!-- <div class="parent">
                 <div class="imag div1"><img [src]="photos[0].link" style="height: 170px; width: 370px;"> </div>
                 <div class="imag div2"></div>
                 <div class="imag div3"><img [src]="photos[1].link" style="width: 360px; height: 460px;"> </div>
@@ -13,6 +13,34 @@
                 <div class="imag div7"> <img [src]="photos[5].link" style="height: 170px; width: 370px;"></div>
                 <div class="imag div8"> <img [src]="photos[6].link" style="width: 360px; height: 460px;"></div>
                 <div class="imag div9"><img [src]="photos[7].link" style="width: 360px; height: 720px;"> </div>
-                
+                </div> -->
+                <div class="row g-sm-3">
+                    <div class="col-sm-4 ps-0">
+                         <ng-container *ngFor="let item of photoTab; let i=index">
+                            <ng-container *ngIf="i%3===0 && i!=6">
+                                <a [href]="item" target="_blank">
+                                    <img [src]="item" class="img-fluid border border-dark m-1" style="width:100%;border-width: 8px !important;">
+                                </a>
+                            </ng-container>
+                         </ng-container>
+                    </div>
+                    <div class="col-sm-4 ps-0">
+                        <ng-container *ngFor="let item of photoTab; let i=index">
+                           <ng-container *ngIf="i%3===1 && i<9">
+                               <a [href]="item" target="_blank">
+                                   <img [src]="item" class="img-fluid border border-dark m-1" style="width:100%;border-width: 8px !important;">
+                               </a>
+                           </ng-container>
+                        </ng-container>
+                   </div>
+                   <div class="col-sm-4 ps-0">
+                    <ng-container *ngFor="let item of photoTab; let i=index">
+                       <ng-container *ngIf="i%3===2">
+                           <a [href]="item" target="_blank">
+                               <img [src]="item" class="img-fluid border border-dark m-1" style="width:100%;border-width: 8px !important;">
+                           </a>
+                       </ng-container>
+                    </ng-container>
+               </div>
                 </div>
 </div>
