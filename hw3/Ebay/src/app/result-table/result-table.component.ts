@@ -33,7 +33,7 @@
 
     @Input() resultActive: boolean=false;
     constructor(private itemsService:ItemsService,private http: HttpClient,private wishlistService: WishListService, private itemDetailsService: ItemDetailsService, private cdr: ChangeDetectorRef) {
-
+      this.fetchWishListData();
     }
     onBackToList(event: boolean) {
       this.showDetailsTab = false; // Hide the Details tab
@@ -48,6 +48,7 @@
     onItemClick(item: any): void {
       this.selectedItem = item;
       this.title = item.title[0];
+      item.isActive=true;
     }
     
     enableDetails() {
@@ -56,7 +57,7 @@
 
     ngOnInit() {
 
-  
+      console.log('result',this.result)
       this.fetchWishListData();
       this.wishlistVisited = false;
       this.loading = true;

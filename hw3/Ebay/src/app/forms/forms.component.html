@@ -175,5 +175,5 @@
     <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
       No Records.
     </div>
-    <app-wishlist *ngIf="showWishListTab && !showResultsTab" ></app-wishlist>
+    <app-wishlist *ngIf="showWishListTab && !showResultsTab" [showResultTab]="showResultsTab" [showWishListTab]="showWishListTab" ></app-wishlist>
   </div>

@@ -64,4 +64,4 @@
             </nav>   -->
       </div>
   </div>
-  <app-details *ngIf="showDetailsTab" (backToList)="onBackToList($event)" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" ></app-details>
+  <app-details *ngIf="showDetailsTab" (backToList)="onBackToList($event)" [itemDetails]="singleItemDetails" [shippingDetails]="shippingDetails" [returnsAccepted]="returnsAccepted" [showWishListTab]="showWishListTab" [showResultsTab]="showResultTab" ></app-details>

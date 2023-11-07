@@ -37,7 +37,6 @@ export class DetailsComponent implements OnInit {
    ngOnInit() {
     this.index = this.result.findIndex((item) => item.itemId[0] === this.itemDetails[2][1])
     this.toggle = this.result[this.index].isActive;
-    console.log('toggle',this.toggle)
     this.fetchWishListData();
     this.loading = true;
     setTimeout(() => {
@@ -111,6 +110,7 @@ export class DetailsComponent implements OnInit {
   
       // Get the item to be removed from the 'result' array
       // Send an HTTP request to your server to remove the item from the wishlist
+      this.result[this.index].isActive = false;
       this.itemsService.removeFromWishlist(itemId);
       this.http.delete(`http://localhost:3000/products/${itemId}`).subscribe(
         (response) => {

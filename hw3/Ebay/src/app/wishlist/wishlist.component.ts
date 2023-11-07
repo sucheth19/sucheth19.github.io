@@ -9,6 +9,8 @@ import { ItemsService } from '../items.service';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
+  @Input() showWishListTab: boolean = false;
+  @Input() showResultTab: boolean = false;
   itemsPerPage: number = 10;
   currentPage: number = 1;
   wishListData: any[] = [];
@@ -30,6 +32,8 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
     this.enableDetailsButton = false;
     this.fetchWishListData();
+    console.log('showWishList',this.showWishListTab)
+    console.log('showResult',this.showResultTab)
   }
   fetchWishListData() {
     this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
