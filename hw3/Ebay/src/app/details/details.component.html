@@ -5,9 +5,10 @@
 <div class="product" style="margin:auto;padding:auto;">
     <div id="fb-root"></div>
     <div class="row">
-        <div class="col-md-12 text-center">
-            {{itemDetails[23][1]}}
-        </div>
+      <div class="col-md-12 text-center">
+        {{ itemDetails[23] ? itemDetails[23][1] : 'N/A' }}
+      </div>
+      
         </div>
 <div class="row">
     <div class="col-md-2">
@@ -119,8 +120,8 @@
       </div>
     </div>
 </div>
-  <app-result-table *ngIf="activeTab==='results' && result.length > 0 && !showWishListTab"[result]="result" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab"></app-result-table>
+  <!-- <app-result-table *ngIf="prevTab && activeTab==='results' && result.length > 0 && !showWishListTab"[result]="result" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab"></app-result-table>
   <div class="alert alert-warning" role="alert" *ngIf="prevTab && activeTab==='results' && showResultsTab && result.length === 0 && !showWishListTab">
     No Records.
   </div>
-  <app-wishlist *ngIf="activeTab==='wishlist' &&  showWishListTab && !showResultsTab" ></app-wishlist>
+  <app-wishlist *ngIf="prevTab && activeTab==='wishlist' &&  showWishListTab && !showResultsTab" ></app-wishlist> -->

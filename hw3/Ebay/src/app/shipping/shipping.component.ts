@@ -12,7 +12,7 @@ export class ShippingComponent {
   }
 
   ngOnInit() {
-    console.log('returns', this.returnsAccepted['returnsAccepted'][0]);
+    
   }
   
 }

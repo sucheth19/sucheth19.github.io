@@ -27,17 +27,11 @@ export class PhotosComponent {
         // Handle the API response data here
        
         this.photos = data.items;
-        const validPhotos = this.photos
-        .filter((photo: any) => photo.link !== null)
-        .map((photo: any) => photo.link);
-
-      while (validPhotos.length < 6) {
-        validPhotos.push(null);
-      }
-
-      this.photoTab = validPhotos;
-
-        console.log('this.photos', this.photoTab);
+        this.photoTab = this.photos.map((photo: any) => photo.link);
+        if(this.photoTab.length>6){
+          this.photoTab.splice(6,0,null);
+        }
+        console.log('photos', this.photoTab);
       },
       (error) => {
         console.error('API call failed:', error);

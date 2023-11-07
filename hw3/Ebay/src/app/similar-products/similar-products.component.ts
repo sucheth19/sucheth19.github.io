@@ -25,7 +25,6 @@ export class SimilarProductsComponent implements OnInit {
   showAll: boolean = true;
 
   constructor(private http: HttpClient) {
-    console.log('this.itemId', this.itemId);
   }
 
   ngOnInit(): void {
@@ -73,11 +72,9 @@ export class SimilarProductsComponent implements OnInit {
   selectSortOrder(order: string,event:any) {
     // Handle the sort order selection here.
     if(order === 'Ascending'){
-      console.log('Ascending')
       this.ascendingSort = true;
 
     }else{
-      console.log('Descending'  )
       this.ascendingSort = false;
     }
     this.sortProducts();
@@ -85,14 +82,12 @@ export class SimilarProductsComponent implements OnInit {
   }
   toggleShowAll() {
     this.showAll = !this.showAll;
-    console.log('showAll',this.originalProducts)
     if (this.showAll) {
       // If "Show More" is clicked, display all products.
       this.similarProducts = this.originalProducts.slice(0,5);
     } else {
       // If "Show Less" is clicked, display only the first 5 products.
       this.similarProducts = this.originalProducts.slice();
-      console.log('showMore',this.similarProducts)
     }
   }
   

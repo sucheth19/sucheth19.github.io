@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WishListService} from '../wish-list.service';
 import { ItemDetailsService } from '../item-details.service';
@@ -19,6 +19,7 @@ export class WishlistComponent implements OnInit {
   enableDetailsButton: boolean = false;
   detail:boolean = true;
   showDetailsTab: boolean = false;
+  @Output() wishlistChanged: EventEmitter<any> = new EventEmitter<any>();
   selectedItem: any | null = null;
   constructor(private itemService:ItemsService ,private http: HttpClient, private cdr: ChangeDetectorRef, private wishlistService: WishListService,private itemDetailsService: ItemDetailsService) { }
   ngOnInit(): void {
@@ -28,7 +29,6 @@ export class WishlistComponent implements OnInit {
     this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
       this.wishListData = data;
       this.calculateTotalPrice();
-      console.log('this.wishListData',this.wishListData);
     })
   }
   onItemClick(item: any): void {
@@ -58,7 +58,6 @@ export class WishlistComponent implements OnInit {
     }
   getSingleItem(itemId:string, index:number){
     this.enableDetails();
-    console.log('itemId',this.wishListData[index])
     this.shippingDetails = this.wishListData[index].shippingInfo[0];
     this.returnsAccepted = this.wishListData[index].returnsAccepted;
     this.itemDetailsService.getSingleItem(itemId).subscribe((response)=>{
@@ -101,7 +100,6 @@ export class WishlistComponent implements OnInit {
     this.itemService.removeFromWishlist(item.itemId[0]);
     this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
       (response) => {
-        console.log('Item removed from the wishlist', item.itemId[0]);
         const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
         if (index !== -1) {
           this.wishListData.splice(index, 1); // Remove the item from the local array

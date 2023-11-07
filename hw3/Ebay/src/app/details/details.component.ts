@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';// Import the dialog component
+import { Component, Input, Output, EventEmitter} from '@angular/core';// Import the dialog component
 
 @Component({
   selector: 'app-details',
@@ -19,7 +19,7 @@ export class DetailsComponent {
   shopping:boolean = false;
   similar:boolean = false;
   photo:boolean = false;
-  activeTab: string = 'other';
+  activeTab= this.showResultsTab ? 'results' : 'wishlist'
   prevTab: boolean = false;
 
   constructor() { }
@@ -28,12 +28,10 @@ export class DetailsComponent {
     console.log('navigateBackToWishList');
    }
    ngOnInit() {
-  console.log('detailre',this.result)
-  console.log('detail',this.itemDetails)
-  console.log('title',this.title)
+  
   }
   goToListPage() {
-    this.activeTab= this.showResultsTab ? 'results' : 'wishlist'
+    console.log('goToListPage');
     this.prevTab = true;
     this.itemDetails = [];
     this.shippingDetails = [];

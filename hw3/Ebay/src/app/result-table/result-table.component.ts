@@ -1,4 +1,4 @@
-  import { Component, Input, OnInit,  ChangeDetectorRef ,OnChanges, SimpleChanges } from '@angular/core';
+  import { Component, Input, OnInit,  ChangeDetectorRef ,OnChanges, SimpleChanges, Output,EventEmitter } from '@angular/core';
   import { HttpClient } from '@angular/common/http';
   import { ItemDetailsService } from '../item-details.service';
   import { NgxPaginationModule } from 'ngx-pagination';
@@ -14,6 +14,7 @@
     @Input() result!: any[];
     @Input() showWishListTab: boolean = false;
     @Input() showResultTab: boolean = false;
+    @Output() resultChanged: EventEmitter<any> = new EventEmitter<any>();
     itemsPerPage: number = 10;
     currentPage: number = 1;
     loading: boolean = false; 

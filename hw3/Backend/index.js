@@ -247,12 +247,6 @@ const OAuthToken = require('./ebay_oauth_token');
             res.status(500).json({ error: 'Failed to fetch data' });
         }
     })
-
-
-
-  
-
-
     //get photo
     app.get('/api/photo',async (req,res)=>{
         title = req.query.title;
