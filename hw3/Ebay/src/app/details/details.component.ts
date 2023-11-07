@@ -17,6 +17,7 @@ export class DetailsComponent implements OnInit {
   @Input() title: string = '';
   @Input() wishListData: any[] = [];
   @Output() resultlistChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Output() backToList = new EventEmitter<boolean>();
   product:boolean = true;
   seller:boolean = false;
   shopping:boolean = false;
@@ -137,6 +138,7 @@ export class DetailsComponent implements OnInit {
     this.shopping = false;
     this.similar = false;
     this.photo = false;
+    this.backToList.emit(true);
   }
   showProduct(){
   this.product = true;

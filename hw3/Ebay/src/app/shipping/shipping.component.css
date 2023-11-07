@@ -1,3 +1,12 @@
 th{
     padding:20px;
 }
+
+  
+  /* Use a media query to apply the style only in mobile view (adjust the breakpoint as needed) */
+  @media (max-width: 768px) {
+    .full-width {
+      display: block;
+      width: 100%;
+    }
+  }

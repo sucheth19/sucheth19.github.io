@@ -37,8 +37,8 @@
       otherLocationSelected: boolean = false;
       vrzipcode:boolean = true;
       clearClicked: boolean = false;
-      
-
+      wishlistVisited:boolean  = false;
+      fromwishList:boolean = false;
       onLocationChange(location: string) {
         this.selectedLocation = location;
         const rzipCodeControl = this.searchForm.get('rzipCode');

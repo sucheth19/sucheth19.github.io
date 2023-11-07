@@ -5,27 +5,27 @@
     <table class="table table-dark table-hover table-sm tbl">
             <tbody>
                     <tr>
-                        <th>Shipping Cost</th>
-                        <th>{{this.shippingDetails["shippingServiceCost"][0].__value__ === '0.0' ? 'Free Shipping'  : '$ '+ this.shippingDetails["shippingServiceCost"][0].__value__ || 'N/A' }}  </th>
+                        <th class="full-width">Shipping Cost</th>
+                        <th class="full-width">{{this.shippingDetails["shippingServiceCost"][0].__value__ === '0.0' ? 'Free Shipping'  : '$ '+ this.shippingDetails["shippingServiceCost"][0].__value__ || 'N/A' }}  </th>
                     </tr>
-                    <tr><th>
+                    <tr><th class="full-width">
                         Shipping Locations
                     </th>
-                    <th>
+                    <th class="full-width">
                         {{this.shippingDetails["shipToLocations"][0]}}
                     </th>
                 </tr>
                 <tr>
-                    <th>
+                    <th class="full-width">
                     Handling Time
                     </th>
-                    <th>
+                    <th class="full-width">
                      {{this.shippingDetails["handlingTime"][0]}} Day
                     </th>
                 </tr>
                 <tr>
-                    <th>Expedited Shipping</th>
-                    <th>
+                    <th class="full-width">Expedited Shipping</th>
+                    <th class="full-width">
                         <span *ngIf="shippingDetails['expeditedShipping'][0] === 'true'" class="material-icons" style="color:green;"> 
                             done
                         </span>
@@ -37,10 +37,10 @@
                 </tr>
           
                 <tr>
-                    <th>
+                    <th class="full-width">
                         One Day Shipping
                     </th>
-                    <th>
+                    <th class="full-width">
                         <span *ngIf="shippingDetails['oneDayShippingAvailable'][0] === 'true'" class="material-icons" style="color:green;">
                             done
                         </span>
@@ -51,8 +51,8 @@
                     </th>
                 </tr>
                 <tr>
-                    <th>Return Accepted</th>
-                            <th>
+                    <th class="full-width">Return Accepted</th>
+                            <th class="full-width">
                                 <span *ngIf="returnsAccepted['returnsAccepted'][0] === 'true'" class="material-icons" style="color:green;">
                                     done
                                 </span>

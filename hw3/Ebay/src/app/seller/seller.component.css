@@ -10,7 +10,21 @@ th{
     top: 10%;
     position: absolute;
     width: 100%;
-    text-align: center;
     font-size: 13px;
     font-weight: 600;
+    padding-right:95.5%;
 }
+
+
+
+  /* Use a media query to apply the style only in mobile view (adjust the breakpoint as needed) */
+  @media (max-width: 768px) {
+    .full-width {
+      display: block;
+      width: 100%;
+    }
+    .percentageValue{
+        padding:0px;
+    }
+    
+  }

@@ -21,8 +21,14 @@ export class WishlistComponent implements OnInit {
   showDetailsTab: boolean = false;
   @Output() wishlistChanged: EventEmitter<any> = new EventEmitter<any>();
   selectedItem: any | null = null;
+  title: string = '';
   constructor(private itemService:ItemsService ,private http: HttpClient, private cdr: ChangeDetectorRef, private wishlistService: WishListService,private itemDetailsService: ItemDetailsService) { }
+  onBackToList(event: boolean) {
+    this.showDetailsTab = false; // Hide the Details tab
+    
+  }
   ngOnInit(): void {
+    this.enableDetailsButton = false;
     this.fetchWishListData();
   }
   fetchWishListData() {
@@ -33,6 +39,7 @@ export class WishlistComponent implements OnInit {
   }
   onItemClick(item: any): void {
     this.selectedItem = item;
+    this.title = item.title[0];
   }
   showProduct(){
     if (this.selectedItem) {

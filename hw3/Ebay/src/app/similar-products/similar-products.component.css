@@ -1,5 +1,17 @@
 .sbo{
-    background-color: rgb(128,128,128);
+    background-color: rgba(228,232,236,255);
     color:black;
     margin-left:-100px;
 }
+@media (max-width: 768px) {
+    .full-width {
+      display: block;
+      width: 100%;
+    }
+    .percentageValue{
+        padding:0px;
+    }
+    round-progress{
+        margin:auto;
+    }
+  }

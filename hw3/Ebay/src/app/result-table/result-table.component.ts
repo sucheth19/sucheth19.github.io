@@ -15,6 +15,8 @@
     @Input() showWishListTab: boolean = false;
     @Input() showResultTab: boolean = false;
     @Output() resultChanged: EventEmitter<any> = new EventEmitter<any>();
+    @Input() wishlistVisited: boolean = true;
+    @Input() fromWishList: boolean = true;
     itemsPerPage: number = 10;
     currentPage: number = 1;
     loading: boolean = false; 
@@ -32,6 +34,9 @@
     @Input() resultActive: boolean=false;
     constructor(private itemsService:ItemsService,private http: HttpClient,private wishlistService: WishListService, private itemDetailsService: ItemDetailsService, private cdr: ChangeDetectorRef) {
 
+    }
+    onBackToList(event: boolean) {
+      this.showDetailsTab = false; // Hide the Details tab
     }
     ngOnChanges(changes: SimpleChanges) {
       if ('result' in changes && changes['result'].currentValue) {
@@ -53,7 +58,7 @@
 
   
       this.fetchWishListData();
-    
+      this.wishlistVisited = false;
       this.loading = true;
 
     setTimeout(() => {

@@ -1,69 +1,62 @@
-    <div class="alert alert-warning" role="alert" *ngIf="this.similarProducts.length === 0" style="margin-top:20px;width:70%;margin-left:auto;margin-right: auto;">
-        No Records.
-    </div>
-    <div>
-        <div class="row">
-            <div class="col-md-3">
-                <div >
-                <div class="dropdown">
-                    <a class="btn btn-dark dropdown-toggle" style="background-color: white; color:black;" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{selectedSortCategory}}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default', $event)">Default</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Product Name', $event)">Product Name</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days Left', $event)">Days Left</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price', $event)">Price</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping Cost', $event)">Shipping Cost</a></li>
-                      </ul>
-                                          
-                </div>
-                </div>
+<div class="alert alert-warning" role="alert" *ngIf="this.similarProducts.length === 0" style="margin-top: 20px; width: 70%; margin-left: auto; margin-right: auto;">
+    No Records.
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <div class="dropdown">
+                <a class="btn btn-dark dropdown-toggle" style="background-color: white; color: black;" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedSortCategory }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default', $event)">Default</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Product Name', $event)">Product Name</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days Left', $event)">Days Left</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price', $event)">Price</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping Cost', $event)">Shipping Cost</a></li>
+                </ul>
             </div>
-            <div class="col-md-3">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle sbo" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
-                        {{ ascendingSort ? 'Ascending' : 'Descending' }}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownSort">
-                        <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Ascending',$event)">Ascending</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Descending',$event)">Descending</a></li>
-                    </ul>
-                </div>
-                
-                  
-            </div>
-            <div class="col-md-6"></div>
         </div>
-        
-        
-        <div class="container">
-            <div *ngFor="let item of similarProducts">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="row g-0">
-                    <div class="col-md-4">
-                        <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px;width: 150px;margin-left:10px;margin-bottom:10px;">
+        <div class="col-md-3 col-sm-12">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle sbo" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
+                    {{ ascendingSort ? 'Ascending' : 'Descending' }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownSort">
+                    <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Ascending', $event)">Ascending</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Descending', $event)">Descending</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+    <div class="container">
+        <div *ngFor="let item of similarProducts">
+            <div class="card text-white bg-dark mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4 col-sm-12">
+                        <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px; width: 150px; margin-left: 10px; margin-bottom: 10px;">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-sm-12">
                         <div class="card-body">
-                        <h5 class="card-title"><a style="color:rgb(0, 255, 191); text-decoration: none;margin-left:-200px;" [href]="item.viewItemURL">{{item.title}}</a></h5>
-                        <p class="card-text" style="color:rgb(48, 244, 5);margin-left:-200px;">  Price: ${{item.buyItNowPrice.__value__}}</p>
-                        <p class="card-text" style="color:rgb(208, 208, 6);margin-left:-200px;">  Shipping Cost: ${{item.shippingCost.__value__}}</p>
-                        <p class="card-text" style="margin-left:-200px;">Days Left: {{item.timeLeft}}</p>
+                            <h5 class="card-title"><a style="color: rgb(0, 255, 191); text-decoration: none; margin-left: -200px;" [href]="item.viewItemURL">{{ item.title }}</a></h5>
+                            <p class="card-text" style="color: rgb(48, 244, 5); margin-left: -200px;">Price: ${{ item.buyItNowPrice.__value__ }}</p>
+                            <p class="card-text" style="color: rgb(208, 208, 6); margin-left: -200px;">Shipping Cost: ${{ item.shippingCost.__value__ }}</p>
+                            <p class="card-text" style="margin-left: -200px;">Days Left: {{ item.timeLeft }}</p>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-dark" (click)="toggleShowAll()" style="margin:auto;margin-left:100px;">
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-dark" (click)="toggleShowAll()" style="margin: auto; margin-left: 100px;">
                 {{ showAll ? 'Show More' : 'Show Less' }}
-              </button>
+            </button>
         </div>
-        <div class="col-md-4"></div>
     </div>
-    </div>
+</div>

@@ -171,7 +171,7 @@
 </div>  
 </div>
   <div class="container-fluid">
-    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab"></app-result-table>
+    <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab" [wishlistVisited]="wishlistVisited" [fromWishList]="true"></app-result-table>
     <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
       No Records.
     </div>

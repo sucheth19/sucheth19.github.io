@@ -10,7 +10,9 @@
     color: #007bff; /* Apply your custom link color here */
     text-decoration: none;
 }
-
+.custom-link:hover{
+    cursor: pointer;
+}
 .custom-link:visited {
     color: #4a90e2;
 }
