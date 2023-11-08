@@ -7,6 +7,7 @@ const OAuthToken = require('./ebay_oauth_token');
     const mongoose = require('mongoose');
     app.use(cors());
     const { MongoClient, ServerApiVersion } = require('mongodb');
+const e = require('express');
 
    
 //     const client = new MongoClient('', {
@@ -156,6 +157,7 @@ const OAuthToken = require('./ebay_oauth_token');
         const searchParams = JSON.parse(req.query.searchParams); 
         const keyword = searchParams.keyword;
         const category = searchParams.category;
+        console.log('category',category)
         const newCondition = searchParams.new;
         const usedCondition = searchParams.used;
         const unspecifiedCondition = searchParams.unspecified;
@@ -166,6 +168,32 @@ const OAuthToken = require('./ebay_oauth_token');
         const rzipCode = searchParams.rzipCode;
         const postalCode = rzipCode ? rzipCode : zipCode;
         let apiUrl = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=SuchethG-Dummy-PRD-e7284ce84-7ac41448&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=50&keywords=${keyword}&buyerPostalCode=${postalCode}`
+        let categoryId = 0;
+        if(category==='All Categories'){
+            categoryId = 0;
+        }
+        else if(category==='Art'){
+            categoryId = 505;
+        }else if(category==='Baby'){
+            categoryId = 2984;
+        }else if(category==='Books'){
+            categoryId = 267;
+        }else if(category==='Clothing, Shoes & Accessories'){
+            categoryId = 11450;
+        }else if(category==='Computers/Tablets & Networking'){
+            categoryId = 58058;
+        }else if(category==='Health & Beauty'){
+            categoryId = 26395;
+        }else if(category==='Music'){
+            categoryId = 11233;
+        }else if(category==='Video Games & Consoles'){
+            categoryId = 1249;
+        }
+
+        if(category!='All Categories'){
+
+            apiUrl += `&categoryId=${categoryId}`
+        }
         let index = 0;
         apiUrl += `&itemFilter(${index}).name=MaxDistance&itemFilter(${index}).value=${distance}`;
         index++;

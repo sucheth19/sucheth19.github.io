@@ -4,28 +4,29 @@
 <div >
   <table class="table table-striped table-dark table-hover table-sm">
       <tbody>
-          <ng-container *ngIf="returnsAccepted.storeInfo[0].storeName[0]">
+          <ng-container *ngIf="returnsAccepted && returnsAccepted.storeInfo && returnsAccepted.storeInfo[0]">
               <tr>
                   <th class="full-width" style="padding: 20px;" colspan="2">
-                      <h3 class="text-center">{{ removeSpacesAndUpperCase(returnsAccepted.storeInfo[0].storeName[0]) }}</h3>
+                    <h3 class="text-center">{{ removeSpacesAndUpperCase(returnsAccepted.storeInfo[0].storeName[0]) }}</h3>
                   </th>
               </tr>
           </ng-container>
           
-          <tr *ngIf="returnsAccepted.sellerInfo[0].feedbackScore[0]">
+          <tr *ngIf="returnsAccepted?.sellerInfo[0]?.feedbackScore[0]">
               <th class="full-width" >Feedback Score</th>
-              <th class="full-width">{{ returnsAccepted.sellerInfo[0].feedbackScore[0] }}</th>
+              <th class="full-width">{{ returnsAccepted?.sellerInfo[0]?.feedbackScore[0] }}</th>
           </tr>
           
-          <tr *ngIf="returnsAccepted.sellerInfo[0].positiveFeedbackPercent[0]">
+          <tr *ngIf="returnsAccepted.sellerInfo && returnsAccepted.sellerInfo[0]?.feedbackScore">
               <th class="full-width">Popularity</th>
               <th class="full-width">
                   <div class="positionRelative">
-                      <round-progress 
-                      
-                      style=" width: 40px; height: 40px;"
-                          [color]="'green'" [current]="returnsAccepted.sellerInfo[0].positiveFeedbackPercent[0]"
-                          [max]="100">       {{ returnsAccepted.sellerInfo[0].positiveFeedbackPercent[0] }}</round-progress>
+                      <round-progress style="width: 40px; height: 40px;"
+                          [color]="'green'"
+                           [current]="returnsAccepted?.sellerInfo[0]?.positiveFeedbackPercent[0]"
+                          [max]="100">
+                                 {{ returnsAccepted?.sellerInfo[0]?.positiveFeedbackPercent[0] }}
+                                </round-progress>
                       <div class="percentageValue" style="padding-right:95.5%;">
                           {{ returnsAccepted.sellerInfo[0].positiveFeedbackPercent[0] }}
                       </div>

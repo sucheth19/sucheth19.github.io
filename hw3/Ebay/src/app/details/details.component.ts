@@ -51,8 +51,8 @@ export class DetailsComponent implements OnInit {
       this.fetchWishListData();
     }
   }
+
   toggleWishlist(itemId: any) {
-    this.toggle = !this.toggle;
     let index = this.result.findIndex((item) => item.itemId[0] === itemId);
     
     if (this.toggle) {

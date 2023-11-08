@@ -22,7 +22,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-2">Category</div>
       <div class="col-md-4">
-            <select id="categoryDropdown" [formControl]="searchForm.get('category')">
+            <select id="categoryDropdown" [formControl]="searchForm.get('category')" style="margin-right: 10px;">
               <option value="All Categories">All Categories</option>
               <option value="Art">Art</option>
               <option value="Baby">Baby</option>
@@ -172,8 +172,12 @@
 </div>
   <div class="container-fluid">
     <app-result-table *ngIf="resultTableData.length > 0 && !showWishListTab" [result]="resultTableData" [resultActive]="showResultsTab" [showWishListTab]="showWishListTab" [wishlistVisited]="wishlistVisited" [fromWishList]="true"></app-result-table>
-    <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab">
+    <div class="alert alert-warning" role="alert" *ngIf="showResultValue && resultTableData.length === 0 && !showWishListTab" style="width:80%;margin:auto;">
       No Records.
     </div>
+    
+      <!-- <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" style="width:600px;" aria-valuemax="100" [style.width.%]="getProgressPercentage()" >
+      </div> -->
+ 
     <app-wishlist *ngIf="showWishListTab && !showResultsTab" [showResultTab]="showResultsTab" [showWishListTab]="showWishListTab" ></app-wishlist>
   </div>

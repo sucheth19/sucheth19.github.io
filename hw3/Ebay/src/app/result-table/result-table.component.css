@@ -1,6 +1,6 @@
 .tbr{
     margin:auto;
-    width:85%;
+    width:80%;
 }
 th{
     padding:10px;
@@ -39,4 +39,13 @@ th{
 .details{
     float:right;
     display: block;
+}
+.space-at-bottom-pagination {
+    margin-bottom: 20px; /* Adjust the margin as needed to create the desired spacing */
+  }
+  @media screen and (max-width: 600px) {
+    .dbutton {
+ /* Set the text alignment to left */
+        margin-left:100px; /* Add margin as needed for spacing */
+    }
 }

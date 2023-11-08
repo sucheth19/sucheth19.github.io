@@ -34,9 +34,11 @@
     @Input() resultActive: boolean=false;
     constructor(private itemsService:ItemsService,private http: HttpClient,private wishlistService: WishListService, private itemDetailsService: ItemDetailsService, private cdr: ChangeDetectorRef) {
       this.fetchWishListData();
+      this.detail = true;
     }
     onBackToList(event: boolean) {
       this.showDetailsTab = false; // Hide the Details tab
+      this.detail = true;
     }
     ngOnChanges(changes: SimpleChanges) {
       if ('result' in changes && changes['result'].currentValue) {
@@ -48,22 +50,25 @@
     onItemClick(item: any): void {
       this.selectedItem = item;
       this.title = item.title[0];
-      item.isActive=true;
     }
-    
+    activateWishListTab(){
+      this.showResultTab = false;
+    }
+    activeResultTab(){
+      this.showWishListTab = true;
+    }
     enableDetails() {
       this.enableDetailsButton = true;
     }
 
     ngOnInit() {
-
-      console.log('result',this.result)
+      this.detail = true;
+      console.log('detail',this.detail)
       this.fetchWishListData();
       this.wishlistVisited = false;
       this.loading = true;
 
     setTimeout(() => {
-      // Simulate the completion of data loading
       this.loading = false;
       this.paginateResults();
     }, 2000); 
@@ -86,7 +91,6 @@
       this.result.forEach((item:any)=>{
         item.isActive = this.isItemInWishlist(item.itemId[0]);
       })
-      
     })
   }
   isItemInWishlist(itemId: string): boolean {
@@ -102,7 +106,8 @@
 
     toggleDetailsTab() {
       this.showDetailsTab = !this.showDetailsTab;
-      this.detail = !this.detail;
+      // this.detail = !this.detail;
+      this.detail = false;
       }
     showProduct(){
       if (this.selectedItem) {
@@ -157,9 +162,6 @@
           console.error('Item is empty or undefined.');
         }
       }
-      
-   
-    
     getSingleItem(itemId:string, index:number){
       this.enableDetails();
       this.shippingDetails = this.result[index].shippingInfo[0];
@@ -175,7 +177,6 @@
       }
       )
     }
-
   truncateWithEllipsis(text:string, maxLength:number) {
   if (text[0].length <= maxLength) {
     return text[0];
@@ -191,7 +192,8 @@
 }
 toggleWishlist(item: any) {
   item.inWishlist = !item.inWishlist; // Toggle the inWishlist status
-  if (item.inWishlist) {
+  item.isActive = !item.isActive;
+  if (item.isActive) {
     this.wishList(item);
   } else {
     this.removeFromWishlist(item);

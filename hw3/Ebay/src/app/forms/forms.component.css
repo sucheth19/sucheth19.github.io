@@ -88,6 +88,7 @@ mat-form-field{
   }
   #categoryDropdown{
     width:100%;
+    padding:10px;
   }
   .error{
     margin:auto;

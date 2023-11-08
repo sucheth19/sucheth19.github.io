@@ -1,8 +1,8 @@
-<div class="alert alert-warning" role="alert" *ngIf="result.length == 0">
+<div class="alert alert-warning" role="alert" *ngIf="result.length == 0" style="width:80%;">
   No Records.
  </div>
-  <div *ngIf="result" class="result">
-    <div class="progress" *ngIf="loading">
+  <div *ngIf="result" class="result space-at-bottom">
+    <div class="progress" *ngIf="loading"> 
       <!-- <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" style="width:600px;" aria-valuemax="100" [style.width.%]="getProgressPercentage()" >
       </div> -->
       <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="70" [style.width.%]="50">
@@ -10,43 +10,41 @@
     </div>
     <div class="detail row" *ngIf="detail && !loading">
       <div class="col-md-6"></div>
-      <div class="col-md-4"></div>
-      <button class="col-md-2 btn btn-light" style="text-align: center;" [disabled]="!enableDetailsButton" (click)="showProduct();enableDetailsButton = false">Detail ></button>
-
-
+      <div class="col-md-3"></div>
+      <button class="col-md-3 btn btn-light dbutton" style="text-align:center;" [disabled]="!enableDetailsButton" (click)="showProduct();enableDetailsButton = false;">Detail ></button>
     </div>
       <div class="table-responsive tbr" *ngIf="!showDetailsTab && !loading">
-          <table class="table table-dark table-hover table-sm">
+          <table class="table table-dark table-striped table-hover table-sm">
               <thead>
                   <tr>
-                      <th scope="col" style="padding-right:35px;">#</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Shipping</th>
-                      <th scope="col">Zip</th>
-                      <th scope="col">Wish List</th>
+                      <th class="text-nowrap" scope="col" style="padding-right:35px;">#</th>
+                      <th  class="text-nowrap" scope="col">Image</th>
+                      <th class="text-nowrap" scope="col">Title</th>
+                      <th class="text-nowrap" scope="col">Price</th>
+                      <th class="text-nowrap" scope="col">Shipping</th>
+                      <th class="text-nowrap" scope="col">Zip</th>
+                      <th class="text-nowrap" scope="col">Wish List</th>
                   </tr>
               </thead>
               <tbody>
                 <ng-container *ngFor="let item of result | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index;  ">
                   <tr (click)="onItemClick(item); enableDetailsButton=true">
-                    <td scope="row">{{ (currentPage - 1) * itemsPerPage + i  }}</td>
+                    <td scope="row" style="padding:10px;" class="text-nowrap">{{ (currentPage - 1) * itemsPerPage + i  }}</td>
                     <td scope="row">
                       <a [href]="item.galleryURL" target="_blank">
                         <img [src]="item.galleryURL" alt="image" style="width: 100px; height: 130px;">
                       </a>
                     </td>
                     <td scope="row">
-                      <a (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))" [href]="" class="custom-link tooltip-trigger" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
+                      <a (click)="getSingleItem(item.itemId, ((currentPage - 1) * itemsPerPage + i))" [href]="" class="custom-link tooltip-trigger text-nowrap" [attr.data-title]="item.title ? item.title : 'N/A'" matTooltip="{{item.title}}" matTooltipPosition="below">
                         {{ item.title ? truncateWithEllipsis(item.title, 35) : 'N/A' }}
                       </a>
                     </td>
-                    <td scope="row">$ {{ item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : 'N/A' }}</td>
-                    <td scope="row">
+                    <td scope="row" class="text-nowrap">$ {{ item.sellingStatus[0].currentPrice[0].__value__ ? item.sellingStatus[0].currentPrice[0].__value__ : 'N/A' }}</td>
+                    <td scope="row" class="text-nowrap">
                       {{ item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__ === '0.0' ? 'Free Shipping' : '$ ' + (item.shippingInfo?.[0]?.shippingServiceCost[0]?.__value__) || 'N/A' }}
                     </td>
-                    <td scope="row">{{ item.postalCode ? item.postalCode : 'N/A' }}</td>
+                    <td scope="row" class="text-nowrap">{{ item.postalCode ? item.postalCode : 'N/A' }}</td>
                     <td scope="row">
                       <div class="btn btn-light" (click)="toggleWishlist(item)">
                         <span class="material-icons shopping" *ngIf="!item.isActive">add_shopping_cart</span>
@@ -57,7 +55,7 @@
                 </ng-container>
               </tbody>
           </table>
-          <nav arial-label="Page navigation">
+          <nav arial-label="Page navigation" class="space-at-bottom-pagination" style="margin-bottom:5rem;">
             <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center;"></pagination-controls>
             </nav>
           </div>

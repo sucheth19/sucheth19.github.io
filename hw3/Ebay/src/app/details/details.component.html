@@ -28,7 +28,7 @@
     <div class="col-md-2">
         <div class="row">
             <div class="col-md-6"></div>
-            <div class="fb-share-button col-md-3" data-href="https://developers.facebook.com/docs/plugins/" data-layout="" data-size=""><a href="https://www.facebook.com/sharer/sharer.php?u={{itemDetails[5][1]}}&quote=Buy {{itemDetails[23][1]}} at {{itemDetails[16][1].Value}} from link below" target="_blank"><i style="font-size: 24px;margin-top:8px;" class="fa fa-facebook-square"></i></a></div>
+            <div class="col-md-3" data-layout="" data-size=""><a href="https://www.facebook.com/sharer/sharer.php?u={{itemDetails[5][1]}}&quote=Buy {{itemDetails[23][1]}} at {{itemDetails[16][1].Value}} from link below" target="_blank"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQiFoqCM8EGtcGWvHVoc_vXYJ5iTpPo4KcM6PbWWzQfIMAKDWj8" width="40px" height="40px" alt="fb"></a></div>
             <div class="col-md-3">
               <button class="btn btn-light" (click)="toggleWishlist(itemDetails[2][1])">
                 <span class="material-icons shopping" *ngIf="!toggle">add_shopping_cart</span>
@@ -56,7 +56,7 @@
                 <tr>
                     <th class="full-width">Product Images</th>
                     <th class="full-width">
-                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter">View Product Images Here</a>
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter" style="color:rgba(72,153,162,255);text-decoration: none;">View Product Images Here</a>
                     </th>
                   </tr>
                   

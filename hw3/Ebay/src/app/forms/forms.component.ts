@@ -1,4 +1,4 @@
-    import { Component, ViewEncapsulation, EventEmitter, Output, Input } from '@angular/core';
+    import { Component, ViewEncapsulation, EventEmitter, Output, Input,OnInit } from '@angular/core';
     import { FormBuilder, FormControl,  Validators, AbstractControl, ValidationErrors} from '@angular/forms';
     import {ZipCodeService} from '../zip-code.service';
     import { HttpClient } from '@angular/common/http';
@@ -71,7 +71,25 @@
       } 
  
      
-      
+      ngOnInit(): void {
+        this.searchForm = this.formBuilder.group({
+          keyword: ['', Validators.required],
+          category: 'All Categories',
+          new: false,
+          used: false,
+          unspecified: false,
+          local: false,
+          freeshipping: false,
+          distance: 10,
+          location: 'current',
+          zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+          rzipCode: {value:'',disabled:true}  
+        });
+        this.searchForm.get('keyword')?.setValidators([Validators.required, keywordWhitespaceValidator]);
+   
+          // Simulate the completion of data loading
+     
+      }
       activateResultsTab(){
         this.showResultsTab = true;
         this.showWishListTab = false;
@@ -172,6 +190,19 @@
   }
 
   onClear() {
+    this.searchForm.reset({
+      keyword: '',
+      category: 'All Categories',
+      new: false,
+      used: false,
+      unspecified: false,
+      local: false,
+      freeshipping: false,
+      distance: 10,
+      location: 'current',
+      zipCode: '',
+      rzipCode: { value: '', disabled: true },
+    });
   this.searchForm.get('keyword')?.setValue('');
   this.searchForm.get('new')?.setValue(false);
   this.searchForm.get('used')?.setValue(false);
@@ -192,21 +223,9 @@
   this.showResultsTab = true;
   this.showWishListTab = false;
   this.searchForm.get('rzipCode')?.setValue('');
-  this.fetchGeolocation();
+  // this.fetchGeolocation();
   this.selectedLocation = 'current';
-  this.searchForm = this.formBuilder.group({
-    keyword: ['', Validators.required],
-    category: 'All Categories',
-    new: false,
-    used: false,
-    unspecified: false,
-    local: false,
-    freeshipping: false,
-    distance: 10,
-    location: 'current',
-    zipCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-    rzipCode: {value:'',disabled:true}  
-  });
+
   this.searchForm.get('keyword')?.setValidators([Validators.required, keywordWhitespaceValidator]);
 }
       

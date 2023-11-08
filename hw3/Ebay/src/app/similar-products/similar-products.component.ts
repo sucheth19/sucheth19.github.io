@@ -34,11 +34,11 @@ export class SimilarProductsComponent implements OnInit {
   showProductDetails() {
     try {
       this.http.get<Product[]>(`http://localhost:3000/similar-products/${this.itemId}`).subscribe((response) => {
-        this.similarProducts = response.slice(0,5);
-        this.originalProducts = response;
-        this.similarProducts.forEach((product: Product) => {
+        response.forEach((product: Product) => {
           product.timeLeft = this.extractDaysLeft(product.timeLeft).toString(); // Convert to string
-        });
+        });  
+      this.originalProducts = response.slice();
+      this.similarProducts = this.originalProducts.slice(0,5);
       });
     } catch (e) {
       console.log(e);
@@ -78,7 +78,6 @@ export class SimilarProductsComponent implements OnInit {
       this.ascendingSort = false;
     }
     this.sortProducts();
-    event.preventDefault();
   }
   toggleShowAll() {
     this.showAll = !this.showAll;
@@ -88,6 +87,7 @@ export class SimilarProductsComponent implements OnInit {
     } else {
       // If "Show Less" is clicked, display only the first 5 products.
       this.similarProducts = this.originalProducts.slice();
+      this.sortProducts();
     }
   }
   
@@ -104,6 +104,7 @@ export class SimilarProductsComponent implements OnInit {
     } else {
       this.disableSort = false;
       this.sortProducts();
+      this.toggleDropdown(event);
     }
     event.preventDefault();
   }

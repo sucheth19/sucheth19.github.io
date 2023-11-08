@@ -16,3 +16,13 @@
 .custom-link:visited {
     color: #4a90e2;
 }
+.details{
+    float:right;
+    display: block;
+}
+@media screen and (max-width: 600px) {
+    .dbutton {
+ /* Set the text alignment to left */
+        margin-left:100px; /* Add margin as needed for spacing */
+    }
+}

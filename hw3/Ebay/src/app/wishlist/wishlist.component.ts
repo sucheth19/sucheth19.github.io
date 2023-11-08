@@ -27,6 +27,7 @@ export class WishlistComponent implements OnInit {
   constructor(private itemService:ItemsService ,private http: HttpClient, private cdr: ChangeDetectorRef, private wishlistService: WishListService,private itemDetailsService: ItemDetailsService) { }
   onBackToList(event: boolean) {
     this.showDetailsTab = false; // Hide the Details tab
+    this.detail = true;
     
   }
   ngOnInit(): void {
@@ -62,7 +63,7 @@ export class WishlistComponent implements OnInit {
   }
   toggleDetailsTab() {
     this.showDetailsTab = !this.showDetailsTab;
-    this.detail = !this.detail;
+    this.detail = false;
     }
     enableDetails() {
       this.enableDetailsButton = true;
