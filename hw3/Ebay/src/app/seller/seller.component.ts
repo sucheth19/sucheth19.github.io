@@ -11,7 +11,7 @@ export class SellerComponent {
   
   }
   ngOnInit(){
-  
+  console.log('retuRNS',this.returnsAccepted)
   }
   removeSpacesAndUpperCase(text: string): string {
     return text.replace(/\s/g, '').toUpperCase();

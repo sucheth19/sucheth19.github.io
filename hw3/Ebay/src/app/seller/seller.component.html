@@ -4,10 +4,10 @@
 <div >
   <table class="table table-striped table-dark table-hover table-sm">
       <tbody>
-          <ng-container *ngIf="returnsAccepted && returnsAccepted.storeInfo && returnsAccepted.storeInfo[0]">
+          <ng-container *ngIf="returnsAccepted && returnsAccepted?.storeInfo && returnsAccepted?.storeInfo[0]">
               <tr>
                   <th class="full-width" style="padding: 20px;" colspan="2">
-                    <h3 class="text-center">{{ removeSpacesAndUpperCase(returnsAccepted.storeInfo[0].storeName[0]) }}</h3>
+                    <h3 class="text-center">{{ removeSpacesAndUpperCase(returnsAccepted?.storeInfo[0]?.storeName[0]) }}</h3>
                   </th>
               </tr>
           </ng-container>
@@ -17,7 +17,7 @@
               <th class="full-width">{{ returnsAccepted?.sellerInfo[0]?.feedbackScore[0] }}</th>
           </tr>
           
-          <tr *ngIf="returnsAccepted.sellerInfo && returnsAccepted.sellerInfo[0]?.feedbackScore">
+          <tr *ngIf="returnsAccepted?.sellerInfo && returnsAccepted?.sellerInfo[0]?.feedbackScore">
               <th class="full-width">Popularity</th>
               <th class="full-width">
                   <div class="positionRelative">
@@ -28,17 +28,17 @@
                                  {{ returnsAccepted?.sellerInfo[0]?.positiveFeedbackPercent[0] }}
                                 </round-progress>
                       <div class="percentageValue" style="padding-right:95.5%;">
-                          {{ returnsAccepted.sellerInfo[0].positiveFeedbackPercent[0] }}
+                          {{ returnsAccepted?.sellerInfo[0]?.positiveFeedbackPercent[0] }}
                       </div>
                   </div>
               </th>
           </tr>
 
-          <tr *ngIf="returnsAccepted.sellerInfo[0].feedbackScore">
+          <tr *ngIf="returnsAccepted?.sellerInfo[0]?.feedbackScore">
               <th class="full-width">Feedback Rating Star</th>
               <th class="full-width">
                   <!-- Display stars or star_border based on feedback score -->
-                  <ng-container [ngSwitch]="returnsAccepted.sellerInfo[0].feedbackScore">
+                  <ng-container [ngSwitch]="returnsAccepted?.sellerInfo[0]?.feedbackScore">
                       <span *ngSwitchCase="'0-9'">
                           <i class="material-icons" style="color: red;">star_border</i>
                       </span>
@@ -49,27 +49,27 @@
               </th>
           </tr>
 
-          <tr *ngIf="returnsAccepted.sellerInfo[0].topRatedSeller[0] !== undefined">
+          <tr *ngIf="returnsAccepted?.sellerInfo[0]?.topRatedSeller[0] !== undefined">
               <th class="full-width">Top Rated</th>
               <th class="full-width">
-                  <span *ngIf="returnsAccepted.sellerInfo[0].topRatedSeller[0]">
+                  <span *ngIf="returnsAccepted?.sellerInfo[0]?.topRatedSeller[0]">
                       <i class="material-icons" style="color: green;">check</i>
                   </span>
-                  <span *ngIf="!returnsAccepted.sellerInfo[0].topRatedSeller[0]">
+                  <span *ngIf="!returnsAccepted?.sellerInfo[0]?.topRatedSeller[0]">
                       <i class="material-icons" style="color: red;">clear</i>
                   </span>
               </th>
           </tr>
 
-          <tr *ngIf="returnsAccepted.storeInfo[0].storeURL[0]">
+          <tr *ngIf="returnsAccepted  &&  returnsAccepted?.storeInfo  && returnsAccepted?.storeInfo[0] && returnsAccepted?.storeInfo[0]?.storeURL[0]">
               <th class="full-width">Store Name</th>
-              <th class="full-width">{{ returnsAccepted.storeInfo[0].storeName[0] }}</th>
+              <th class="full-width">{{ returnsAccepted?.storeInfo[0]?.storeName[0] }}</th>
           </tr>
 
-          <tr *ngIf="returnsAccepted.storeInfo[0].storeURL[0]">
+          <tr *ngIf="returnsAccepted  &&  returnsAccepted?.storeInfo  && returnsAccepted?.storeInfo[0] && returnsAccepted?.storeInfo[0]?.storeURL[0]">
               <th class="full-width">Buy Product At</th>
               <th class="full-width">
-                  <a style="text-decoration: none;" [href]="returnsAccepted.storeInfo[0].storeURL[0]" target="_blank">Store</a>
+                  <a style="text-decoration: none;" [href]="returnsAccepted?.storeInfo[0]?.storeURL[0]" target="_blank">Store</a>
               </th>
           </tr>
       </tbody>

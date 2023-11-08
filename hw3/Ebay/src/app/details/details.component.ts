@@ -38,7 +38,14 @@ export class DetailsComponent implements OnInit {
     this.index = this.result.findIndex((item) => item.itemId[0] === this.itemDetails[2][1])
     this.toggle = this.result[this.index].isActive;
     this.fetchWishListData();
+    for(let items of this.wishListData){
+      if(items.itemId === this.itemDetails[2][1]){
+        this.toggle = true;
+        break;
+      }
+    }
     this.loading = true;
+    console.log("Item Details",this.itemDetails)
     setTimeout(() => {
       // Simulate the completion of data loading
       this.loading = false;
@@ -49,6 +56,7 @@ export class DetailsComponent implements OnInit {
       this.result = changes['result'].currentValue;
       this.cdr.detectChanges(); // Trigger change detection
       this.fetchWishListData();
+     
     }
   }
 
@@ -66,6 +74,8 @@ export class DetailsComponent implements OnInit {
       // You can use your existing code or a similar HTTP request here
       this.Wishlist(this.result[index]);
     }
+    this.toggle = !this.toggle;
+    this.cdr.detectChanges();
   }
   fetchWishListData() {
     this.http.get('https://web-tech-hw-3.wl.r.appspot.com/all-products').subscribe((data:any)=>{
