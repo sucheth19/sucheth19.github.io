@@ -1,11 +1,23 @@
 .sbo{
-    background-color: rgba(228,232,236,255);
-    color:black;
-    margin-left:-100px;
+  background-color: rgba(228,232,236,255);
+  color:black;
 }
+
 @media (max-width: 768px) {
-    .full-width {
-      display: block;
-      width: 100%;
-    }
+  .sbo {
+      margin-left: 0;
   }
+  .btn {
+      width: 100%;
+  }
+  .dropdown-menu {
+      width:100%;
+    }
+  .show{
+    width:50%;
+  }   
+  
+  .col-auto {
+    width: 100%;
+  }
+}

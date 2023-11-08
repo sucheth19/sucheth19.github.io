@@ -68,7 +68,7 @@ export class DetailsComponent implements OnInit {
     }
   }
   fetchWishListData() {
-    this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
+    this.http.get('https://web-tech-hw-3.wl.r.appspot.com/all-products').subscribe((data:any)=>{
       this.wishListData = data;
       this.result.forEach((item:any)=>{
         item.isActive = this.isItemInWishlist(item.itemId[0]);
@@ -93,7 +93,7 @@ export class DetailsComponent implements OnInit {
       };
    
       this.itemsService.addToWishlist(item);
-      this.http.get('http://localhost:3000/products',{params}).subscribe((response)=>{
+      this.http.get('https://web-tech-hw-3.wl.r.appspot.com/products',{params}).subscribe((response)=>{
       // console.log('resp',response)
     },
       (error)=>{
@@ -112,7 +112,7 @@ export class DetailsComponent implements OnInit {
       // Send an HTTP request to your server to remove the item from the wishlist
       this.result[this.index].isActive = false;
       this.itemsService.removeFromWishlist(itemId);
-      this.http.delete(`http://localhost:3000/products/${itemId}`).subscribe(
+      this.http.delete(`https://web-tech-hw-3.wl.r.appspot.com/products/${itemId}`).subscribe(
         (response) => {
           console.log('HTTP Delete Response:', response);
           const index = this.wishListData.findIndex((itm) => itm.itemId=== itemId);

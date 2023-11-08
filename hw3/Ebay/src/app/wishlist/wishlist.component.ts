@@ -37,7 +37,7 @@ export class WishlistComponent implements OnInit {
     console.log('showResult',this.showResultTab)
   }
   fetchWishListData() {
-    this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
+    this.http.get('https://web-tech-hw-3.wl.r.appspot.com/all-products').subscribe((data:any)=>{
       this.wishListData = data;
       this.calculateTotalPrice();
     })
@@ -111,7 +111,7 @@ export class WishlistComponent implements OnInit {
   removeFromWishlist(item: any) {
     console.log('item',item)
     this.itemService.removeFromWishlist(item.itemId);
-    this.http.delete(`http://localhost:3000/products/${item.itemId}`).subscribe(
+    this.http.delete(`https://web-tech-hw-3.wl.r.appspot.com/products/${item.itemId}`).subscribe(
       (response) => {
         console.log('HTTP Delete Response:', response);
         const index = this.wishListData.findIndex((itm) => itm.itemId=== item.itemId);

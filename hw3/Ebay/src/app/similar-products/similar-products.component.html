@@ -1,62 +1,66 @@
 <div class="alert alert-warning" role="alert" *ngIf="this.similarProducts.length === 0" style="margin-top: 20px; width: 70%; margin-left: auto; margin-right: auto;">
     No Records.
-</div>
-
-<div>
-    <div class="row">
-        <div class="col-md-3 col-sm-12">
+  </div>
+  
+  <div>
+    <div class="row justify-content-start">
+        <!-- First dropdown for Sort Category -->
+        <div class="col-auto">
             <div class="dropdown">
-                <a class="btn btn-dark dropdown-toggle" style="background-color: white; color: black;" href="#" role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="btn btn-dark dropdown-toggle" style="background-color: white; color: black;"  role="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ selectedSortCategory }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
-                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Default', $event)">Default</a></li>
-                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Product Name', $event)">Product Name</a></li>
-                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Days Left', $event)">Days Left</a></li>
-                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Price', $event)">Price</a></li>
-                    <li><a class="dropdown-item" href="#" (click)="selectSortCategory('Shipping Cost', $event)">Shipping Cost</a></li>
+                    <li><a class="dropdown-item" (click)="selectSortCategory('Default', $event)">Default</a></li>
+                    <li><a class="dropdown-item"  (click)="selectSortCategory('Product Name', $event)">Product Name</a></li>
+                    <li><a class="dropdown-item" (click)="selectSortCategory('Days Left', $event)">Days Left</a></li>
+                    <li><a class="dropdown-item"  (click)="selectSortCategory('Price', $event)">Price</a></li>
+                    <li><a class="dropdown-item"  (click)="selectSortCategory('Shipping Cost', $event)">Shipping Cost</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        
+        <!-- Second dropdown for Sort Order -->
+        <div class="col-auto">
             <div class="dropdown">
-                <button class="btn dropdown-toggle sbo" type="button" role="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
+                <button class="btn dropdown-toggle sbo" type="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="disableSort === true">
                     {{ ascendingSort ? 'Ascending' : 'Descending' }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownSort">
-                    <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Ascending', $event)">Ascending</a></li>
-                    <li><a class="dropdown-item" href="#" (click)="selectSortOrder('Descending', $event)">Descending</a></li>
+                    <li><a class="dropdown-item"  (click)="selectSortOrder('Ascending', $event)">Ascending</a></li>
+                    <li><a class="dropdown-item"  (click)="selectSortOrder('Descending', $event)">Descending</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-6"></div>
-    </div>
-
+    </div>
+  
     <div class="container">
         <div *ngFor="let item of similarProducts">
-            <div class="card text-white bg-dark mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4 col-sm-12">
-                        <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="height: 200px; width: 150px; margin-left: 10px; margin-bottom: 10px;" target="_blank">
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <div class="card-body">
-                            <h5 class="card-title"><a style="color: cadetblue; text-decoration: none; font-size: 15px;" [href]="item.viewItemURL" target="_blank">{{ item.title }}</a></h5>
-                            <p class="card-text" style="color: lightgreen; ">Price: ${{ item.buyItNowPrice.__value__ }}</p>
-                            <p class="card-text" style="color:goldenrod; ">Shipping Cost: ${{ item.shippingCost.__value__ }}</p>
-                            <p class="card-text" >Days Left: {{ item.timeLeft }}</p>
-                        </div>
-                    </div>
-                </div>
+          <div class="card text-white bg-dark mb-3">
+            <div class="row g-0">
+              <div class="col-md-2 col-sm-12">
+                <!-- Image with .img-fluid to make it responsive -->
+                <img [src]="item.imageURL" alt="image" class="img-fluid rounded-start" style="margin: 10px;" target="_blank">
+              </div>
+              <div class="col-md-10 col-sm-12">
+                <div class="card-body">
+      
+                <h5 class="card-title"><a style="color: cadetblue; text-decoration: none; font-size: 15px;" [href]="item.viewItemURL" target="_blank">{{ item.title }}</a></h5>
+                <p class="card-text" style="color: lightgreen;">Price: ${{ item.buyItNowPrice.__value__ }}</p>
+                <p class="card-text" style="color: goldenrod;">Shipping Cost: ${{ item.shippingCost.__value__ }}</p>
+                <p class="card-text">Days Left: {{ item.timeLeft }}</p>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12 text-center">
-            <button class="btn btn-dark" (click)="toggleShowAll()" style="margin: auto;">
-                {{ showAll ? 'Show More' : 'Show Less' }}
-            </button>
-        </div>
+      </div>
     </div>
 </div>
+</div>
+  
+    <div class="row">
+      <div class="col-12 text-center">
+        <button class="btn btn-dark show" (click)="toggleShowAll()" style="margin: auto;">
+          {{ showAll ? 'Show More' : 'Show Less'  }}
+        </button>
+      </div>
+    </div>
+  </div>

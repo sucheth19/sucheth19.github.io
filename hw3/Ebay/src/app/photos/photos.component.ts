@@ -19,7 +19,7 @@ export class PhotosComponent {
   }
   searchPhotos() {
     if(this.title != undefined){
-    const apiUrl = `http://localhost:3000/api/photo?title=${this.title}`; // Update the URL as needed
+    const apiUrl = `https://web-tech-hw-3.wl.r.appspot.com/photo?title=${this.title}`; // Update the URL as needed
     
     this.http.get(apiUrl).subscribe(
       (data: any) => {

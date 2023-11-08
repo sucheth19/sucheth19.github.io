@@ -2,6 +2,7 @@
     background-color: black;
     color: white; /* Change text color to white for better visibility */
   }
+
 .product{
   width:100%;
 }
@@ -13,9 +14,7 @@ th{
   margin:auto;
   padding:auto;
 }
-/* Styling for carousel images */
-/* Styling for carousel images */
-/* Styling for carousel images */
+
 .carousel-inner img {
   width: 200px; /* Set a fixed width for the images */
   height: 400px; /* Set a fixed height for the images */
@@ -38,5 +37,20 @@ th{
     display: block;
     width: 100%;
   }
+  .twl {
+    width: 50%;
+  }
+  .fb {
+    width: 50%;
+  }
+  /* .prod {
+    margin: 0px !important;
+  } */
+  .prod {
+    float: right;
+  }
+  .similar {
+    flex-basis: 100%;
+    text-align: right;
+  }
 }
-

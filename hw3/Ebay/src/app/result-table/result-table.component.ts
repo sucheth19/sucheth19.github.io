@@ -86,7 +86,7 @@
       this.paginateResults();
     }
   fetchWishListData() {
-    this.http.get('http://localhost:3000/all-products').subscribe((data:any)=>{
+    this.http.get('https://web-tech-hw-3.wl.r.appspot.com/all-products').subscribe((data:any)=>{
       this.wishListData = data;
       this.result.forEach((item:any)=>{
         item.isActive = this.isItemInWishlist(item.itemId[0]);
@@ -150,7 +150,7 @@
           };
        
           this.itemsService.addToWishlist(item);
-          this.http.get('http://localhost:3000/products',{params}).subscribe((response)=>{
+          this.http.get('https://web-tech-hw-3.wl.r.appspot.com/products',{params}).subscribe((response)=>{
           // console.log('resp',response)
         },
           (error)=>{
@@ -202,7 +202,7 @@ toggleWishlist(item: any) {
 
 removeFromWishlist( item: any) {
   this.itemsService.removeFromWishlist(item.itemId[0]);
-  this.http.delete(`http://localhost:3000/products/${item.itemId[0]}`).subscribe(
+  this.http.delete(`https://web-tech-hw-3.wl.r.appspot.com/products/${item.itemId[0]}`).subscribe(
     (response) => {
       const index = this.wishListData.findIndex((itm) => itm.itemId[0] === item.itemId[0]);
       if (index !== -1) {

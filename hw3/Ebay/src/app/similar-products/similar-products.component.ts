@@ -33,7 +33,7 @@ export class SimilarProductsComponent implements OnInit {
 
   showProductDetails() {
     try {
-      this.http.get<Product[]>(`http://localhost:3000/similar-products/${this.itemId}`).subscribe((response) => {
+      this.http.get<Product[]>(`https://web-tech-hw-3.wl.r.appspot.com/similar-products/${this.itemId}`).subscribe((response) => {
         response.forEach((product: Product) => {
           product.timeLeft = this.extractDaysLeft(product.timeLeft).toString(); // Convert to string
         });  
@@ -62,12 +62,10 @@ export class SimilarProductsComponent implements OnInit {
       }
     }
   
-    // Return 0 if the format is not as expected
     return 0;
   }
   toggleDropdown(event: Event) {
     event.preventDefault();
-    // You can add custom logic here if needed.
   }
   selectSortOrder(order: string,event:any) {
     // Handle the sort order selection here.
@@ -107,6 +105,7 @@ export class SimilarProductsComponent implements OnInit {
       this.toggleDropdown(event);
     }
     event.preventDefault();
+    event.stopPropagation(); 
   }
 
   sortProducts() {

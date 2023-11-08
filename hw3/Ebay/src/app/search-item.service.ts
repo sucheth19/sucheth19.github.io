@@ -9,6 +9,6 @@ export class SearchItemService {
   getSearchResults(searchParams:any)
   {
     searchParams = JSON.stringify(searchParams);
-    return this.http.get<any>(`http://localhost:3000/api/search-results?searchParams=${searchParams}`)
+    return this.http.get<any>(`https://web-tech-hw-3.wl.r.appspot.com/search-results?searchParams=${searchParams}`)
   }
 }
